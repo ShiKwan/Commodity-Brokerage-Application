@@ -1,0 +1,42 @@
+body {
+	background-color: #000000;
+}
+
+.container {
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;	
+	clear: both;
+}
+
+img {
+	width: 200px;
+	margin-top: 5px;
+}
+
+.background-image {
+	position: absolute;
+	background-image: url(..//images/commodities-b.ground-5-panel.jpg);
+	opacity: .5; 
+	background-size: 1024px;
+    height: 600px;
+    width: 100%;
+    margin-top: -20px;
+    z-index: -50;
+}
+
+.alert {
+    text-align: center;
+    background-color: #cc0000;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+}
+
+a {
+	color: white;
+}
+
+.navbar {
+	background-color: #505050;
+}
