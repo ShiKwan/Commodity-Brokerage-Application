@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+       var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 9600);
+        }
+=======
   $(document).ready(function(){
 
  // Initialize Firebase
@@ -147,3 +163,4 @@ dbCommodity.once("value", function(snapshot){
 
 
   });
+>>>>>>> d14b44ad34723e514c48c3658282580ba4280d4c
