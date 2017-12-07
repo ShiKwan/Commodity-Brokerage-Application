@@ -21,38 +21,44 @@
     url: "https://shikwan.github.io/Project1/assets/javascript/quandlResource.json",
     method: "GET"
   }).done(function (response){
-    console.log(response);
+    //console.log(response);
   })
 
   commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT"
 
 
-getCommodity();
+//getCommodity();
 
 getCommodityPrice();
 
-getSpecificCommodity();
+//getSpecificCommodity();
+
+getQuandlCommodityPrice();
 
 function getQuandlCommodityPrice(){
   // source: https://blog.quandl.com/api-for-commodity-data
   // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz
   var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
   var quandlCommodityCode = "LBMA/GOLD" //hard coded temporarily
+  var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey + "&start_date=2017-05-24&end_date=2017-06-28"
 
-
-
-  var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey
   $.ajax({
     url: queryURL,
     method: "GET"
   })
   .done(function(response){
-    var result = response;
+    var result = response.dataset;
+    var adjustedArr = [];
+
+    adjustedArr =  getData(adjustedArr, result.column_names, result.data)
+    console.log(adjustedArr);
+    googleChartGenerator(adjustedArr, result.name);
+
+    console.log(result);
   }).fail(function(response){
     console.log("Error retrieving data from quandl");
   })
 }
-
 function getSpecificCommodity(){
   var settings = {
     "async": true,
@@ -66,19 +72,33 @@ function getSpecificCommodity(){
   }
 
   $.ajax(settings).done(function (response) {
-
+    var result = response.data;
+    var adjustedArr = [];
+    adjustedArr =  getData(adjustedArr, result.column_names, result.data);
+    console.log(adjustedArr)
     console.log("CommoPrices: get specific commodity");
     console.log(response.data.info);
   });
 
 }
-
-
+function getData(adjustedArray, columnNamesArray, dataArray){
+  var getdata = [];
+  adjustedArray =[];
+    getdata.push([columnNamesArray]);
+    
+    for(var i = 0; i< dataArray.length; i++){
+      getdata.push([dataArray[i]]);
+    }
+    for(var i = 0; i < getdata.length; i++){
+      adjustedArray.push(getdata[i][0]);
+    }
+    return adjustedArray
+}
 function getCommodityPrice(){
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://api.commoprices.com/v1/imf/PCOFFROB/data",
+    "url": "https://api.commoprices.com/v1/imf/PCOFFROB/data?",
     "method": "GET",
     "headers": {
       "authorization": "Bearer " + commoPriceAPIKey ,
@@ -87,16 +107,33 @@ function getCommodityPrice(){
   }
 
   $.ajax(settings).done(function (response) {
-
     console.log("CommoPrice: get commodity price");
-    console.log(response.data.info);
+    console.log(response.data);
+    var adjustedArr = [];
+    adjustedArr =  getData(adjustedArr, response.data.request.column_names, response.data.request.dataseries);
+    googleChartGenerator(adjustedArr, response.data.info.name);
+  }).fail(function(response){
+    console.log(response);
   });
 
 }
+function googleChartGenerator(priceData, graphTitle){
+   google.charts.load('current', {'packages' :['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart(){
+      var data = google.visualization.arrayToDataTable(priceData);
 
+      var options = {
+        title: graphTitle, 
+        curveType: "function",
+        legend: {position: "right"}
+      };
+      
+      var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+      chart.draw(data,options);
+    }
+}
 var commodity = [];
-
-
 function getCommodity(){
 
   //wrb / imf -free
