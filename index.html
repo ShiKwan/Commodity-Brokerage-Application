@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 <head>
     <title>sbs comm broker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -9,35 +12,30 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
-    <header class="navbar">
+    <header class="navbar-header">
         <div class="container">
             <div class="row">
-                
-
                 <div class="col-md-12">
                     <img src="assets/images/sbs-logo.png">
-
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Quick Search">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                         <div class="btn">
-                            <button type="button" class="btn btn-default">Import</button>
-                            <button type="button" class="btn btn-default">Export</button>
-                            <button type="button" class="btn btn-default">Goods</button>
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Couriers
                                 <span class="caret"></span>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">FedEx</a></li>
+                                    <li><a href="#">DHL</a></li>
+                                    <li><a href="#">UPS</a></li>
+                                </ul>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">FedEx</a></li>
-                                <li><a href="#">DHL</a></li>
-                                <li><a href="#">UPS</a></li>
-                            </ul>
                         </div>
                     </form>
                 </div>
@@ -48,54 +46,47 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+                <div class="w3-content w3-section" style="max-width:500px">
+                    <img class="mySlides w3-animate-fading" src="assets/images/coffee-slide.jpg" style="width:100%">
+                    <img class="mySlides w3-animate-fading" src="assets/images/metal-slide.jpg" style="width:100%">
+                    <img class="mySlides w3-animate-fading" src="assets/images/cotton-slide.jpg" style="width:100%">
+                </div>
             </div>
             <!-- space for carosel images -->
             <div class="col-md-6">
-                <div class="alert">
+                <div class="warning">
                     <a class="glyphicon glyphicon-exclamation-sign"></a>
                     <a><strong> Warning...</strong> Please complete indicated fields.</a>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Import From</h3>
+                        <h3 class="panel-title">Commodity Search Field</h3>
                     </div>
                     <div class="panel-body">
                         <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                            <div class="form-group commod-search">
+                                <input type="text" class="form-control" placeholder="Import Search">
                             </div>
+                            <br>
+                            <div class="form-group commod-search">
+                                <input type="text" class="form-control" placeholder="Export Search">
+                            </div>
+                            <br>
+                            <div class="form-group commod-search">
+                                <input type="text" class="form-control" placeholder="Commodity Search">
+                            </div>
+                            <br>
+                            <button class="btn btn-default btn-submit" id="submit-bid" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Export From</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Goods to Import/Export</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <button class="btn btn-default btn-submit" id="submit-bid" type="submit">Submit</button>
             </div>
         </div>
     </div>
-    </div>
+    <footer>
+    </footer>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>
