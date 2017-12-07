@@ -1,19 +1,4 @@
 
-       var myIndex = 0;
-        carousel();
-
-        function carousel() {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            myIndex++;
-            if (myIndex > x.length) { myIndex = 1 }
-            x[myIndex - 1].style.display = "block";
-            setTimeout(carousel, 9600);
-        }
-=======
   $(document).ready(function(){
 
  // Initialize Firebase
@@ -29,6 +14,16 @@
 
   var database = firebase.database();
   var dbCommodity = database.ref("/commodity");
+
+
+  //Use this to get the code to query Quandl API
+  $.ajax({
+    url: "https://shikwan.github.io/Project1/assets/javascript/quandlResource.json",
+    method: "GET"
+  }).done(function (response){
+    console.log(response);
+  })
+
   commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT"
 
 
@@ -43,6 +38,9 @@ function getQuandlCommodityPrice(){
   // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz
   var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
   var quandlCommodityCode = "LBMA/GOLD" //hard coded temporarily
+
+
+
   var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey
   $.ajax({
     url: queryURL,
@@ -145,9 +143,21 @@ dbCommodity.once("value", function(snapshot){
   console.log(snapshot.val());
 })
 
+       var myIndex = 0;
+        carousel();
 
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 9000);
+        }
 
 
 
   });
->>>>>>> d14b44ad34723e514c48c3658282580ba4280d4c

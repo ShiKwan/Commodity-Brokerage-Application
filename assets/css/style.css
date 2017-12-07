@@ -21,27 +21,24 @@ img {
 
 .background-image {
     position: absolute;
-    background-image: url(..//images/commodities-b.ground-5-panel.jpg);
-    opacity: .5;
-    background-size: 1024px;
-    height: 500px;
+    background-image: url(..//images/commodity-b.ground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .8;
+    height: 600px;
     width: 100%;
     margin-top: 45px;
     z-index: -50;
 }
 
-.warning {
+.alert {
     text-align: center;
     background-color: #cc0000;
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 5px;
-    margin-bottom: 15px;
-    margin-top: 80px;
-}
-
-a {
-    color: white;
+    margin-bottom: 35px;
+    margin-top: 100px;
 }
 
 .navbar-header {
@@ -57,18 +54,26 @@ a {
 }
 
 footer {
-    padding: 30px 0;
-    clear: both;
-    font-size: 12px;
-    text-align: center;
-    background: #505050;
-    border-top: 8px solid #000000;
-    margin-top: 35px;
-    height: 75px;
+  padding: 30px 0;
+  clear: both;
+  font-size: 12px;
+  text-align: center;
+  background: #505050;
+  border-top: 8px solid #4aaaa5;
+}
+
+.footer-logo {
+    height: 30px;
+    width: auto;
+    margin-bottom: 8px;
 }
 
 .mySlides {
     display: none;
-    margin-top: 148px;
-    border-radius: 5px;
+    margin-top: 190px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px;
+    
 }
