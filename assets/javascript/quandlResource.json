@@ -1,0 +1,8 @@
+[
+	{"name" :"Barley, Western Canada (ODA)", "code" : "ODA/PBARL_USD"}
+	{"name" :"Barley, Western Canada (WB)", "code" : "WORLDBANK/WLD_BARLEY"}
+	{"name" :"Corn, Top Flight Grain Co-op", "code" : "TFGRAIN/CORN"}
+	{"name" :"Corn, CBOT Corn Futures", "code" : "CHRIS/CME_C1"}
+	{"name" :"Corn, U.S. Gulf Imports", "code" : "WORLDBANK/WLD_MAIZE"}
+	{"name" :"Oats, CBOT Oats Futures", "code" : "CHRIS/CME_O1"}
+]

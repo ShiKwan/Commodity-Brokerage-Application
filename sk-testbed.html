@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		testing purpose
+	</title>
+
+	<!-- CSS file -->
+	<link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css"> 
+
+	<!-- Additional CSS Themes file - not required-->
+	<link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css"> 
+</head>
+<body>
+	<input type="text" class="txtAutoComplete">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
+
+
+	<script type="text/javascript">
+		var options = {
+			url: "assets/javascript/quandlResource.json",
+			getValue: "name",
+			list: {
+				match: {
+					enabled: true
+				}
+			}
+		};
+		$(".txtAutoComplete").easyAutocomplete(options);
+	</script>
+</body>
+</html>

@@ -12,6 +12,7 @@
   firebase.initializeApp(config);
 
   var database = firebase.database();
+  var dbCommodity = database.ref("/commodity");
   commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT"
 
 
@@ -21,7 +22,22 @@ getCommodityPrice();
 
 getSpecificCommodity();
 
-
+function getQuandlCommodityPrice(){
+  // source: https://blog.quandl.com/api-for-commodity-data
+  // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz
+  var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
+  var quandlCommodityCode = "LBMA/GOLD" //hard coded temporarily
+  var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  .done(function(response){
+    var result = response;
+  }).fail(function(response){
+    console.log("Error retrieving data from quandl");
+  })
+}
 
 function getSpecificCommodity(){
   var settings = {
@@ -37,8 +53,8 @@ function getSpecificCommodity(){
 
   $.ajax(settings).done(function (response) {
 
-console.log("get specific commodity");
-    console.log(response);
+    console.log("CommoPrices: get specific commodity");
+    console.log(response.data.info);
   });
 
 }
@@ -58,37 +74,60 @@ function getCommodityPrice(){
 
   $.ajax(settings).done(function (response) {
 
-console.log("get commodity price");
-    console.log(response);
+    console.log("CommoPrice: get commodity price");
+    console.log(response.data.info);
   });
 
 }
+
+var commodity = [];
+
 
 function getCommodity(){
 
   //wrb / imf -free
   // com / cop / crp / fag / inp / soe / aly -premium account
 
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://api.commoprices.com/v1/imf",
-  "method": "GET",
-  "headers": {
-    "authorization": "Bearer " + commoPriceAPIKey,
-    "accept": "application/json"
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.commoprices.com/v1/imf",
+    "method": "GET",
+    "headers": {
+      "authorization": "Bearer " + commoPriceAPIKey,
+      "accept": "application/json"
+    }
   }
+
+  $.ajax(settings).done(function (response) {
+
+
+    console.log("Commo Price: get commodity");
+    var totalItems = (response.data.length);
+    dbCommodity.remove();
+    for(var i = 0; i < totalItems; i++){
+      var objCommodity = {
+        database : response.data[i].database,
+        code : response.data[i].code,
+        name : response.data[i].name
+      }
+
+      dbCommodity.push({
+        fromDatabase : response.data[i].database,
+        commodityCode : response.data[i].code,
+        commodityName : response.data[i].name
+      });
+      commodity.push(objCommodity);
+    }
+
+  }).fail(function(response){
+    console.log(response.responseText);
+  });
 }
 
-$.ajax(settings).done(function (response) {
-
-console.log("get commodity");
-  console.log(response);
-}).fail(function(response){
-  console.log(response.responseText);
-});
-}
-
+dbCommodity.once("value", function(snapshot){
+  console.log(snapshot.val());
+})
 
 
 
