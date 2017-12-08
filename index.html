@@ -26,15 +26,11 @@
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                         <div class="btn">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Couriers
-                                <span class="caret"></span>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">FedEx</a></li>
-                                    <li><a href="#">DHL</a></li>
-                                    <li><a href="#">UPS</a></li>
-                                </ul>
+                            <button type="button"  class="btn btn-default">Commod Data</button>
                             </button>
+                            <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
+                            <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
+                            <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
                         </div>
                     </form>
                 </div>
@@ -45,13 +41,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+            <div>
+   <!--     div for carosel photos -->        
+            </div>
                 <div class="w3-content w3-section" style="max-width:500px">
                     <img class="mySlides w3-animate-fading" src="assets/images/coffee-slide-2.jpg" style="width:100%">
                     <img class="mySlides w3-animate-fading" src="assets/images/metal-slide-3.jpg" style="width:100%">
                     <img class="mySlides w3-animate-fading" src="assets/images/cotton-slide.jpg" style="width:100%">
                 </div>
             </div>
-            <!-- space for carosel images -->
+
+            <!-- div for line graphs 
+
+                 <div class="panel-heading">
+                        <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
+                    </div>
+                    <div class="panel-body">  
+                        
+                    </div>  -->
+
             <div class="col-md-6">
                 <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
                 <div class="panel panel-default">
@@ -61,19 +69,35 @@
                     <div class="panel-body">
                         <form>
                             <div class="form-group commod-search">
-                                <input type="text" class="form-control" placeholder="Import Search">
-                            </div>
-                            <br>
-                            <div class="form-group commod-search">
-                                <input type="text" class="form-control" placeholder="Export Search">
-                            </div>
-                            <br>
-                            <div class="form-group commod-search">
                                 <input type="text" class="form-control" placeholder="Commodity Search">
+                            </div>
+                            <br>
+                            <div class="form-group commod-search">
+                                <input type="text" class="form-control" placeholder="Start Date Picker">
+                            </div>
+                            <br>
+                            <div class="form-group commod-search">
+                                <input type="text" class="form-control" placeholder="End Date Picker">
                             </div>
                             <br>
                             <button class="btn btn-default btn-submit" id="submit-bid" type="submit">Submit</button>
                         </form>
+                    </div>  
+
+      <!--   after submit button for seach commod field   
+
+                   <div class="panel-heading">
+                        <h3 class="panel-title">Commodity Index</h3>
+                    </div>
+                    <div class="panel-body">  
+                        
+                    </div>
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Commodity Newss</h3>
+                    </div>
+                    <div class="panel-body">  -->
+                        
                     </div>
                 </div>
             </div>

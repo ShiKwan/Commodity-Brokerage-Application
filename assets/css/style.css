@@ -19,6 +19,27 @@ img {
     margin-top: 5px;
 }
 
+.facebook {
+    height: 35px;
+    width: auto;
+    margin-top: -5px;
+    margin-left: 15px;
+}
+
+.nasdaq {
+    height: 55px;
+    width: auto;
+    margin-top: -5px;
+    margin-left: 15px;
+}
+
+.rss {
+    height: 45px;
+    width: auto;
+    margin-top: -5px;
+    margin-left: 10px;
+}
+
 .background-image {
     position: absolute;
     background-image: url(..//images/commodity-b.ground.jpg);
