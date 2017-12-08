@@ -13,10 +13,9 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- CSS file -->
-    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css"> 
-
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css">
     <!-- Additional CSS Themes file - not required-->
-    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css"> 
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css">
 </head>
 
 <body>
@@ -29,10 +28,10 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Quick Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn1">Submit</button>
                         <div class="btn">
-                            <button type="button"  class="btn btn-default">Commod Data</button>
-                            </button>
+                            <!--     <button class="btn btn2">Slide down</button>   -->
+                            <!--    <button type="button" class="btn">Commod Data</button> -->
                             <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
                             <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
                             <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
@@ -42,81 +41,77 @@
             </div>
         </div>
     </header>
-
     <div class="background-image"></div>
     <div class="container">
         <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
         <div class="row">
             <div class="col-md-6">
                 <div class="divCarousel">
-                    <!--     div for carosel photos -->        
+                    <!--     div for carosel photos -->
                     <div class="w3-content w3-section divCarousel" style="max-width:500px">
-                        <img class="mySlides w3-animate-fading" src="assets/images/coffee-slide-2.jpg" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/metal-slide-3.jpg" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/cotton-slide.jpg" style="width:100%">
+                        <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
+                        <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
+                        <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
                     </div>
                 </div>
-                    
                 <!-- div for line graphs -->
                 <div class="divGraph">
                     <div class="panel-heading">
                         <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
                     </div>
-                    <div class="panel-body">  
-                        <div  id="curve_chart"></div>
+                    <div class="panel-body">
+                        <div id="curve_chart"></div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-md-6">
-                <div class="panel panel-default commodity-search-field-container">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Commodity Search Field</h3>
+            <div class="box">
+                <div class="col-md-6">
+                    <div id="contactFormContainer">
+                        <div id="contactForm">
+                            <fieldset>
+                                <label for="Search">Search Commodity</label>
+                                <input id="Search" type="text" />
+                                <form action="/action_page.php">
+                                    <br>
+                                    <p><strong>Start Date:</strong></p>
+                                    <input type="date" name="start">
+                                </form>
+                                <br>
+                                <form action="/action_page.php">
+                                    <p><strong>End Date:</strong></p>
+                                    <input type="date" name="end">
+                                </form>
+                            
+                                <input id="submit" type="submit" name="submit" onclick="closeForm()" />
+                                <span id="messageSent">Processing Your Commodity Search</span>
+                            </fieldset>
+                        </div>
+                        <button class="btn btn2"><strong>Commodity Search Field</strong></button>
                     </div>
-                    <div class="panel-body">
-                        <form>
-                            <div class="form-group commod-search">
-                                <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
+                    <div class="divCommodityInfo">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Commodity Index</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="commodity-info-container">
                             </div>
-                            <br>
-                            <div class="form-group commod-search">
-                                <input type="text" class="form-control" placeholder="Start Date Picker">
-                            </div>
-                            <br>
-                            <div class="form-group commod-search">
-                                <input type="text" class="form-control" placeholder="End Date Picker">
-                            </div>
-                            <br>
-                            <button class="btn btn-default btn-submit" id="submit-bid" type="submit">Submit</button>
-                        </form>
-                    </div> 
-                </div>
-
-      <!--   after submit button for seach commod field   -->
-                <div class="divCommodityInfo">
-                   <div class="panel-heading">
-                        <h3 class="panel-title">Commodity Index</h3>
-                    </div>
-                    <div class="panel-body">  
-                        <div class="commodity-info-container">
                         </div>
                     </div>
-                </div>
-                <div class="divCommodityNews">
-
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Commodity News</h3>
-                    </div>
-                    <div class="panel-body">  
-                        <div class="commodity-news-container">
+                    <div class="divCommodityNews">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Commodity News</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="commodity-news-container">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+    <br>
+    <br>
     <footer>
         <strong>Copyright &copy; 2017<strong> <img class="footer-logo" src="assets/images/sbs-logo.png">
     </footer>
@@ -133,9 +128,12 @@
     <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
+
+
     
     
     <script src="assets/javascript/app.js"></script>
+
 </body>
 
 </html>
