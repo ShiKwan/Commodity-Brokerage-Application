@@ -6,5 +6,4 @@
 	{"name" :"Corn, U.S. Gulf Imports", "code" : "WORLDBANK/WLD_MAIZE"},
 	{"name" :"Oats, CBOT Oats Futures", "code" : "CHRIS/CME_O1"}
 	{"name" :"Cattle, CME Live Cattle Futures", "code" : "CHRIS/CME_LC1" }
-
 ]

@@ -65,6 +65,7 @@ function initialization(){
   $(".divGraph").hide();
   $(".divCommodityInfo").hide();
   $(".divCommodityNews").hide();
+  $("#msg-center").hide();
 }
 
 
