@@ -12,9 +12,12 @@
   };
   firebase.initializeApp(config);
 
+
+
   var database = firebase.database();
   var dbCommodity = database.ref("/commodity");
 
+function quandlResources(){
 
   //Use this to get the code to query Quandl API
   $.ajax({
@@ -24,16 +27,78 @@
     //console.log(response);
   })
 
+}
   commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT"
 
 
 //getCommodity();
 
-getCommodityPrice();
+//getCommodityPrice();
 
 //getSpecificCommodity();
 
+
+//TO-DO: 
+// initialize the page:
+  // show the carousel
+  // hide graph, commodity info, commodity news
+  // hide msg center.
+
+
+
+
+
+
+$("#submit-bid").on("click", function(){
+  //TO-DO: change the value to the commodity textbox
+  var commodity = "coffee".trim()
+  //look into quandll database, if search word exists in quandll, do API query in quandl,
+      //if data exist,
+        //look into the data, get the earliest and latest date
+            //update the datepicker for start and end date. 
+                // show graph, the info, and news
+
+
+  // else, look into commoPrices, if search word exists in commoPrices, do API query in commoPrices,
+      //if data exist,
+        //look into data, get the earliest and latest date
+          //update the datepicker for start and end date.
+              //if data exist, show graph, info, and news
+  // else, prompt user about our lack of resource and we should be ashame of ourselves.
+      //display msg box
+      //show news
+
+
+  //clear the search textbox, clear date picker
+
+
+
+
+})
+
 getQuandlCommodityPrice();
+
+getNews("coffee");
+
+function getNews(qry){
+  var nytAPI = "7efd7705bed343d498f6b717ffda6638"
+
+var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+url += '?' + $.param({
+  'api-key': nytAPI,
+  'q': qry,
+  'sort': "newest"
+});
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+}).fail(function(err) {
+  console.log("error");
+  console.log(err);
+});
+}
 
 function getQuandlCommodityPrice(){
   // source: https://blog.quandl.com/api-for-commodity-data
@@ -51,10 +116,10 @@ function getQuandlCommodityPrice(){
     var adjustedArr = [];
 
     adjustedArr =  getData(adjustedArr, result.column_names, result.data)
-    console.log(adjustedArr);
+    //console.log(adjustedArr);
     googleChartGenerator(adjustedArr, result.name);
 
-    console.log(result);
+    //console.log(result);
   }).fail(function(response){
     console.log("Error retrieving data from quandl");
   })
@@ -75,9 +140,9 @@ function getSpecificCommodity(){
     var result = response.data;
     var adjustedArr = [];
     adjustedArr =  getData(adjustedArr, result.column_names, result.data);
-    console.log(adjustedArr)
-    console.log("CommoPrices: get specific commodity");
-    console.log(response.data.info);
+    //console.log(adjustedArr)
+   // console.log("CommoPrices: get specific commodity");
+    //console.log(response.data.info);
   });
 
 }
@@ -107,11 +172,11 @@ function getCommodityPrice(){
   }
 
   $.ajax(settings).done(function (response) {
-    console.log("CommoPrice: get commodity price");
-    console.log(response.data);
+    //console.log("CommoPrice: get commodity price");
+    //console.log(response.data);
     var adjustedArr = [];
     adjustedArr =  getData(adjustedArr, response.data.request.column_names, response.data.request.dataseries);
-    googleChartGenerator(adjustedArr, response.data.info.name);
+    //googleChartGenerator(adjustedArr, response.data.info.name);
   }).fail(function(response){
     console.log(response);
   });
@@ -126,7 +191,11 @@ function googleChartGenerator(priceData, graphTitle){
       var options = {
         title: graphTitle, 
         curveType: "function",
-        legend: {position: "right"}
+        legend: {position: "right"},
+        animation:{
+        duration: 1000,
+        easing: 'out'
+        }
       };
       
       var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
