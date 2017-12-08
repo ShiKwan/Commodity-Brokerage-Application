@@ -19,6 +19,28 @@
 
 
 	<script type="text/javascript">
+
+	  $.getJSON("https://shikwan.github.io/Project1/assets/javascript/quandlResource.json", function (data1) {
+		  $.getJSON("file2.json", function (data2) {
+		    var final = [];
+		    final.push(data1);
+		    final.push(data2);
+		    var new_final = final[0].concat(final[1]);
+		    var options = {
+		      data: new_final,
+		      getValue: "name",
+		      list: {
+		        match: {
+		          enabled: true
+		        }
+		      },
+		      theme: "square"        
+		    };
+		  $("#txtCommoditySearch").easyAutocomplete(options); 
+		  });
+	  });
+
+
 		var options = {
 			url: "https://shikwan.github.io/Project1/assets/javascript/quandlResource.json",
 			getValue: "name",

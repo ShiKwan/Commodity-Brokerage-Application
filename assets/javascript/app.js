@@ -1,5 +1,11 @@
+$(document).ready(function(){
 
-  $(document).ready(function(){
+  var commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT";
+  var commodity = [];
+
+  initialization();
+  getCommodity();
+  console.log(commodity);
 
  // Initialize Firebase
   var config = {
@@ -11,11 +17,21 @@
     messagingSenderId: "52575437459"
   };
   firebase.initializeApp(config);
-
-
-
   var database = firebase.database();
   var dbCommodity = database.ref("/commodity");
+  var jsonCommodity = JSON.stringify(commodity);
+
+
+var options = {
+      url: "https://shikwan.github.io/Project1/assets/javascript/quandlResource.json",
+      getValue: "name",
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+    $("#txtCommoditySearch").easyAutocomplete(options);
 
 function quandlResources(){
 
@@ -28,7 +44,7 @@ function quandlResources(){
   })
 
 }
-  commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT"
+  
 
 
 //getCommodity();
@@ -44,6 +60,12 @@ function quandlResources(){
   // hide graph, commodity info, commodity news
   // hide msg center.
 
+function initialization(){
+  $(".divCarousel").show();
+  $(".divGraph").hide();
+  $(".divCommodityInfo").hide();
+  $(".divCommodityNews").hide();
+}
 
 
 
@@ -202,7 +224,6 @@ function googleChartGenerator(priceData, graphTitle){
       chart.draw(data,options);
     }
 }
-var commodity = [];
 function getCommodity(){
 
   //wrb / imf -free
@@ -233,9 +254,9 @@ function getCommodity(){
       }
 
       dbCommodity.push({
-        fromDatabase : response.data[i].database,
-        commodityCode : response.data[i].code,
-        commodityName : response.data[i].name
+        from : response.data[i].database,
+        code : response.data[i].code,
+        name : response.data[i].name
       });
       commodity.push(objCommodity);
     }
@@ -244,6 +265,8 @@ function getCommodity(){
     console.log(response.responseText);
   });
 }
+
+
 
 dbCommodity.once("value", function(snapshot){
   console.log(snapshot.val());

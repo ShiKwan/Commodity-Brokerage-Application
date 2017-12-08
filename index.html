@@ -12,6 +12,11 @@
     <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- CSS file -->
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css"> 
+
+    <!-- Additional CSS Themes file - not required-->
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css"> 
 </head>
 
 <body>
@@ -37,39 +42,42 @@
             </div>
         </div>
     </header>
+
     <div class="background-image"></div>
     <div class="container">
+        <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
         <div class="row">
             <div class="col-md-6">
-            <div>
-   <!--     div for carosel photos -->        
-            </div>
-                <div class="w3-content w3-section" style="max-width:500px">
-                    <img class="mySlides w3-animate-fading" src="assets/images/coffee-slide-2.jpg" style="width:100%">
-                    <img class="mySlides w3-animate-fading" src="assets/images/metal-slide-3.jpg" style="width:100%">
-                    <img class="mySlides w3-animate-fading" src="assets/images/cotton-slide.jpg" style="width:100%">
+                <div class="divCarousel">
+                    <!--     div for carosel photos -->        
+                    <div class="w3-content w3-section divCarousel" style="max-width:500px">
+                        <img class="mySlides w3-animate-fading" src="assets/images/coffee-slide-2.jpg" style="width:100%">
+                        <img class="mySlides w3-animate-fading" src="assets/images/metal-slide-3.jpg" style="width:100%">
+                        <img class="mySlides w3-animate-fading" src="assets/images/cotton-slide.jpg" style="width:100%">
+                    </div>
                 </div>
-            </div>
-
-            <!-- div for line graphs 
-
-                 <div class="panel-heading">
+                    
+                <!-- div for line graphs -->
+                <div class="divGraph">
+                    <div class="panel-heading">
                         <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
                     </div>
                     <div class="panel-body">  
-                        
-                    </div>  -->
+                        <div  id="curve_chart"></div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-md-6">
-                <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
-                <div class="panel panel-default">
+                <div class="panel panel-default commodity-search-field-container">
                     <div class="panel-heading">
                         <h3 class="panel-title">Commodity Search Field</h3>
                     </div>
                     <div class="panel-body">
                         <form>
                             <div class="form-group commod-search">
-                                <input type="text" class="form-control" placeholder="Commodity Search">
+                                <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
                             </div>
                             <br>
                             <div class="form-group commod-search">
@@ -82,28 +90,33 @@
                             <br>
                             <button class="btn btn-default btn-submit" id="submit-bid" type="submit">Submit</button>
                         </form>
-                    </div>  
+                    </div> 
+                </div>
 
-      <!--   after submit button for seach commod field   
-
+      <!--   after submit button for seach commod field   -->
+                <div class="divCommodityInfo">
                    <div class="panel-heading">
                         <h3 class="panel-title">Commodity Index</h3>
                     </div>
                     <div class="panel-body">  
-                        
+                        <div class="commodity-info-container">
+                        </div>
                     </div>
+                </div>
+                <div class="divCommodityNews">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Commodity Newss</h3>
+                        <h3 class="panel-title">Commodity News</h3>
                     </div>
-                    <div class="panel-body">  -->
-                        
+                    <div class="panel-body">  
+                        <div class="commodity-news-container">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div  id="curve_chart" style="width: 50%; height: 500px"></div>
+    
     <footer>
         <strong>Copyright &copy; 2017<strong> <img class="footer-logo" src="assets/images/sbs-logo.png">
     </footer>
@@ -117,7 +130,9 @@
     <script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
     
     
     <script src="assets/javascript/app.js"></script>
