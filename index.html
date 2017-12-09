@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <title>sbs comm broker</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- CSS file -->
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css">
+    <!-- Additional CSS Themes file - not required-->
+    <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css">
+</head>
+
+<body>
+    <header class="navbar-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="assets/images/sbs-logo.png">
+                    <div class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Quick Search">
+                            <button type="submit" class="btn btn1">Submit</button>
+                            <div id="contactFormContainer">
+                                <div id="contactForm">
+                                    <fieldset>
+                                        <label for="Search">Search Commodity</label>
+                                        <input id="txtCommoditySearch" type="text" />
+                                        <form>
+                                            <br>
+                                            <p><strong>Start Date:</strong></p>
+                                            <input id="dpStartDate" type="date" name="start">
+                                            <br>
+                                            <p><strong>End Date:</strong></p>
+                                            <input id="dpEndDate" type="date" name="end">
+                                        </form>
+                                    
+                                        <input id="submit" type="submit" name="submit" onclick="closeForm()" />
+                                        <span id="messageSent">Processing Your Commodity Search</span>
+                                    </fieldset>
+                                </div>
+                                <button class="btn btn2"><strong>Search Field</strong></button>
+                            </div>
+                        </div>
+                       
+                        
+                    </div>
+                    <div class="btn">
+                        <!--     <button class="btn btn2">Slide down</button>   -->
+                        <!--    <button type="button" class="btn">Commod Data</button> -->
+                        <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
+                        <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
+                        <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
+        
+        <div class="divCarousel">
+            <!--     div for carosel photos -->
+            <div class="w3-content w3-section divCarousel" style="max-width:500px">
+                <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
+            </div>
+        </div>
+        <div class="divCommodityInfo">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity Index</h3>
+            </div>
+            <div class="panel-body">
+                <div class="commodity-info-container">
+                </div>
+            </div>
+        </div>
+        <div class="divCommodityNews">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity News</h3>
+            </div>
+            <div class="panel-body">
+                <div class="commodity-news-container">
+                </div>
+            </div>
+        </div>
+                <!-- div for line graphs -->
+        <div class="divGraph">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
+            </div>
+            <div class="panel-body">
+                <div id="curve_chart"></div>
+            </div>
+        </div>
+    </div>
+
+            
+<!--                     <div class="panel-body">
+<form>
+<div class="form-group commod-search">
+    <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
+</div>
+<br>
+<div class="form-group commod-search">
+    <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
+</div>
+<br>
+<div class="form-group commod-search">
+    <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
+-->
+
+       
+    <br>
+    <br>
+    <footer>
+        <strong>Copyright &copy; 2017<strong> <img class="footer-logo" src="assets/images/sbs-logo.png">
+    </footer>
+
+    
+    <!-- Latest compiled and minified JavaScript -->
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+    <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
+
+
+    
+    
+    <script src="assets/javascript/app.js"></script>
+
+</body>
+
+</html>
