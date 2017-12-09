@@ -16,14 +16,13 @@ body {
 
 img {
     width: 200px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .facebook {
     height: 35px;
     width: auto;
     margin-top: -5px;
-    margin-left: 15px;
 }
 
 .nasdaq {
@@ -40,61 +39,173 @@ img {
     margin-left: 10px;
 }
 
-.background-image {
-    position: absolute;
-    background-image: url(..//images/commodity-b.ground.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: .8;
-    height: 600px;
-    width: 100%;
-    margin-top: 45px;
-    z-index: -50;
-}
-
 .alert {
     text-align: center;
     background-color: #cc0000;
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 5px;
-    margin-bottom: 35px;
+    margin-bottom: 50px;
     margin-top: 100px;
+    width: 100%;
 }
 
 .navbar-header {
     position: fixed;
     width: 100%;
     background-color: #505050;
+    border-bottom: 3px solid #4aaaa5;
     overflow: auto;
     z-index: 99;
+}
+
+.btn1 {
+    background-color: #4aaaa5;
+    color: white;
 }
 
 .commod-search {
     margin-top: 15px;
 }
 
+p {
+    color: white;
+}
+
+#submit {
+    margin-top: 10px;
+}
+
 footer {
-  padding: 30px 0;
-  clear: both;
-  font-size: 12px;
-  text-align: center;
-  background: #505050;
-  border-top: 8px solid #4aaaa5;
+    position: fixed;
+    bottom: 0;
+    padding: 10px 0;
+    clear: both;
+    font-size: 12px;
+    text-align: center;
+    background: #505050;
+    border-top: 8px solid #4aaaa5;
+    width: 100%;
 }
 
 .footer-logo {
     height: 30px;
     width: auto;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .mySlides {
     display: none;
-    margin-top: 190px;
+    margin-top: -15px;
     border-radius: 7px;
     border-style: solid;
     border-color: #000000;
     border-width: 3px;
-    
+    height: 355px;
 }
+
+.background-image {
+    position: absolute;
+    position: fixed;
+    background-image: url(..//images/commodity-b.ground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .8;
+    height: 600px;
+    width: 100%;
+    margin-top: 65px;
+    z-index: -50;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+#contactFormContainer {
+    position: absolute;
+    left: 600px;
+    float: right;
+}
+
+
+
+#contactForm {
+    height: 355px;
+    width: 450px;
+    background-image: url(..//images/blk-teal.png);
+    background-color: #000000;
+    display: none;
+    border-radius: 7px;
+
+}
+
+
+
+#contactForm fieldset {
+    padding: 30px;
+    border: none;
+
+}
+
+
+
+
+#contactForm label {
+    display: block;
+    color: white;
+
+
+
+}
+
+
+
+#contactForm input[type=text] {
+    display: block;
+    border: solid 1px #4d3a24;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 24px;
+
+
+}
+
+
+
+#contactForm textarea {
+    display: block;
+    border: solid 1px #4d3a24;
+    width: 100%;
+    margin-bottom: 10px;
+
+
+}
+
+
+
+#contactForm input[type=submit] {
+    background-color: #505050;
+    border: solid 1px #23150c;
+    color: white;
+    padding: 5px;
+
+}
+
+
+.btn2 {
+    height: 40px;
+    width: 450px;
+    display: block;
+    cursor: pointer;
+    background-color: #4aaaa5;
+    color: white;
+
+}
+
+
+
+#messageSent {
+    color: #ff9933;
+    display: none;
+}
+
