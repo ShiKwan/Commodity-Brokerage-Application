@@ -136,14 +136,16 @@ function populateCommodityInfoFromCommoPrices(data){
     var frequencyDiv = $("<div>");
     var nameDiv = $("<div>");
     var oldest_data_availableDiv = $("<div>");
+    var priceUnitDiv = $("<div>");
 
     codeDiv.text("Code : " + data.info.code);
     databaseDiv.text("Database : " + data.info.database);
     frequencyDiv.text("Frequency : " + data.info.frequency);
-    nameDiv.text("Name: " + data.info.name);
+    nameDiv.html("<h1>Name: " + data.info.name + "</h1>");
     oldest_data_availableDiv.text("Oldest available date: " + data.info.oldest_available_date);
+    priceUnitDiv.text(data.request.price_unit.name);
 
-    divContainer.append(databaseDiv).append(frequencyDiv).append(nameDiv).append(oldest_data_availableDiv);
+    divContainer.append(databaseDiv).append(frequencyDiv).append(nameDiv).append(oldest_data_availableDiv).append(priceUnitDiv);
     $(".commodity-info-container").append(divContainer);
 
   }
@@ -161,14 +163,16 @@ function populateCommodityInfoFromQuandl(data){
     var nameDiv = $("<div>");
     var descriptionDiv = $("<div>");
     var oldest_data_availableDiv = $("<div>");
+    var typeDiv = $("<div>");
 
     codeDiv.text("Code : " + data.dataset_code);
     databaseDiv.text("Database : " + data.database_code +"/"+data.dataset_code);
     frequencyDiv.text("Frequency : " + data.frequency);
-    nameDiv.text("Name: " + data.name);
+    nameDiv.html("<h1>Name: " + data.name + "</h1>");
     oldest_data_availableDiv.text("Oldest available date: " + data.oldest_available_date);
+    typeDiv.text(data.type);
     descriptionDiv.text("Description: " + data.description);
-    divContainer.append(databaseDiv).append(frequencyDiv).append(descriptionDiv).append(nameDiv).append(oldest_data_availableDiv);
+    divContainer.append(nameDiv).append(databaseDiv).append(frequencyDiv).append(descriptionDiv).append(oldest_data_availableDiv).append(typeDiv);
     $(".commodity-info-container").append(divContainer);
   }
 }
@@ -200,6 +204,34 @@ function populateNews(data){
   }
 }
 
+/*$(".selected.eac-item").click(function(){
+  console.log(this.html());
+  console.log("focus out");
+  var searchCommodity = $("#txtCommoditySearch").val();
+  console.log(searchCommodity);
+  for(var i =0; i< commodity.length; i++){
+    if(commodity[i].name == searchCommodity){
+      if(commodity[i].database){
+          commoData = getCommodityPriceFromCommoPrices(commodity[i].code);
+          getGraphStartEndDateFromCommoPrices(commoData);
+          $("#dpStartDate").val(graphStartDate);
+          $("#dpEndDate").val(graphEndDate);
+          
+          return false;
+          //look into commoprice
+        }else{
+          commoData = getQuandlCommodityPrice(commodity[i].code);
+          getGraphStartEndDateFromQuandl(commoData);
+          $("#dpStartDate").val(graphStartDate);
+          $("#dpEndDate").val(graphEndDate);
+          
+          //look into quandl
+          return false;
+        }
+      }
+    }
+  });*/
+
 
 $("#submit").on("click", function(){
   //TO-DO: change the value to the commodity textbox
@@ -229,7 +261,7 @@ $("#submit").on("click", function(){
           googleChartGenerator(adjustedArr, commoData.name);
           populateCommodityInfoFromQuandl(commoData);
           populateNews(getNews(commoData.name));
-
+          return false;
           //look into quandl
         }
       }else{

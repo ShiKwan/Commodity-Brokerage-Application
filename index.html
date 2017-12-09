@@ -24,19 +24,42 @@
             <div class="row">
                 <div class="col-md-12">
                     <img src="assets/images/sbs-logo.png">
-                    <form class="navbar-form navbar-right">
+                    <div class="navbar-form navbar-right">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Quick Search">
+                            <button type="submit" class="btn btn1">Submit</button>
+                            <div id="contactFormContainer">
+                                <div id="contactForm">
+                                    <fieldset>
+                                        <label for="Search">Search Commodity</label>
+                                        <input id="txtCommoditySearch" type="text" />
+                                        <form>
+                                            <br>
+                                            <p><strong>Start Date:</strong></p>
+                                            <input id="dpStartDate" type="date" name="start">
+                                            <br>
+                                            <p><strong>End Date:</strong></p>
+                                            <input id="dpEndDate" type="date" name="end">
+                                        </form>
+                                    
+                                        <input id="submit" type="submit" name="submit" onclick="closeForm()" />
+                                        <span id="messageSent">Processing Your Commodity Search</span>
+                                    </fieldset>
+                                </div>
+                                <button class="btn btn2"><strong>Search Field</strong></button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn1">Submit</button>
-                        <div class="btn">
-                            <!--     <button class="btn btn2">Slide down</button>   -->
-                            <!--    <button type="button" class="btn">Commod Data</button> -->
-                            <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
-                            <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
-                            <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
-                        </div>
-                    </form>
+                       
+                        
+                    </div>
+                    <div class="btn">
+                        <!--     <button class="btn btn2">Slide down</button>   -->
+                        <!--    <button type="button" class="btn">Commod Data</button> -->
+                        <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
+                        <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
+                        <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -44,83 +67,60 @@
     <div class="background-image"></div>
     <div class="container">
         <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="divCarousel">
-                    <!--     div for carosel photos -->
-                    <div class="w3-content w3-section divCarousel" style="max-width:500px">
-                        <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
-                    </div>
-                </div>
-                <!-- div for line graphs -->
-                <div class="divGraph">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="curve_chart"></div>
-                    </div>
+        
+        <div class="divCarousel">
+            <!--     div for carosel photos -->
+            <div class="w3-content w3-section divCarousel" style="max-width:500px">
+                <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
+            </div>
+        </div>
+        <div class="divCommodityInfo">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity Index</h3>
+            </div>
+            <div class="panel-body">
+                <div class="commodity-info-container">
                 </div>
             </div>
-            <div class="box">
-                <div class="col-md-6">
-                    <div id="contactFormContainer">
-                        <div id="contactForm">
-                            <fieldset>
-                                <label for="Search">Search Commodity</label>
-                                <input id="txtCommoditySearch" type="text" />
-                                <form>
-                                    <br>
-                                    <p><strong>Start Date:</strong></p>
-                                    <input id="dpStartDate" type="date" name="start">
-                                	<br>
-                                    <p><strong>End Date:</strong></p>
-                                    <input id="dpEndDate" type="date" name="end">
-                                </form>
-                            
-                                <input id="submit" type="submit" name="submit" onclick="closeForm()" />
-                                <span id="messageSent">Processing Your Commodity Search</span>
-                            </fieldset>
-                        </div>
-                        <button class="btn btn2"><strong>Commodity Search Field</strong></button>
-                    </div>
-<!--                     <div class="panel-body">
-    <form>
-        <div class="form-group commod-search">
-            <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
         </div>
-        <br>
-        <div class="form-group commod-search">
-            <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
-        </div>
-        <br>
-        <div class="form-group commod-search">
-            <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
- -->
-                    <div class="divCommodityInfo">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Commodity Index</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="commodity-info-container">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divCommodityNews">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Commodity News</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="commodity-news-container">
-                            </div>
-                        </div>
-                    </div>
+        <div class="divCommodityNews">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity News</h3>
+            </div>
+            <div class="panel-body">
+                <div class="commodity-news-container">
                 </div>
+            </div>
+        </div>
+                <!-- div for line graphs -->
+        <div class="divGraph">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
+            </div>
+            <div class="panel-body">
+                <div id="curve_chart"></div>
             </div>
         </div>
     </div>
+
+            
+<!--                     <div class="panel-body">
+<form>
+<div class="form-group commod-search">
+    <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
+</div>
+<br>
+<div class="form-group commod-search">
+    <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
+</div>
+<br>
+<div class="form-group commod-search">
+    <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
+-->
+
+       
     <br>
     <br>
     <footer>
