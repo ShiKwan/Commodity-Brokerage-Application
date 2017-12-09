@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 // slide form field
-    $(".btn").click(function() {
+    $(".btn2").click(function() {
         if ($("#contactForm").is(":hidden")) {
             $("#contactForm").slideDown("slow");
         } else {
