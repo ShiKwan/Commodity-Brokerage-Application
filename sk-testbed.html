@@ -21,7 +21,7 @@
 	<script type="text/javascript">
 
 	  $.getJSON("https://shikwan.github.io/Project1/assets/javascript/quandlResource.json", function (data1) {
-		  $.getJSON("file2.json", function (data2) {
+		  $.getJSON(commodity, function (data2) {
 		    var final = [];
 		    final.push(data1);
 		    final.push(data2);
@@ -39,6 +39,19 @@
 		  $("#txtCommoditySearch").easyAutocomplete(options); 
 		  });
 	  });
+
+
+
+[
+	{"name" :"Barley, Western Canada (ODA)", "code" : "ODA/PBARL_USD"},
+	{"name" :"Barley, Western Canada (WB)", "code" : "WORLDBANK/WLD_BARLEY"},
+	{"name" :"Corn, Top Flight Grain Co-op", "code" : "TFGRAIN/CORN"},
+	{"name" :"Corn, CBOT Corn Futures", "code" : "CHRIS/CME_C1"},
+	{"name" :"Corn, U.S. Gulf Imports", "code" : "WORLDBANK/WLD_MAIZE"},
+	{"name" :"Oats, CBOT Oats Futures", "code" : "CHRIS/CME_O1"},
+	{"name" :"Cattle, CME Live Cattle Futures", "code" : "CHRIS/CME_LC1" }
+]
+
 
 
 		var options = {
