@@ -93,7 +93,9 @@ footer {
     width: auto;
     margin-bottom: 12px;
 }
-
+.easy-autocomplete{
+    width:100% !important;
+}
 .mySlides {
     display: none;
     margin-top: -15px;
@@ -117,12 +119,7 @@ footer {
     z-index: -50;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-
-
-
 #contactFormContainer {
-    position: absolute;
     left: 600px;
     float: right;
 }

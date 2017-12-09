@@ -119,7 +119,13 @@ function getGraphStartEndDateFromCommoPrices(data){
   graphEndDate = data.request.dataseries[lengthOfData-1][0];
 }
 
-function populateCommodityInfo(data){
+function getGraphStartEndDateFromQuandl(qry){
+  var lengthOfData = qry.data.length;
+  graphStartDate = qry.data[0][0];
+  graphEndDate = qry.data[lengthOfData-1][0];
+}
+
+function populateCommodityInfoFromCommoPrices(data){
   if(data){
     console.log("popcominfo");
     console.log(data);
@@ -143,6 +149,30 @@ function populateCommodityInfo(data){
   }
 }
 
+function populateCommodityInfoFromQuandl(data){
+  if(data){
+    console.log("populateCommodityInfo From Quandl data source");
+    console.log(data);
+    $(".divCommodityInfo").show();
+    var divContainer = $("<div>");
+    var codeDiv = $("<div>");
+    var databaseDiv = $("<div>");
+    var frequencyDiv = $("<div>");
+    var nameDiv = $("<div>");
+    var descriptionDiv = $("<div>");
+    var oldest_data_availableDiv = $("<div>");
+
+    codeDiv.text("Code : " + data.dataset_code);
+    databaseDiv.text("Database : " + data.database_code +"/"+data.dataset_code);
+    frequencyDiv.text("Frequency : " + data.frequency);
+    nameDiv.text("Name: " + data.name);
+    oldest_data_availableDiv.text("Oldest available date: " + data.oldest_available_date);
+    descriptionDiv.text("Description: " + data.description);
+    divContainer.append(databaseDiv).append(frequencyDiv).append(descriptionDiv).append(nameDiv).append(oldest_data_availableDiv);
+    $(".commodity-info-container").append(divContainer);
+  }
+}
+
 function populateNews(data){
   if(data){
     console.log(data);
@@ -158,7 +188,9 @@ function populateNews(data){
       var sourceDiv = $("<div>");
       byLineDiv.text(data.byline);
       headlineDiv.text("Headline: " + data[i].headline.main);
-      multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);
+      if(data[i].multimedia.length > 0){
+        multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);  
+      }
       snippetDiv.text("Snippet: " + data[i].snippet);
       web_urlDiv.text("Read more : " +data[i].web_url);
       sourceDiv.text("Source : " +data[i].source);
@@ -185,12 +217,19 @@ $("#submit").on("click", function(){
           $("#dpStartDate").val(graphStartDate);
           $("#dpEndDate").val(graphEndDate);
           googleChartGenerator(adjustedArr, commoData.info.name);
-          populateCommodityInfo(commoData);
+          populateCommodityInfoFromCommoPrices(commoData);
           populateNews(getNews(commoData.info.name));
           return false;
           //look into commoprice
         }else{
-          commoData = getQuandlCommodityPrice(commodity[i].database);
+          commoData = getQuandlCommodityPrice(commodity[i].code);
+          getGraphStartEndDateFromQuandl(commoData);
+          $("#dpStartDate").val(graphStartDate);
+          $("#dpEndDate").val(graphEndDate);
+          googleChartGenerator(adjustedArr, commoData.name);
+          populateCommodityInfoFromQuandl(commoData);
+          populateNews(getNews(commoData.name));
+
           //look into quandl
         }
       }else{
@@ -265,10 +304,10 @@ function getNews(qry){
 function getQuandlCommodityPrice(commodityCode){
   var returnValue =[];
   // source: https://blog.quandl.com/api-for-commodity-data
-  // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz
+  // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz&start_date=2017-05-24&end_date=2017-06-28
   var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
   var quandlCommodityCode =  commodityCode  //"LBMA/GOLD" //hard coded temporarily
-  var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey + "&start_date=2017-05-24&end_date=2017-06-28"
+  var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey;
 
   $.ajax({
     url: queryURL,
@@ -276,11 +315,15 @@ function getQuandlCommodityPrice(commodityCode){
     "async": false,
   })
   .done(function(response){
+    console.log("get quandl commo price")
+
     var result = response.dataset;
-    var adjustedArr = [];
+    
+    //var adjustedArr = [];
 
     adjustedArr =  getData(adjustedArr, result.column_names, result.data)
-    //console.log(adjustedArr);
+
+    console.log(adjustedArr);
     //googleChartGenerator(adjustedArr, result.name);
 
     //console.log(result);
@@ -325,13 +368,33 @@ function getData(adjustedArray, columnNamesArray, dataArray){
   var getdata = [];
   adjustedArray =[];
     getdata.push([columnNamesArray]);
-    
+    console.log("Inside getData");
+
+
     for(var i = 0; i< dataArray.length; i++){
       getdata.push([dataArray[i]]);
     }
-    for(var i = 0; i < getdata.length; i++){
-      adjustedArray.push(getdata[i][0]);
+    var firstDate = moment(getdata[1][0], "YYYY-MM-DD");
+    var lastDate = moment(getdata[getdata.length-1][0], "YYYY-MM-DD");
+
+    console.log(getdata);
+    console.log(firstDate);
+    console.log(lastDate);
+    console.log("diff in date: " + firstDate.diff(lastDate, 'days'));
+    //if firstdate is later than last date
+    if(firstDate.diff(lastDate) > 0){
+      //get the identity of each column first before loading data.
+      adjustedArray.push(getdata[0][0])
+      console.log("get the identity of each column first before loading data." + adjustedArray[0]);
+      for(var i = getdata.length-1; i >1; i--){
+        adjustedArray.push(getdata[i][0]);
+      }
+    }else{
+      for(var i = 0; i < getdata.length; i++){
+       adjustedArray.push(getdata[i][0]);
+      }
     }
+    
     return adjustedArray
 }
 function getCommodityPriceFromCommoPrices(commodityCode){
@@ -368,6 +431,7 @@ function getCommodityPriceFromCommoPrices(commodityCode){
 function googleChartGenerator(priceData, graphTitle){
    google.charts.load('current', {'packages' :['corechart']});
     google.charts.setOnLoadCallback(drawChart);
+    console.log(priceData);
     function drawChart(){
       var data = google.visualization.arrayToDataTable(priceData);
 
