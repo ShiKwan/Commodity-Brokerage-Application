@@ -120,7 +120,7 @@ footer {
 }
 
 <<<<<<< HEAD
-//////////////////////////////////////////////////////////////////////////////
+ /*//////////////////////////////////////////////////////////////////////////////*/
 
 
 =======
@@ -138,7 +138,7 @@ footer {
     background-color: #000000;
     display: none;
     border-radius: 7px;
-    opacity: .5;
+    
 }
 
 
@@ -186,14 +186,10 @@ footer {
 
 
 .btn2 {
-    height: 40px;
-    width: 100%;
-    display: block;
     cursor: pointer;
     background-color: #4aaaa5;
     color: white;
-    opacity: .5;
-    margin-bottom: 55px;
+    margin-left: 5px;
 }
 
 
@@ -201,4 +197,13 @@ footer {
 #messageSent {
     color: #ff9933;
     display: none;
+}
+
+
+/* ////////////////////////////////////////////////////////////// */
+
+/* content styling */
+
+h1 {
+    
 }

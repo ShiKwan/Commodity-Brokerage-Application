@@ -132,18 +132,18 @@ function populateCommodityInfoFromCommoPrices(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
-    var databaseDiv = $("<div>");
-    var frequencyDiv = $("<div>");
-    var nameDiv = $("<div>");
-    var oldest_data_availableDiv = $("<div>");
+    var databaseDiv = $("<h2>");
+    var frequencyDiv = $("<h6>");
+    var nameDiv = $("<h1>");
+    var oldest_data_availableDiv = $("<h6>");
 
     codeDiv.text("Code : " + data.info.code);
     databaseDiv.text("Database : " + data.info.database);
-    frequencyDiv.text("Frequency : " + data.info.frequency);
-    nameDiv.text("Name: " + data.info.name);
-    oldest_data_availableDiv.text("Oldest available date: " + data.info.oldest_available_date);
-
-    divContainer.append(databaseDiv).append(frequencyDiv).append(nameDiv).append(oldest_data_availableDiv);
+    frequencyDiv.html("Frequency : " + data.info.frequency);
+    nameDiv.html("Name: " + data.info.name);
+    oldest_data_availableDiv.html("Oldest available date: " + data.info.oldest_available_date);
+    $('.commodityInfoHeader').append(nameDiv).append(databaseDiv);
+    divContainer.append(frequencyDiv).append(oldest_data_availableDiv);
     $(".commodity-info-container").append(divContainer);
 
   }
@@ -156,19 +156,20 @@ function populateCommodityInfoFromQuandl(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
-    var databaseDiv = $("<div>");
-    var frequencyDiv = $("<div>");
-    var nameDiv = $("<div>");
-    var descriptionDiv = $("<div>");
-    var oldest_data_availableDiv = $("<div>");
+    var databaseDiv = $("<h2>");
+    var frequencyDiv = $("<h6>");
+    var nameDiv = $("<h1>");
+    var descriptionDiv = $("<div class='quandlDescription'>");
+    var oldest_data_availableDiv = $("<h6>");
 
     codeDiv.text("Code : " + data.dataset_code);
-    databaseDiv.text("Database : " + data.database_code +"/"+data.dataset_code);
-    frequencyDiv.text("Frequency : " + data.frequency);
-    nameDiv.text("Name: " + data.name);
-    oldest_data_availableDiv.text("Oldest available date: " + data.oldest_available_date);
-    descriptionDiv.text("Description: " + data.description);
-    divContainer.append(databaseDiv).append(frequencyDiv).append(descriptionDiv).append(nameDiv).append(oldest_data_availableDiv);
+    databaseDiv.html("Database : " + data.database_code +"/"+data.dataset_code);
+    frequencyDiv.html("Frequency : " + data.frequency);
+    nameDiv.html("Name: " + data.name);
+    oldest_data_availableDiv.html("Oldest available date: " + data.oldest_available_date);
+    $('.commodityInfoHeader').append(nameDiv).append(databaseDiv);
+    descriptionDiv.html("Description: " + data.description);
+    divContainer.append(frequencyDiv).append(descriptionDiv).append(oldest_data_availableDiv);
     $(".commodity-info-container").append(divContainer);
   }
 }
