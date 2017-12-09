@@ -70,16 +70,14 @@
                         <div id="contactForm">
                             <fieldset>
                                 <label for="Search">Search Commodity</label>
-                                <input id="Search" type="text" />
-                                <form action="/action_page.php">
+                                <input id="txtCommoditySearch" type="text" />
+                                <form>
                                     <br>
                                     <p><strong>Start Date:</strong></p>
-                                    <input type="date" name="start">
-                                </form>
-                                <br>
-                                <form action="/action_page.php">
+                                    <input id="dpStartDate" type="date" name="start">
+                                	<br>
                                     <p><strong>End Date:</strong></p>
-                                    <input type="date" name="end">
+                                    <input id="dpEndDate" type="date" name="end">
                                 </form>
                             
                                 <input id="submit" type="submit" name="submit" onclick="closeForm()" />
@@ -88,6 +86,19 @@
                         </div>
                         <button class="btn btn2"><strong>Commodity Search Field</strong></button>
                     </div>
+<!--                     <div class="panel-body">
+    <form>
+        <div class="form-group commod-search">
+            <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
+        </div>
+        <br>
+        <div class="form-group commod-search">
+            <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
+        </div>
+        <br>
+        <div class="form-group commod-search">
+            <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
+ -->
                     <div class="divCommodityInfo">
                         <div class="panel-heading">
                             <h3 class="panel-title">Commodity Index</h3>
@@ -125,6 +136,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
     <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
