@@ -99,7 +99,7 @@ footer {
     margin-top: -15px;
     border-radius: 7px;
     border-style: solid;
-    border-color: #000000;
+    border-color: #4aaaa5;
     border-width: 3px;
     height: 355px;
 }
@@ -111,14 +111,13 @@ footer {
     background-size: cover;
     background-repeat: no-repeat;
     opacity: .8;
-    height: 600px;
+    height: 625px;
     width: 100%;
     margin-top: 65px;
     z-index: -50;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-
 
 
 #contactFormContainer {
@@ -131,12 +130,11 @@ footer {
 
 #contactForm {
     height: 355px;
-    width: 450px;
     background-image: url(..//images/blk-teal.png);
     background-color: #000000;
     display: none;
     border-radius: 7px;
-
+    opacity: .5;
 }
 
 
@@ -144,7 +142,6 @@ footer {
 #contactForm fieldset {
     padding: 30px;
     border: none;
-
 }
 
 
@@ -153,9 +150,6 @@ footer {
 #contactForm label {
     display: block;
     color: white;
-
-
-
 }
 
 
@@ -166,8 +160,6 @@ footer {
     width: 100%;
     margin-bottom: 10px;
     height: 24px;
-
-
 }
 
 
@@ -177,8 +169,6 @@ footer {
     border: solid 1px #4d3a24;
     width: 100%;
     margin-bottom: 10px;
-
-
 }
 
 
@@ -188,18 +178,18 @@ footer {
     border: solid 1px #23150c;
     color: white;
     padding: 5px;
-
 }
 
 
 .btn2 {
     height: 40px;
-    width: 450px;
+    width: 100%;
     display: block;
     cursor: pointer;
     background-color: #4aaaa5;
     color: white;
-
+    opacity: .5;
+    margin-bottom: 55px;
 }
 
 
@@ -208,4 +198,3 @@ footer {
     color: #ff9933;
     display: none;
 }
-
