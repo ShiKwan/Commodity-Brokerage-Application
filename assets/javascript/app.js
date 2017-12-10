@@ -157,7 +157,12 @@ function populateCommodityInfoFromQuandl(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
+<<<<<<< HEAD
     var databaseDiv = $("<h3>");
+=======
+
+    var databaseDiv = $("<h2>");
+>>>>>>> 37b7045cfc6c5f77ee25bbd211d9d6aadbdf62f5
     var frequencyDiv = $("<h6>");
     var nameDiv = $("<h1>");
     var descriptionDiv = $("<div class='quandlDescription'>");
@@ -205,6 +210,34 @@ function populateNews(data){
   }
 }
 
+/*$(".selected.eac-item").click(function(){
+  console.log(this.html());
+  console.log("focus out");
+  var searchCommodity = $("#txtCommoditySearch").val();
+  console.log(searchCommodity);
+  for(var i =0; i< commodity.length; i++){
+    if(commodity[i].name == searchCommodity){
+      if(commodity[i].database){
+          commoData = getCommodityPriceFromCommoPrices(commodity[i].code);
+          getGraphStartEndDateFromCommoPrices(commoData);
+          $("#dpStartDate").val(graphStartDate);
+          $("#dpEndDate").val(graphEndDate);
+          
+          return false;
+          //look into commoprice
+        }else{
+          commoData = getQuandlCommodityPrice(commodity[i].code);
+          getGraphStartEndDateFromQuandl(commoData);
+          $("#dpStartDate").val(graphStartDate);
+          $("#dpEndDate").val(graphEndDate);
+          
+          //look into quandl
+          return false;
+        }
+      }
+    }
+  });*/
+
 
 $("#submit").on("click", function(){
   //TO-DO: change the value to the commodity textbox
@@ -234,7 +267,7 @@ $("#submit").on("click", function(){
           googleChartGenerator(adjustedArr, commoData.name);
           populateCommodityInfoFromQuandl(commoData);
           populateNews(getNews(commoData.name));
-
+          return false;
           //look into quandl
         }
       }else{
