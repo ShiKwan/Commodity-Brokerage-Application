@@ -2,6 +2,7 @@
 var myIndex = 0;
 carousel();
 
+
 function carousel() {
     var i;
     var x = document.getElementsByClassName("mySlides");
@@ -132,18 +133,18 @@ function populateCommodityInfoFromCommoPrices(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
-    var databaseDiv = $("<h2>");
+    var databaseDiv = $("<h3>");
     var frequencyDiv = $("<h6>");
     var nameDiv = $("<h1>");
     var oldest_data_availableDiv = $("<h6>");
 
-    codeDiv.text("Code : " + data.info.code);
-    databaseDiv.text("Database : " + data.info.database);
-    frequencyDiv.html("Frequency : " + data.info.frequency);
-    nameDiv.html("Name: " + data.info.name);
+    codeDiv.text("Code: " + data.info.code);
+    databaseDiv.text("Database: " + data.info.database);
+    frequencyDiv.html("Frequency: " + data.info.frequency);
+    nameDiv.html(data.info.name);
     oldest_data_availableDiv.html("Oldest available date: " + data.info.oldest_available_date);
-    $('.commodityInfoHeader').append(nameDiv).append(databaseDiv);
-    divContainer.append(frequencyDiv).append(oldest_data_availableDiv);
+    $(".commodityInfoHeader").append(nameDiv);
+    divContainer.append(databaseDiv).append(frequencyDiv).append(oldest_data_availableDiv);
     $(".commodity-info-container").append(divContainer);
 
   }
@@ -156,20 +157,20 @@ function populateCommodityInfoFromQuandl(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
-    var databaseDiv = $("<h2>");
+    var databaseDiv = $("<h3>");
     var frequencyDiv = $("<h6>");
     var nameDiv = $("<h1>");
     var descriptionDiv = $("<div class='quandlDescription'>");
     var oldest_data_availableDiv = $("<h6>");
 
-    codeDiv.text("Code : " + data.dataset_code);
-    databaseDiv.html("Database : " + data.database_code +"/"+data.dataset_code);
-    frequencyDiv.html("Frequency : " + data.frequency);
-    nameDiv.html("Name: " + data.name);
+    codeDiv.text("Code: " + data.dataset_code);
+    databaseDiv.html("Database: " + data.database_code +"/"+data.dataset_code);
+    frequencyDiv.html("Frequency: " + data.frequency);
+    nameDiv.html(data.name);
     oldest_data_availableDiv.html("Oldest available date: " + data.oldest_available_date);
-    $('.commodityInfoHeader').append(nameDiv).append(databaseDiv);
+    $(".commodityInfoHeader").append(nameDiv);
     descriptionDiv.html("Description: " + data.description);
-    divContainer.append(frequencyDiv).append(descriptionDiv).append(oldest_data_availableDiv);
+    divContainer.append(databaseDiv).append(frequencyDiv).append(descriptionDiv).append(oldest_data_availableDiv);
     $(".commodity-info-container").append(divContainer);
   }
 }
@@ -181,21 +182,24 @@ function populateNews(data){
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
       var divContainer = $("<div>");
-      var byLineDiv = $("<div>");
+      var bylineDiv = $("<h3>");
       var headlineDiv = $("<h1>");
       var multimediaImg = $("<img>");
-      var snippetDiv = $("<div>");
-      var web_urlDiv = $("<div>");
+      var snippetDiv = $("<div class='popcomStory'>");
+      var web_urlDiv = $("<h6>");
       var sourceDiv = $("<div>");
-      byLineDiv.text(data.byline);
-      headlineDiv.text("Headline: " + data[i].headline.main);
+
+      bylineDiv.html("Source: " + data[i].byline.organization);
+      headlineDiv.html("Headline: " + data[i].headline.main);
       if(data[i].multimedia.length > 0){
         multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);  
       }
-      snippetDiv.text("Snippet: " + data[i].snippet);
-      web_urlDiv.text("Read more : " +data[i].web_url);
-      sourceDiv.text("Source : " +data[i].source);
-      divContainer.append(headlineDiv).append(byLineDiv).append(multimediaImg).append(snippetDiv).append(web_urlDiv).append(sourceDiv);
+      snippetDiv.html("Snippet: " + data[i].snippet);
+      web_urlDiv.html("Read more: " +data[i].web_url);
+      sourceDiv.text("Source: " + data[i].source);
+      $(".commodityNewsHeader").append(headlineDiv);
+
+      divContainer.append(bylineDiv).append(multimediaImg).append(snippetDiv).append(web_urlDiv);
       $(".commodity-news-container").prepend(divContainer);
     }
   }

@@ -64,6 +64,11 @@ img {
     color: white;
 }
 
+.btn3 {
+    background-color: #4aaaa5;
+    color: white;
+}
+
 .commod-search {
     margin-top: 15px;
 }
@@ -93,9 +98,11 @@ footer {
     width: auto;
     margin-bottom: 12px;
 }
-.easy-autocomplete{
-    width:100% !important;
+
+.easy-autocomplete {
+    width: 100% !important;
 }
+
 .mySlides {
     display: none;
     margin-top: -15px;
@@ -106,10 +113,12 @@ footer {
     height: 355px;
 }
 
+
+
 .background-image {
     position: absolute;
     position: fixed;
-    background-image: url(..//images/commodity-b.ground.jpg);
+    background-image: url(..//images/commod-b.ground-1.png);
     background-size: cover;
     background-repeat: no-repeat;
     opacity: .8;
@@ -119,13 +128,11 @@ footer {
     z-index: -50;
 }
 
+
 <<<<<<< HEAD
- /*//////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////////////////////////////////*/
 
-
-=======
->>>>>>> bfd77f6721509789616db332c85c6746ee0899db
-#contactFormContainer {
+=======>>>>>>>bfd77f6721509789616db332c85c6746ee0899db #contactFormContainer {
     left: 600px;
     float: right;
 }
@@ -138,7 +145,6 @@ footer {
     background-color: #000000;
     display: none;
     border-radius: 7px;
-    
 }
 
 
@@ -200,10 +206,44 @@ footer {
 }
 
 
+
+
+
 /* ////////////////////////////////////////////////////////////// */
+
 
 /* content styling */
 
-h1 {
-    
+.commodityInfoHeader h1 {
+    font-family: 'Arvo', serif;
+    font-size: 35px;
 }
+
+.commodityNewsHeader h1 {
+    font-family: 'Arvo', serif;
+    font-size: 35px;
+}
+
+.commodity-info-container h3 {
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+}
+
+.commodity-news-container h3 {
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+}
+
+.commodity-info-container h6 {
+    font-family: 'Arvo', serif;
+    font-size: 15px;
+}
+
+.commodity-news-container h6 {
+    font-family: 'Arvo', serif;
+    font-size: 15px;
+}
+
+
+
+

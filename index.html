@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
 
 <head>
     <title>sbs comm broker</title>
@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.min.css">
     <!-- Additional CSS Themes file - not required-->
     <link rel="stylesheet" href="assets/javascript/easyAutocomplete/easy-autocomplete.themes.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+
 </head>
 
 <body>
@@ -41,29 +43,42 @@
             </div>
         </div>
     </header>
-    <div class="background-image"></div>
+        <div class="background-image"></div> 
+
     <div class="container">
         <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
-        <div class="row">
+        <!--        <div class="row">
             <div class="col-md-6">
                 <div class="divCarousel">
-                    <!--     div for carosel photos -->
                     <div class="w3-content w3-section divCarousel" style="max-width:500px">
                         <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
                         <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
                         <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
                     </div>
-                </div>
-                <!-- div for line graphs -->
-                <div class="divGraph">
+                </div>  -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="divGraph panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
                     </div>
                     <div class="panel-body">
                         <div id="curve_chart"></div>
                     </div>
+                    <form>
+                        <div class="panel-body">
+                            <label for="Search">Refine Seach: </label>
+                            <em>Start Date:</em>
+                            <input id="dpStartDate" type="date" name="start">
+                            <em>End Date:</em>
+                            <input id="dpEndDate" type="date" name="end">
+                            <button type="submit" class="btn btn3">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
+        <!--
             <div class="box">
                 <div class="col-md-6">
                     <div id="contactFormContainer">
@@ -76,7 +91,6 @@
                                     <p><strong>Start Date:</strong></p>
                                     <input id="dpStartDate" type="date" name="start">
                                     <br>
-
                                     <p><strong>End Date:</strong></p>
                                     <input id="dpEndDate" type="date" name="end">
                                 </form>
@@ -86,7 +100,7 @@
                         </div>
                         <button class="btn btn2"><strong>Commodity Search Field</strong></button>
                     </div>
-                    <!--                     <div class="panel-body">
+    <div class="panel-body">
     <form>
         <div class="form-group commod-search">
             <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
@@ -99,25 +113,31 @@
         <div class="form-group commod-search">
             <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
  -->
-                    <div class="divCommodityInfo panel panel-default">
-                        <div class="panel-heading">
-                            <div class="commodityInfoHeader"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="divCommodityInfo panel panel-default">
+                    <div class="panel-heading">
+                        <div class="commodityInfoHeader"></div>
+                        commodityInfoHeader
+                    </div>
+                    <div class="panel-body">
+                        <div class="commodity-info-container">
+                            commodity-info-container
                         </div>
-                        <div class="panel-body">
-                            <div class="commodity-info-container">
-                            </div>
-                            <div class="quandlDescription">
-                            </div>
-                    
+                        <div class="quandlDescription">
                         </div>
                     </div>
-                    <div class="divCommodityNews">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Commodity News</h3>
+                </div>
+                <div class="divCommodityNews panel panel-default">
+                    <div class="panel-heading">
+                        <div class="commodityNewsHeader"></div>
+                        commodityNewsHeader
+                    </div>
+                    <div class="panel-body">
+                        <div class="commodity-news-container">
+                            commodity-news-container
                         </div>
-                        <div class="panel-body">
-                            <div class="commodity-news-container">
-                            </div>
+                        <div class="popcomStory">
                         </div>
                     </div>
                 </div>
@@ -138,22 +158,22 @@
                     <input type="password" id="password" name="password">
                 </div>
                 <div>
-                <label for="Confirm-Password">Confirm Password</label>
-                <input type="ConfirmPassword" id="Confirm-Password" name="Confirm-Password">
+                    <label for="Confirm-Password">Confirm Password</label>
+                    <input type="ConfirmPassword" id="Confirm-Password" name="Confirm-Password">
                 </div>
                 <div id="lower">
                     <div>
                         <input type="checkbox">
                         <label for="checkbox">Keep me logged in</label>
-                        </div>
-                            <div>
-                            <input type="submit" value="login">
-                            <input type="register">
-                            </div>
+                    </div>
                     <div>
-                    <label for="register">new user</label>
-                    <input type="email">
-                    <label for="email">email</label>
+                        <input type="submit" value="login">
+                        <input type="register">
+                    </div>
+                    <div>
+                        <label for="register">new user</label>
+                        <input type="email">
+                        <label for="email">email</label>
                     </div>
                 </div>
                 <!--/ lower-->
@@ -164,8 +184,7 @@
                 <div>
                     <label for="register">register:</label>
                     <input type="text" id="register" name="register">
-               </div>
-               
+                </div>
                 <div>
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password">
@@ -180,6 +199,13 @@
         </div>
     </div>
     </form>
+
+
+    <!-- new background affects  -->
+
+
+
+
     <footer>
         <strong>Copyright &copy; 2017</strong> <img class="footer-logo" src="assets/images/sbs-logo.png">
     </footer>
