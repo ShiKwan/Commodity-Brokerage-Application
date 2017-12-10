@@ -157,12 +157,7 @@ function populateCommodityInfoFromQuandl(data){
     $(".divCommodityInfo").show();
     var divContainer = $("<div>");
     var codeDiv = $("<div>");
-<<<<<<< HEAD
     var databaseDiv = $("<h3>");
-=======
-
-    var databaseDiv = $("<h2>");
->>>>>>> 37b7045cfc6c5f77ee25bbd211d9d6aadbdf62f5
     var frequencyDiv = $("<h6>");
     var nameDiv = $("<h1>");
     var descriptionDiv = $("<div class='quandlDescription'>");
@@ -186,32 +181,38 @@ function populateNews(data){
     console.log("in populateNews");
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
-      var divContainer = $("<div>");
-      var bylineDiv = $("<h3>");
+      var divPanel = $("<div class='panel panel-default'>");
+      var divHead = $("<div class='panel-heading'>");
+      var divBody = $("<div class='panel-body'>");
+      var bylineDiv = $("<h3 class='text-right'>");
       var headlineDiv = $("<h1>");
       var multimediaImg = $("<img>");
       var snippetDiv = $("<div class='popcomStory'>");
       var web_urlDiv = $("<h6>");
-      var sourceDiv = $("<div>");
+      var sourceDiv = $("<div class='float-right'>");
+      
 
       bylineDiv.html("Source: " + data[i].byline.organization);
-      headlineDiv.html("Headline: " + data[i].headline.main);
+      headlineDiv.html(data[i].headline.main);
       if(data[i].multimedia.length > 0){
         multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);  
       }
       snippetDiv.html("Snippet: " + data[i].snippet);
       web_urlDiv.html("Read more: " +data[i].web_url);
-      sourceDiv.text("Source: " + data[i].source);
-      $(".commodityNewsHeader").append(headlineDiv);
-
-      divContainer.append(bylineDiv).append(multimediaImg).append(snippetDiv).append(web_urlDiv);
-      $(".commodity-news-container").prepend(divContainer);
+      if(data[i].source){
+        sourceDiv.text("Source: " + data[i].source);  
+      }
+      
+      divHead.append(headlineDiv).append(bylineDiv);
+      divBody.append(multimediaImg).append(snippetDiv).append(web_urlDiv).append(sourceDiv);
+      divPanel.append(divHead).append(divBody);
+      $(".divCommodityNews").append(divPanel);
+      //$(".commodity-news-container").prepend(divContainer);
     }
   }
 }
 
-/*$(".selected.eac-item").click(function(){
-  console.log(this.html());
+$(".easy-autocomplete-container").click(function(){
   console.log("focus out");
   var searchCommodity = $("#txtCommoditySearch").val();
   console.log(searchCommodity);
@@ -220,24 +221,40 @@ function populateNews(data){
       if(commodity[i].database){
           commoData = getCommodityPriceFromCommoPrices(commodity[i].code);
           getGraphStartEndDateFromCommoPrices(commoData);
-          $("#dpStartDate").val(graphStartDate);
-          $("#dpEndDate").val(graphEndDate);
+          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
+          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
+          if(firstDate.diff(lastDate) > 0){
+            var temp = firstDate;
+            firstDate = lastDate;
+            lastDate = temp;
+          }
+          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
           
           return false;
           //look into commoprice
         }else{
           commoData = getQuandlCommodityPrice(commodity[i].code);
           getGraphStartEndDateFromQuandl(commoData);
-          $("#dpStartDate").val(graphStartDate);
-          $("#dpEndDate").val(graphEndDate);
-          
+          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
+          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
+          if(firstDate.diff(lastDate) > 0){
+            var temp = firstDate;
+            firstDate = lastDate;
+            lastDate = temp;
+          }
+          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
           //look into quandl
           return false;
         }
       }
     }
-  });*/
-
+  });
 
 $("#submit").on("click", function(){
   //TO-DO: change the value to the commodity textbox
@@ -252,8 +269,20 @@ $("#submit").on("click", function(){
           $(".commodity-search-field-container").hide();
           commoData = getCommodityPriceFromCommoPrices(commodity[i].code);
           getGraphStartEndDateFromCommoPrices(commoData);
-          $("#dpStartDate").val(graphStartDate);
-          $("#dpEndDate").val(graphEndDate);
+
+          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
+          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
+          if(firstDate.diff(lastDate) > 0){
+            var temp = firstDate;
+            firstDate = lastDate;
+            lastDate = temp;
+          }
+          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
+
+         
           googleChartGenerator(adjustedArr, commoData.info.name);
           populateCommodityInfoFromCommoPrices(commoData);
           populateNews(getNews(commoData.info.name));
@@ -262,8 +291,18 @@ $("#submit").on("click", function(){
         }else{
           commoData = getQuandlCommodityPrice(commodity[i].code);
           getGraphStartEndDateFromQuandl(commoData);
-          $("#dpStartDate").val(graphStartDate);
-          $("#dpEndDate").val(graphEndDate);
+          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
+          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
+          if(firstDate.diff(lastDate) > 0){
+            console.log("swap date");
+            var temp = firstDate;
+            firstDate = lastDate;
+            lastDate = temp;
+          }
+          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
           googleChartGenerator(adjustedArr, commoData.name);
           populateCommodityInfoFromQuandl(commoData);
           populateNews(getNews(commoData.name));
@@ -272,6 +311,9 @@ $("#submit").on("click", function(){
         }
       }else{
        //couldn't find anything in our library 
+       
+       populateNews(getNews(searchCommodity.trim()));
+       return false;
 
       }
     }

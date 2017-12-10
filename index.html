@@ -66,20 +66,17 @@
             </div>
         </div>
     </header>
-        <div class="background-image"></div> 
+    <div class="background-image"></div> 
 
     <div class="container">
-        <div class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
-<<<<<<< HEAD
-        <!--        <div class="row">
-            <div class="col-md-6">
-                <div class="divCarousel">
-                    <div class="w3-content w3-section divCarousel" style="max-width:500px">
-                        <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
-                        <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
-                    </div>
-                </div>  -->
+        <div id="msg-center" class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
+        <div class="divCarousel">
+            <div class="w3-content w3-section divCarousel" style="max-width:500px">
+                <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
+                <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
+            </div>
+        </div> 
         <div class="row">
             <div class="col-md-12">
                 <div class="divGraph panel panel-default">
@@ -93,9 +90,9 @@
                         <div class="panel-body">
                             <label for="Search">Refine Seach: </label>
                             <em>Start Date:</em>
-                            <input id="dpStartDate" type="date" name="start">
+                            <input id="dpGraphStartDate" type="date" name="start">
                             <em>End Date:</em>
-                            <input id="dpEndDate" type="date" name="end">
+                            <input id="dpGraphEndDate" type="date" name="end">
                             <button type="submit" class="btn btn3">Submit</button>
                         </div>
                     </form>
@@ -141,25 +138,23 @@
             <div class="col-md-12">
                 <div class="divCommodityInfo panel panel-default">
                     <div class="panel-heading">
+                    	<h1>Commodity Info</h1>
                         <div class="commodityInfoHeader"></div>
-                        commodityInfoHeader
                     </div>
                     <div class="panel-body">
                         <div class="commodity-info-container">
-                            commodity-info-container
                         </div>
                         <div class="quandlDescription">
                         </div>
                     </div>
                 </div>
-                <div class="divCommodityNews panel panel-default">
+                <div class="divCommodityNews">
+                	<h1>Commodity News</h1>
                     <div class="panel-heading">
                         <div class="commodityNewsHeader"></div>
-                        commodityNewsHeader
                     </div>
                     <div class="panel-body">
                         <div class="commodity-news-container">
-                            commodity-news-container
                         </div>
                         <div class="popcomStory">
                         </div>
@@ -170,9 +165,9 @@
     </div>
     <!-- <br>
     <br> -->
-    <div>
+    <div style="display:none">
         <div class="row" style=" display: block; background-color:white, border-style:solid, border:white">
-            <form class="divLogin colo-md-6">
+            <div class="divLogin colo-md-6">
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username">
@@ -199,38 +194,10 @@
                         <input type="email">
                         <label for="email">email</label>
                     </div>
-=======
-        
-        <div class="divCarousel">
-            <!--     div for carosel photos -->
-            <div class="w3-content w3-section divCarousel" style="max-width:500px">
-                <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
-                <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
-                <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
-            </div>
-        </div>
-        <div class="divCommodityInfo">
-            <div class="panel-heading">
-                <h3 class="panel-title">Commodity Index</h3>
-            </div>
-            <div class="panel-body">
-                <div class="commodity-info-container">
                 </div>
             </div>
-        </div>
-        <div class="divCommodityNews">
-            <div class="panel-heading">
-                <h3 class="panel-title">Commodity News</h3>
-            </div>
-            <div class="panel-body">
-                <div class="commodity-news-container">
->>>>>>> 37b7045cfc6c5f77ee25bbd211d9d6aadbdf62f5
-                </div>
-            </div>
-        </div>
-<<<<<<< HEAD
-        <div>
-            <form class="divLogin row">
+	        <div>
+	            <form class="divLogin row">
                 <div>
                     <label for="register">register:</label>
                     <input type="text" id="register" name="register">
@@ -245,48 +212,13 @@
                     <input type="submit" value="login">
                 </div>
                 <!--/ lower-->
-            </form>
-        </div>
+	            </form>
+	        </div>
+	    </div>
     </div>
-    </form>
 
 
     <!-- new background affects  -->
-
-
-
-
-=======
-                <!-- div for line graphs -->
-        <div class="divGraph">
-            <div class="panel-heading">
-                <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
-            </div>
-            <div class="panel-body">
-                <div id="curve_chart"></div>
-            </div>
-        </div>
-    </div>
-
-            
-<!--                     <div class="panel-body">
-<form>
-<div class="form-group commod-search">
-    <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
-</div>
-<br>
-<div class="form-group commod-search">
-    <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
-</div>
-<br>
-<div class="form-group commod-search">
-    <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
--->
-
-       
-    <br>
-    <br>
->>>>>>> 37b7045cfc6c5f77ee25bbd211d9d6aadbdf62f5
     <footer>
         <strong>Copyright &copy; 2017<strong> <img class="footer-logo" src="assets/images/sbs-logo.png">
     </footer>
@@ -303,11 +235,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
     <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script>
-
-
-    
-    
+    <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script> 
     <script src="assets/javascript/app.js"></script>
 
 </body>
