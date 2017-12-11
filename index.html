@@ -86,7 +86,8 @@
        </div>  -->
         <div class="row">
             <div class="col-md-12">
-            	<div id="msg-center" class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
+            	<div id="msg-center" class="alert"> <!-- add class name dynamically in js -->
+                </div>
             	<div id="divAccount" >
 			        <div class="row">
 			            <div class="divNewAccount col-md-6">
@@ -106,7 +107,7 @@
 					                </div>
 					                <div>
 					                    <label for="Confirm-Password">confirm password</label>
-					                    <input type="ConfirmPassword" class="form-control" id="txtConfirmPassword" name="Confirm-Password">
+					                    <input type="password" class="form-control" id="txtConfirmPassword" name="Confirm-Password">
 					                </div>
 					                <div id="lower text-right">
 				                    	<button id="cmdCreateAccount" class="btn btn-default">create account</button>
@@ -122,11 +123,11 @@
 				            	<div class="panel-body">
 					                <div>
 					                    <label for="register">User ID</label>
-					                    <input type="text" class="form-control" id="register" name="register">
+					                    <input type="text" class="form-control" id="txtUser" name="register">
 					                </div>
 					                <div>
 					                    <label for="password">Password:</label>
-					                    <input type="password" class="form-control" id="password" name="password">
+					                    <input type="password" class="form-control" id="txtUserPassword" name="password">
 					                </div>
 					                <div id="lower align-right">
 					                    <button id="cmdLogin" class="btn btn-default">Login</button>
