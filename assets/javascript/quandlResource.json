@@ -34,7 +34,6 @@
 	{"name" :"Rice, CBOT Rice Futures", "code" : "CHRIS/CME_RR1"},
 	{"name" :"Rice, Top Flight Grain Co-op", "code" : "TFGRAIN/SOYBEANS"},
 	{"name" :"Soybean, CBOT Soybean Futures", "code" : "CHRIS/CME_S1"},
-	{"name" :"Wheat, Soybean Oil", "code" : "WORLDBANK/WLD_SOYBEAN_OIL"},
 	{"name" :"Wheat, Gulf of Mexico", "code" : "ODA/PWHEAMT_USD"},
 	{"name" :"Rice, Thailand (ODA)", "code" : "ODA/PRICENPQ_USD"},
 	{"name" :"Oats, CBOT Oats Futures", "code" : "CHRIS/CME_O1"},
