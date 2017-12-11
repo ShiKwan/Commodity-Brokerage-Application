@@ -30,7 +30,7 @@ img {
 }
 
 .btn2 {
-    height: 40px;
+    height: 35px;
     width: 150px;
     cursor: pointer;
     background-color: #4aaaa5;
@@ -64,7 +64,7 @@ img {
     padding-bottom: 15px;
     border-radius: 5px;
     margin-bottom: 50px;
-    margin-top: 100px;
+    margin-top: 25px;
     width: 100%;
 }
 
@@ -80,6 +80,14 @@ img {
 .btn1 {
     background-color: #4aaaa5;
     color: white;
+    height: 35px;
+    width: 120px;
+    margin-left: 9px;
+}
+
+.form-control {
+    width: 300px;
+    margin-bottom: 10px;
 }
 
 .btn3 {
@@ -89,10 +97,6 @@ img {
 
 .commod-search {
     margin-top: 15px;
-}
-
-p {
-    color: white;
 }
 
 .container.wrapper {
@@ -345,7 +349,7 @@ a.carousel-control,
 
 .social-container .social {
     transition: padding-right 0.5s ease;
-    padding: 10px 5px 10px 10px;
+    padding: 10px 10px 10px 10px;
     background-color: #505050;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -358,20 +362,10 @@ a.carousel-control,
     background: #4aaaa5;
 }
 
-.social-icon.nasdaq {
-    margin-left: 5px;
-}
-
 .social-icon {
     width: 45px;
     height: 45px;
 }
-
-
-
-
-
-
 
 
 /*//////////////////////////////////////////////////////////////////////////////*/
@@ -389,10 +383,10 @@ a.carousel-control,
 }
 
 fieldset {
-    background-color: #4aaaa5;
-    width: 350px;
-    height: 200px;
+    height: 300px;
     float: right;
+    border-radius: 7px;
+
 }
 
 #contactForm {
@@ -420,7 +414,6 @@ fieldset {
 #contactForm input[type=text] {
     display: block;
     border: solid 1px #4d3a24;
-
     margin-bottom: 10px;
     height: 24px;
 }
@@ -445,6 +438,14 @@ fieldset {
 #messageSent {
     color: #ff9933;
     display: none;
+}
+
+.divCommodityNews {
+    margin-bottom: 100px;
+}
+
+.divNewsHeader {
+    margin-top: 25px;
 }
 
 
@@ -513,3 +514,57 @@ fieldset {
     font-family: 'Arvo', serif;
     font-size: 15px;
 }
+
+.commodity-search-container {
+    margin-bottom: 100px;
+} 
+
+#cmdCreateAccount {
+    margin-top: 15px;
+}
+
+#cmdLogin {
+    margin-top: 15px;
+}
+
+.form-control-commo {
+    width: 100%;
+    margin-bottom: 10px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+#dpStartDate {
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+#dpEndDate {
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.refine-start-date {
+    margin-right: 10px;
+}
+
+.refine-end-date {
+    margin-right: 21px;
+}
+
+.search {
+    margin-right: 10px;
+}
+
+#dpGraphStartDate {
+    margin-right: 15px;
+}
+
+#dpGraphEndDate {
+    margin-right: 15px;
+}
+
+#txtCommoditySearch {
+    width: 100%;
+}
+
