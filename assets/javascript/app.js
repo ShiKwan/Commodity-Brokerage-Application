@@ -201,15 +201,15 @@ function populateNews(data){
     console.log("in populateNews");
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
-      var divPanel = $("<div class='panel panel-default'>");
+      var divPanel = $("<div class='panel'>");
       var divHead = $("<div class='panel-heading'>");
       var divBody = $("<div class='panel-body'>");
       var bylineDiv = $("<h3 class='text-right'>");
       var headlineDiv = $("<h1>");
       var multimediaImg = $("<img>");
-      var snippetDiv = $("<div class='popcomStory'>");
+      var snippetDiv = $("<h3 class='popcomStory'>");
       var web_urlDiv = $("<h6>");
-      var sourceDiv = $("<div class='float-right'>");
+      var sourceDiv = $("<h3 class='float-right'>");
       
       
       headlineDiv.html(data[i].headline.main);
@@ -225,7 +225,7 @@ function populateNews(data){
         multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);  
       }
       
-      divHead.append(headlineDiv).append(bylineDiv);
+      divHead.append(headlineDiv);
       divBody.append(multimediaImg).append(snippetDiv).append(web_urlDiv).append(sourceDiv);
       divPanel.append(divHead).append(divBody);
       $(".divCommodityNews").append(divPanel);
