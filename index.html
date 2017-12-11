@@ -87,53 +87,52 @@
             <div class="col-md-12">
             	<div id="msg-center" class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
             	<div id="divAccount" >
-			        <div class="row" style=" display: block; background-color:white, border-style:solid, border:white">
-			            <div class="divLogin colo-md-6">
-			                <div>
-			                    <label for="username">Username:</label>
-			                    <input type="text" id="username" name="username">
-			                </div>
-			                <div>
-			                    <label for="password">Password:</label>
-			                    <input type="password" id="password" name="password">
-			                </div>
-			                <div>
-			                    <label for="Confirm-Password">Confirm Password</label>
-			                    <input type="ConfirmPassword" id="Confirm-Password" name="Confirm-Password">
-			                </div>
-			                <div id="lower">
-			                    <div>
-			                        <input type="checkbox">
-			                        <label for="checkbox">Keep me logged in</label>
-			                    </div>
-			                    <div>
-			                        <input type="submit" value="login">
-			                        <input type="register">
-			                    </div>
-			                    <div>
-			                        <label for="register">new user</label>
-			                        <input type="email">
-			                        <label for="email">email</label>
-			                    </div>
-			                </div>
+			        <div class="row">
+			            <div class="divNewAccount col-md-6">
+			            	<div class="panel panel-default">
+			            		<div class="alert new-account-msg-box"></div>
+			            		<div class="panel-heading">
+			            			<h1>create account</h1>
+			            		</div>	
+			            		<div class="panel-body">
+			            			<div>
+					                    <label for="username">user ID</label>
+					                    <input type="text" class="form-control" id="txtNewUser" name="username">
+					                </div>
+					                <div>
+					                    <label for="password">password:</label>
+					                    <input type="password" class="form-control" id="txtPassword" name="password">
+					                </div>
+					                <div>
+					                    <label for="Confirm-Password">confirm password</label>
+					                    <input type="ConfirmPassword" class="form-control" id="txtConfirmPassword" name="Confirm-Password">
+					                </div>
+					                <div id="lower text-right">
+				                    	<button id="cmdCreateAccount" class="btn btn-default">create account</button>
+					                </div>
+			            		</div>
+			            	</div>
 			            </div>
-				        <div>
-				            <form class="divLogin row">
-			                <div>
-			                    <label for="register">register:</label>
-			                    <input type="text" id="register" name="register">
-			                </div>
-			                <div>
-			                    <label for="password">Password:</label>
-			                    <input type="password" id="password" name="password">
-			                </div>
-			                <div id="lower">
-			                    <input type="checkbox">
-			                    <label for="checkbox">Keep me logged in</label>
-			                    <input type="submit" value="login">
-			                </div>
+				        <div class="divLogin col-md-6">
+				            <div class="panel panel-default">
+				            	<div class="panel-heading">
+				            		<h1>login</h1>
+				            	</div>
+				            	<div class="panel-body">
+					                <div>
+					                    <label for="register">User ID</label>
+					                    <input type="text" class="form-control" id="register" name="register">
+					                </div>
+					                <div>
+					                    <label for="password">Password:</label>
+					                    <input type="password" class="form-control" id="password" name="password">
+					                </div>
+					                <div id="lower align-right">
+					                    <button id="cmdLogin" class="btn btn-default">Login</button>
+					                </div>
+					            </div>
 			                <!--/ lower-->
-				            </form>
+			           		</div>
 				        </div>
 				    </div>
 			    </div>

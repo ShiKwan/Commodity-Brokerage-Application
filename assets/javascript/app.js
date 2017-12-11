@@ -54,6 +54,7 @@ $(document).ready(function(){
   firebase.initializeApp(config);
   var database = firebase.database();
   var dbCommodity = database.ref("/commodity");
+  var dbUser = database.ref("/users");
   var jsonCommodity = JSON.stringify(commodity);
   var adjustedArr = [];
   var API_Identifier = "";
@@ -651,4 +652,65 @@ $.getJSON( "https://shikwan.github.io/Project1/assets/javascript/quandlResource.
 dbCommodity.once("value", function(snapshot){
   console.log(snapshot.val());
 })
+
+
+/*dbUser.on("child_added", function(childSnapshot, prevChildKey){
+  console.log("get users from firebase");
+  console.log(childSnapshot.val());
+})*/
+
+
+
+
+$("#cmdCreateAccount").click(function(){
+  var validated = true;
+  console.log($("#txtNewUser").val().trim() + " " + $("#txtPassword").val().trim() + " " +  $("#txtConfirmPassword").val().trim());
+  if($("#txtNewUser").val().trim() == "" || $("#txtPassword").val().trim() == "" || $("#txtConfirmPassword").val().trim() == "") {
+    $("#msg-center").append("<li>fields are empty, please enter something</li>");
+    validated = false;
+  }
+
+  if($("#txtPassword").val() !== $("#txtConfirmPassword").val()){
+    $("#msg-center").append("<li>please re-type password</li>")
+    validated = false;
+  }
+
+  //use this to check if user name exist in database
+  dbUser.once("value", function(childSnapshot, prevChildKey){
+    console.log("childSnapshot");
+    console.log(childSnapshot.val());
+    for(var key in childSnapshot.val()){
+      console.log(childSnapshot.val()[key].username);
+      if($("#txtNewUser").val().trim() === childSnapshot.val()[key].username){
+        console.log(childSnapshot.val()[key].username);
+        console.log("user exist in database, pick a new username")
+        $("#msg-center").append("<li>user exist in database, pick a new username</li>");
+        validated=false;
+        return false;
+      }
+    }
+  })
+
+  if(validated){
+    var newUser = {
+      username : $("#txtNewUser").val().trim(),
+      password : $("#txtPassword").val().trim()
+    };
+    dbUser.push(newUser);
+
+    $(".new-account-msg-box").addClass("alert-success");
+    $(".new-account-msg-box").val("Account added successfully!");
+  }else{
+    $("#msg-center").show();
+
+  }
+
+
+});
+
+
+
+
+
+
 });
