@@ -27,58 +27,143 @@
                 <div class="col-md-12">
                     <img src="assets/images/sbs-logo.png">
                     <div class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Quick Search">
-                            <button type="submit" class="btn btn1">Submit</button>
-                            <div id="contactFormContainer">
-                                <div id="contactForm">
-                                    <fieldset>
-                                        <label for="Search">Search Commodity</label>
-                                        <input id="txtCommoditySearch" type="text" />
-                                        <form>
-                                            <br>
-                                            <p><strong>Start Date:</strong></p>
-                                            <input id="dpStartDate" type="date" name="start">
-                                            <br>
-                                            <p><strong>End Date:</strong></p>
-                                            <input id="dpEndDate" type="date" name="end">
-                                        </form>
-                                    
-                                        <input id="submit" type="submit" name="submit" onclick="closeForm()" />
-                                        <span id="messageSent">Processing Your Commodity Search</span>
-                                    </fieldset>
-                                </div>
-                                <button class="btn btn2"><strong>Search Field</strong></button>
-                            </div>
-                        </div>
-                       
-                        
+                    	<a id="slideDownUser" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                    	
+                    	<a id="slideDownSearch" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                    	<a  href="#"><button id="slideDownCommoditySearch" class="btn btn2"><strong>Search Field</strong></button></a>
                     </div>
-                    <div class="btn">
-                        <!--     <button class="btn btn2">Slide down</button>   -->
-                        <!--    <button type="button" class="btn">Commod Data</button> -->
-                        <a href="https://www.facebook.com/" target="_blank"><img class="facebook" src="assets/images/facebook.svg"/></a>
-                        <a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="nasdaq" src="assets/images/nasdaq.png"/></a>
-                        <a href="https://www.rss.com/" target="_blank"><img class="rss" src="assets/images/rss-1.png"/></a>
-                    </div>
-                    
                 </div>
             </div>
         </div>
     </header>
-    <div class="background-image"></div> 
+    
+   <!--  <div class="background-image"></div>  -->
+	<div id="myCarousel" class="carousel slide carousel-fade background-image" data-ride="carousel">
+		<!-- 	    Indicators
+		<ol class="carousel-indicators">
+		  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		  <li data-target="#myCarousel" data-slide-to="1"></li>
+		  <li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol> -->
 
-    <div class="container">
-        <div id="msg-center" class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
-        <div class="divCarousel">
-            <div class="w3-content w3-section divCarousel" style="max-width:500px">
-                <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
-                <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
-                <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
-            </div>
-        </div> 
+	    <!-- Wrapper for slides -->
+	    <div class="carousel-inner">
+	      <div class="item active">
+	        <img src="assets/images/commod-b.ground-1.png" alt="bg1" style="width:100%;">
+	      </div>
+	    
+	      <div class="item">
+	        <img src="assets/images/commod-b.ground-2.png" alt="bg2" style="width:100%;">
+	      </div>
+
+	      <div class="item">
+	        <img src="assets/images/commod-b.ground-3.png" alt="bg3" style="width:100%;">
+	      </div>
+	    </div>
+    </div>
+    <div class="container wrapper">
+    
+		<div class="social-container">
+		    <div class="social">
+		    	<img class="social-icon facebook" src="assets/images/facebook.svg"/></a>
+		    </div>
+		    <div class="social">
+		    	<a href="http://www.nasdaq.com/markets/commodities.aspx" target="_blank"><img href="http://www.nasdaq.com/markets/commodities.aspx" class="social-icon nasdaq" src="assets/images/nasdaq.png"/></a>
+		    </div>
+		    <div class="social">
+		    	<a href="https://www.rss.com/" target="_blank"><img class="social-icon rss" src="assets/images/rss-1.png"/></a>
+		    </div>
+		</div>
+
+        
+       <!--  <div class="divCarousel">
+           <div class="w3-content w3-section divCarousel" style="max-width:500px">
+               <img class="mySlides w3-animate-fading" src="assets/images/coffee-carousel.png" style="width:100%">
+               <img class="mySlides w3-animate-fading" src="assets/images/cotton-carousel.png" style="width:100%">
+               <img class="mySlides w3-animate-fading" src="assets/images/gold-carousel.png" style="width:100%">
+           </div>
+       </div>  -->
         <div class="row">
             <div class="col-md-12">
+            	<div id="msg-center" class="alert alert-danger"><strong>Warning...</strong> Please complete indicated fields.</div>
+            	<div id="divAccount" >
+			        <div class="row" style=" display: block; background-color:white, border-style:solid, border:white">
+			            <div class="divLogin colo-md-6">
+			                <div>
+			                    <label for="username">Username:</label>
+			                    <input type="text" id="username" name="username">
+			                </div>
+			                <div>
+			                    <label for="password">Password:</label>
+			                    <input type="password" id="password" name="password">
+			                </div>
+			                <div>
+			                    <label for="Confirm-Password">Confirm Password</label>
+			                    <input type="ConfirmPassword" id="Confirm-Password" name="Confirm-Password">
+			                </div>
+			                <div id="lower">
+			                    <div>
+			                        <input type="checkbox">
+			                        <label for="checkbox">Keep me logged in</label>
+			                    </div>
+			                    <div>
+			                        <input type="submit" value="login">
+			                        <input type="register">
+			                    </div>
+			                    <div>
+			                        <label for="register">new user</label>
+			                        <input type="email">
+			                        <label for="email">email</label>
+			                    </div>
+			                </div>
+			            </div>
+				        <div>
+				            <form class="divLogin row">
+			                <div>
+			                    <label for="register">register:</label>
+			                    <input type="text" id="register" name="register">
+			                </div>
+			                <div>
+			                    <label for="password">Password:</label>
+			                    <input type="password" id="password" name="password">
+			                </div>
+			                <div id="lower">
+			                    <input type="checkbox">
+			                    <label for="checkbox">Keep me logged in</label>
+			                    <input type="submit" value="login">
+			                </div>
+			                <!--/ lower-->
+				            </form>
+				        </div>
+				    </div>
+			    </div>
+            	<div class="search-container">
+			    	<input type="text" class="form-control" placeholder="Quick Search">
+			      	<button type="submit" class="btn btn1">Submit</button>
+			    </div>
+            	<div class="commodity-search-container">
+                    <div id="commodity-search-wrap">
+                        <fieldset>
+                            <label for="Search">Search Commodity</label>
+                            <div id="divRelated">
+                            	Do you mean..
+                            	<div class="related-container">
+                            	</div>
+                            </div>
+                            <input id="txtCommoditySearch" type="text" />
+                            <div class="date-container">
+                                <p><strong>Start Date:</strong></p>
+                                <input id="dpStartDate" type="date" name="start">
+                                <br>
+                                <p><strong>End Date:</strong></p>
+                                <input id="dpEndDate" type="date" name="end">
+                            </div>
+                        	<button id="submit" type="submit" class="btn btn-default">Submit</button>
+                            <span id="messageSent">Processing Your Commodity Search</span>
+                        </fieldset>
+                    </div>
+                </div>
+
                 <div class="divGraph panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
@@ -93,49 +178,15 @@
                             <input id="dpGraphStartDate" type="date" name="start">
                             <em>End Date:</em>
                             <input id="dpGraphEndDate" type="date" name="end">
-                            <button type="submit" class="btn btn3">Submit</button>
+                            <button id="cmdGraphSubmit" type="submit" class="btn btn3">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!--
-            <div class="box">
-                <div class="col-md-6">
-                    <div id="contactFormContainer">
-                        <div id="contactForm">
-                            <fieldset>
-                                <label for="Search">Search Commodity</label>
-                                <input id="txtCommoditySearch" type="text" />
-                                <form>
-                                    <br>
-                                    <p><strong>Start Date:</strong></p>
-                                    <input id="dpStartDate" type="date" name="start">
-                                    <br>
-                                    <p><strong>End Date:</strong></p>
-                                    <input id="dpEndDate" type="date" name="end">
-                                </form>
-                                <input id="submit" type="submit" name="submit" onclick="closeForm()" />
-                                <span id="messageSent">Processing Your Commodity Search</span>
-                            </fieldset>
-                        </div>
-                        <button class="btn btn2"><strong>Commodity Search Field</strong></button>
-                    </div>
-    <div class="panel-body">
-    <form>
-        <div class="form-group commod-search">
-            <input type="text" id="txtCommoditySearch" class="form-control" placeholder="Commodity Search">
-        </div>
-        <br>
-        <div class="form-group commod-search">
-            <input type="text" id="dpStartDate" class="form-control" placeholder="Start Date Picker">
-        </div>
-        <br>
-        <div class="form-group commod-search">
-            <input type="text" id="dpEndDate" class="form-control" placeholder="End Date Picker">
- -->
         <div class="row">
             <div class="col-md-12">
+            	
                 <div class="divCommodityInfo panel panel-default">
                     <div class="panel-heading">
                     	<h1>Commodity Info</h1>
@@ -165,57 +216,7 @@
     </div>
     <!-- <br>
     <br> -->
-    <div style="display:none">
-        <div class="row" style=" display: block; background-color:white, border-style:solid, border:white">
-            <div class="divLogin colo-md-6">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username">
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <div>
-                    <label for="Confirm-Password">Confirm Password</label>
-                    <input type="ConfirmPassword" id="Confirm-Password" name="Confirm-Password">
-                </div>
-                <div id="lower">
-                    <div>
-                        <input type="checkbox">
-                        <label for="checkbox">Keep me logged in</label>
-                    </div>
-                    <div>
-                        <input type="submit" value="login">
-                        <input type="register">
-                    </div>
-                    <div>
-                        <label for="register">new user</label>
-                        <input type="email">
-                        <label for="email">email</label>
-                    </div>
-                </div>
-            </div>
-	        <div>
-	            <form class="divLogin row">
-                <div>
-                    <label for="register">register:</label>
-                    <input type="text" id="register" name="register">
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <div id="lower">
-                    <input type="checkbox">
-                    <label for="checkbox">Keep me logged in</label>
-                    <input type="submit" value="login">
-                </div>
-                <!--/ lower-->
-	            </form>
-	        </div>
-	    </div>
-    </div>
+    
 
 
     <!-- new background affects  -->
@@ -236,6 +237,10 @@
     <!-- <script type="text/javascript" data-main="assets/javascript/app.js" src="assets/javascript/require.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script type="text/javascript" src="assets/javascript/easyAutocomplete/jquery.easy-autocomplete.min.js"></script> 
+    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+   <!--  <script src="assets/javascript/bgcarousel.js"></script>
+   <script src="assets/javascript/jquery.velocity.min.js"></script>
+   	<script type="text/javascript" src="assets/javascript/jquery.touchSwipe.min.js"></script> -->
     <script src="assets/javascript/app.js"></script>
 
 </body>
