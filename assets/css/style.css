@@ -19,7 +19,7 @@ img {
     margin-top: 10px;
 }
 
-.glyphicon-user {
+.glyphicon {
     margin-top: 20px;
     margin-right: 10px;
 }
@@ -27,6 +27,10 @@ img {
 .glyphicon-search {
     margin-top: 20px;
     margin-right: 10px;
+}
+
+.glyphicon-log-in {
+    margin-right: 15px;
 }
 
 .btn2 {
@@ -574,4 +578,6 @@ fieldset {
 #txtCommoditySearch {
     width: 100%;
 }
+
+
 
