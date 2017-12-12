@@ -308,11 +308,11 @@ function populateNews(data){
       var snippetDiv = $("<h3 class='popcomStory'>");
       var web_urlDiv = $("<h6>");
       var sourceDiv = $("<h3 class='float-right'>");
-      
+
       
       headlineDiv.html(data[i].headline.main);
       snippetDiv.html("Snippet: " + data[i].snippet);
-      web_urlDiv.html("Read more: " +data[i].web_url);
+      web_urlDiv.html("Read more: " + data[i].web_url);
       if(data[i].source){
         sourceDiv.text("Source: " + data[i].source);  
       }
