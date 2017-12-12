@@ -28,7 +28,8 @@ $(document).ready(function(){
   };
   var loginUser;
   var dbUserSearch;
-  var dbSearch = database.ref("/search");
+  var dbGlobalSearch = database.ref("/search");
+  var dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search');
   var trendingSearch = [];
   var userSearch = [];
   if(sessionStorage.getItem("username")){
@@ -81,57 +82,58 @@ $(document).ready(function(){
 function populateTrending(){
   console.log("populating Trending list")
   trendingSearch = [];
-  dbSearch.on("child_added", function(childSnapshot){
-    console.log(childSnapshot.val());
-    trendingSearch.push(childSnapshot.val());
+  dbGlobalSearch.orderByValue().limitToLast(3).on("child_added", function(snapshot){
+    trendingSearch.push(snapshot.key + ": " + snapshot.val());
+    console.log("trending val: " + snapshot.val() + " key : " + snapshot.key);
   });
+  setTimeout(function(){
+    for(var i =trendingSearch.length ; i >= 0; i--){
+      console.log(trendingSearch[i]);
+    }
+  },2000)
+    
 }
+
 
 function populateUserSearch(){
   if(sessionStorage.getItem("username")){
     userSearch = [];
-    dbUserSearch.on("child_added", function(childSnapshot){
-      userSearch.push(childSnapshot.val());
-    })
+    dbUserSearchCommo.orderByValue().limitToLast(3).on("child_added", function(snapshot){
+      userSearch.push(snapshot.key + ": " + snapshot.val());
+      console.log("user search val: " + snapshot.val() + " key : " + snapshot.key);
+    });
+    setTimeout(function(){
+      for(var i =userSearch.length ; i >= 0; i--){
+        console.log(userSearch[i]);
+      }
+    },2000)
   }
-  
 }
+populateTrending();
+populateUserSearch();
 
-function sortAndDisplayArray(arr){
-    arr.sort();
-    var current = null;
-    var cnt = 0;
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] != current) {
-            if (cnt > 0) {
-                console.log(arr[i] + ' comes --> ' + cnt + ' times<br>');
-            }
-            current = arr[i];
-            cnt = 1;
-        } else {
-            cnt++;
-        }
-    }
-    if (cnt > 0) {
-        console.log(current + ' comes --> ' + cnt + ' times');
-    }
-}
+dbGlobalSearch.orderByValue().limitToLast(3).on("child_added", function(snapshot){
+  console.log("val: " + snapshot.val() + " key : " + snapshot.key);
 
+})
 
 function dbSaveSearch(search){
+  console.log("search is :" + search);
   console.log("save search data into firebase database");
+  
+  var dbGlobalSearch = database.ref("/search/" + search);
   if(sessionStorage.getItem("username")){
-    dbUserSearch.push({
-      search: search
-    });
-    dbSearch.push({
-      search:search
-    });
-  }else{
-    dbSearch.push({
-      search:search
+    console.log("sessionStorage: " + sessionStorage.getItem("username"));
+    var dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search/' + search);
+    dbUserSearchCommo.transaction(function(up){
+      return up+1;
+      console.log("return search +1");
     })
   }
+  dbGlobalSearch.transaction(function(up){
+    return up+1;
+    console.log("return search +1");
+  })
 }
 function populateAutocompleteCommodity(){
 
@@ -149,14 +151,6 @@ function populateAutocompleteCommodity(){
       }
     };
     $("#txtCommoditySearch").easyAutocomplete(options);
-/*  END UP PARSING JSON FILES INTO COMMODITY VARIABLE, SAVE THIS FOR FUTURE REFERENCE
-    var options2 = {
-    data: commodity,
-    getValue: "name",
-    list: {
-      match: {enabled: true}
-    }
-};*/
 }
 
 
@@ -170,19 +164,6 @@ function quandlResources(){
   })
 }
   
-
-//CommoPrice
-//getCommodity();
-
-//CommoPrice
-//getCommodityPriceFromCommoPrices();
-
-//CommoPrice
-//getSpecificCommodity();
-
-//getQuandlCommodityPrice();
-
-//getSpecificCommodity();
 var graphStartDate, graphEndDate, graphSecondEndDate; 
 function initialization(){
   $(".divCarousel").show();
@@ -446,8 +427,10 @@ $("#submit").on("click", function(){
   }else{
     $(".commodity-search-container").slideUp();  
     for(var i = 0; i< commodity.length; i++){
-      if(commodity[i].name == searchCommodity){
-        dbSaveSearch(commodity[i].name);
+      if(commodity[i].name == searchCommodity){  
+        var toreplace = commodity[i].name.replace(/\.|\#|\$|\[|\]/g, "");
+        console.log(toreplace);
+        dbSaveSearch(toreplace);
         $("#divCommodityInfo").show();
         foundCommodity = true;    
         commoditySelected.name = commodity[i].name;
