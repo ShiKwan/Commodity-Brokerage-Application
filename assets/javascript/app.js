@@ -4,6 +4,43 @@ function closeForm() {
 }
 
 $(document).ready(function(){
+   // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCC244ApGQyz873Hf48J6yBoelnUxBppMY",
+    authDomain: "project1-import-export.firebaseapp.com",
+    databaseURL: "https://project1-import-export.firebaseio.com",
+    projectId: "project1-import-export",
+    storageBucket: "",
+    messagingSenderId: "52575437459"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  var dbCommodity = database.ref("/commodity");
+  var jsonCommodity = JSON.stringify(commodity);
+  var adjustedArr = [];
+  var API_Identifier = "";
+  var relatedSearch = [];
+  var priceDiff = "";
+  var commoditySelected = {
+    name : "",
+    code : "",
+    database : ""
+  };
+  var loginUser;
+  var dbUserSearch;
+  var dbSearch = database.ref("/search");
+  var trendingSearch = [];
+  var userSearch = [];
+  if(sessionStorage.getItem("username")){
+    loginUser = sessionStorage.getItem("username");
+    dbUserSearch = database.ref("/users/"+loginUser+"/search");
+    $(".glyphicon-log-out").show();
+    $(".glyphicon-log-in").hide();
+  }else{
+    $(".glyphicon-log-in").hide();
+    $(".glyphicon-log-out").show();
+  }
+  console.log("user login : " + loginUser);
   $('.carousel').carousel({
     interval: 5000
   });
@@ -18,7 +55,6 @@ $(document).ready(function(){
       }
   });
   // closing form slider  https://designshack.net/articles/javascript/creating-a-slide-in-jquery-contact-form/
- 
   $("#slideDownSearch").on("click", function(){
     $(".search-container").slideToggle();
   });
@@ -42,30 +78,61 @@ $(document).ready(function(){
   populateAutocompleteCommodity();
   console.log(commodity);
 
- // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCC244ApGQyz873Hf48J6yBoelnUxBppMY",
-    authDomain: "project1-import-export.firebaseapp.com",
-    databaseURL: "https://project1-import-export.firebaseio.com",
-    projectId: "project1-import-export",
-    storageBucket: "",
-    messagingSenderId: "52575437459"
-  };
-  firebase.initializeApp(config);
-  var database = firebase.database();
-  var dbCommodity = database.ref("/commodity");
-  var dbUser = database.ref("/users");
-  var jsonCommodity = JSON.stringify(commodity);
-  var adjustedArr = [];
-  var API_Identifier = "";
-  var relatedSearch = [];
-  var priceDiff = "";
-  var commoditySelected = {
-    name : "",
-    code : "",
-    database : ""
-  };
+function populateTrending(){
+  console.log("populating Trending list")
+  trendingSearch = [];
+  dbSearch.on("child_added", function(childSnapshot){
+    console.log(childSnapshot.val());
+    trendingSearch.push(childSnapshot.val());
+  });
+}
 
+function populateUserSearch(){
+  if(sessionStorage.getItem("username")){
+    userSearch = [];
+    dbUserSearch.on("child_added", function(childSnapshot){
+      userSearch.push(childSnapshot.val());
+    })
+  }
+  
+}
+
+function sortAndDisplayArray(arr){
+    arr.sort();
+    var current = null;
+    var cnt = 0;
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] != current) {
+            if (cnt > 0) {
+                console.log(arr[i] + ' comes --> ' + cnt + ' times<br>');
+            }
+            current = arr[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        console.log(current + ' comes --> ' + cnt + ' times');
+    }
+}
+
+
+function dbSaveSearch(search){
+  console.log("save search data into firebase database");
+  if(sessionStorage.getItem("username")){
+    dbUserSearch.push({
+      search: search
+    });
+    dbSearch.push({
+      search:search
+    });
+  }else{
+    dbSearch.push({
+      search:search
+    })
+  }
+}
 function populateAutocompleteCommodity(){
 
     //get commodity first before populating the textbox with easy auto complete js.
@@ -126,7 +193,16 @@ function initialization(){
   $(".date-container").hide();
   $(".divRelated").hide();
   $("#divAccount").hide();
-
+  $(".logout-container").hide();
+  if(sessionStorage.getItem("username")){
+    loginUser = sessionStorage.getItem("username");
+    dbUserSearch = database.ref("/users/"+loginUser+"/search");
+    $(".glyphicon-log-out").show();
+    $(".glyphicon-log-in").hide();
+  }else{
+    $(".glyphicon-log-in").show();
+    $(".glyphicon-log-out").hide();
+  }
 }
 getCommodity();
 function swapDate(){
@@ -302,6 +378,24 @@ function performGraphDateSearch(){
     }
 }
 
+
+
+$("#hypLogout").click(function(){
+  sessionStorage.clear();
+  $("#msg-center").html("You have logged out!");
+  $("#msg-center").addClass("alert-success");
+  $("#msg-center").show();
+  $(".glyphicon-log-in").show();
+  $(".glyphicon-log-out").hide();
+  $(".logout-container").hide();
+  var interval = setInterval(function(){
+    $("#msg-center").slideUp();
+    $("msg-center").empty();
+  },4000)
+
+})
+
+
 $(".easy-autocomplete-container").click(function(){
     performGraphDateSearch();
 });
@@ -351,6 +445,7 @@ $("#submit").on("click", function(){
     $(".commodity-search-container").slideUp();  
     for(var i = 0; i< commodity.length; i++){
       if(commodity[i].name == searchCommodity){
+        dbSaveSearch(commodity[i].name);
         $("#divCommodityInfo").show();
         foundCommodity = true;    
         commoditySelected.name = commodity[i].name;
@@ -410,7 +505,7 @@ $("#submit").on("click", function(){
       }
     }
   }
-   if(!foundCommodity){
+   if(!foundCommodity && $("#txtCommoditySearch").val() !== "") {
       console.log("no commodity found.");
       relatedSearch =[];
       $(".related-container").empty();
@@ -698,11 +793,11 @@ $.getJSON( "https://shikwan.github.io/Project1/assets/javascript/quandlResource.
     commodity.push(objCommodity);
   }
 });
-}
+};
 
 dbCommodity.once("value", function(snapshot){
   console.log(snapshot.val());
-})
+});
 
 
 /*dbUser.on("child_added", function(childSnapshot, prevChildKey){
@@ -712,24 +807,77 @@ dbCommodity.once("value", function(snapshot){
 
 
 $("#cmdLogin").click(function(){
+  resetSearchDOM();
   var validated = true;
   console.log("#txtUser")
   if($("#txtUser").val().trim() == "" || $("txtUserPassword").val() == ""){
-    $("#msg-center").append("<li>fields are empty, please enter a commodity</li>");
+    $("#msg-center").append("<li>fields are empty, please enter id/password.</li>");
     validated = false;
   }
   //Look into firebase 
-})
+  if(validated){
+    var dbUser = database.ref("/users");
+    var exist = false;
+    var existingUser = {
+      username : "",
+      password: ""
+    }
+
+    dbUser.once('value', function(snapshot){
+      console.log(snapshot.val());
+      var i = 0;
+      snapshot.forEach(function(childSnapshot){
+        console.log(childSnapshot.val());
+        if(childSnapshot.val().username == $("#txtUser").val().trim()){
+          console.log(i + ": " + childSnapshot.val().username);
+          console.log("username exist!");
+          if(childSnapshot.val().password == $("#txtUserPassword").val()){
+            console.log(i + ": " + childSnapshot.val().password);
+            console.log("password exist! set password to existingUser object");
+            existingUser.username = childSnapshot.val().username;
+            existingUser.password = childSnapshot.val().password;
+            exist=true;
+          }else{
+            console.log("wrong password");
+            $("#msg-center").html("wrong password");
+            $("#msg-center").addClass("alert-danger").remove("alert-success");
+            $("#msg-center").show();
+          }
+        }else{
+          console.log("no username found!");
+          $("#msg-center").html("no user found");
+          $("#msg-center").addClass("alert-danger").remove("alert-success");
+          $("msg-center").show();
+        }
+      });
+      if(validated){
+        console.log("log in as user");
+        $("#msg-center").html("sign in successfully!");
+          $("#msg-center").addClass("alert-success").removeClass("alert-danger");
+          $("#msg-center").show();
+          $("#divAccount").slideUp();
+          $(".glyphicon-log-out").show();
+          $(".glyphicon-log-in").hide();
+          dbUserSearch = database.ref("/users/"+existingUser.username+"/search");
+        var interval = setInterval(function(){
+          $("#msg-center").slideUp();
+        },3000)
+        sessionStorage.clear();
+        sessionStorage.setItem('username', existingUser.username);
+      }
+    });
+  }
+});
 
 $("#cmdCreateAccount").click(function(){
-
+  resetSearchDOM();
   var validated = true;
   console.log($("#txtNewUser").val().trim() + " " + $("#txtPassword").val().trim() + " " +  $("#txtConfirmPassword").val().trim());
   if($("#txtNewUser").val().trim() == "" || $("#txtPassword").val() == "" || $("#txtConfirmPassword").val() == "") {
     $("#msg-center").append("<li>fields are empty, please enter a commodity</li>");
     validated = false;
   }
-  if($("#txtPassword").val().length < 8 && $("txtPassword").val().length >16){
+  if($("#txtPassword").val().length < 8 && $("#txtConfirmPassword").val().length >16){
     $("#msg-center").append("<li>password has to be between 8 and 16 characters</li>")
   }
 
@@ -737,36 +885,44 @@ $("#cmdCreateAccount").click(function(){
     $("#msg-center").append("<li>please re-type password</li>")
     validated = false;
   }
-  if($("#txtNewUser").val()() == $("txtPassword").val()){
+  if($("#txtNewUser").val() == $("txtPassword").val()){
     $("#msg-center").append("<li>user name and password cannot be identical</li>");
     validated = false;
   }
 
-  //use this to check if user name exist in database
-  dbUser.once("value", function(childSnapshot, prevChildKey){
-    console.log("childSnapshot");
-    console.log(childSnapshot.val());
-    for(var key in childSnapshot.val()){
-      console.log(childSnapshot.val()[key].username);
-      if($("#txtNewUser").val().trim() === childSnapshot.val()[key].username){
-        console.log(childSnapshot.val()[key].username);
-        console.log("user exist in database, pick a new username")
-        $("#msg-center").append("<li>user exist in database, pick a new username</li>");
-        validated=false;
-        return false;
-      }
-    }
-  })
-
   if(validated){
+    var dbUser = database.ref("/users");
+    var exist = false;
     var newUser = {
       username : $("#txtNewUser").val().trim(),
       password : $("#txtPassword").val().trim()
     };
-    dbUser.push(newUser);
 
+    dbUser.once('value', function(snapshot){
+      console.log(snapshot.val());
+      var i = 0;
+      snapshot.forEach(function(childSnapshot){
+        
+        //console.log(childSnapshot.val().username);
+        if(childSnapshot.val().username == newUser.username){
+          console.log(i + ": " + childSnapshot.val().username);
+          console.log("username exist!");
+          exist = true;
+        }
+        i++;
+      });
+      if(exist==true){
+        console.log("i = " + i  + " : username exist!");
+      }else{
+        dbUser = database.ref("/users/"+newUser.username);
+          dbUser.set(newUser);
+      }
+    });
+    console.log("set ref back to /user");
+    dbUser = database.ref("/users");
+    $("#msg-center").show();
     $("#msg-center").addClass("alert-success");
-    $("#msg-center").val("Account added successfully!");
+    $("#msg-center").html("Account added successfully!");
   }else{
     $("#msg-center").show();
 
