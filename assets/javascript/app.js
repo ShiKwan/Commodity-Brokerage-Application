@@ -59,6 +59,7 @@ $(document).ready(function(){
   var adjustedArr = [];
   var API_Identifier = "";
   var relatedSearch = [];
+  var priceDiff = "";
   var commoditySelected = {
     name : "",
     code : "",
@@ -115,7 +116,7 @@ function quandlResources(){
 //getQuandlCommodityPrice();
 
 //getSpecificCommodity();
-var graphStartDate, graphEndDate; 
+var graphStartDate, graphEndDate, graphSecondEndDate; 
 function initialization(){
   $(".divCarousel").show();
   $(".divGraph").hide();
@@ -128,17 +129,37 @@ function initialization(){
 
 }
 getCommodity();
+function swapDate(){
+    var firstDate = moment(graphStartDate, "YYYY-MM-DD");
+    var lastDate = moment(graphEndDate, "YYYY-MM-DD");
+    var secondLastDate = moment(graphSecondEndDate, "YYYY-MM-DD");
+    if(firstDate.diff(lastDate) > 0){
+      var temp = firstDate;
+      firstDate = lastDate;
+      lastDate = temp;
+    }
+    $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
+    $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+    $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+    $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
 
+}
 function getGraphStartEndDateFromCommoPrices(data){
   var lengthOfData = data.request.dataseries.length;
   graphStartDate = data.request.dataseries[0][0];
   graphEndDate = data.request.dataseries[lengthOfData-1][0];
+  if(data.request.dataseries[lengthOfData-2][0]){
+     graphSecondEndDate = data.request.dataseries[lengthOfData-2][0];   
+  }
 }
 
 function getGraphStartEndDateFromQuandl(qry){
   var lengthOfData = qry.data.length;
   graphStartDate = qry.data[0][0];
   graphEndDate = qry.data[lengthOfData-1][0];
+  if(qry.data[lengthOfData-2][0]){
+    graphSecondEndDate = qry.data[lengthOfData-2][0];
+  }
 }
 
 function populateCommodityInfoFromCommoPrices(data){
@@ -302,20 +323,29 @@ $(document).on("click", "#cmdGraphSubmit", function(){
       googleChartGenerator(adjustedArr, commoData.info.name);
     }
 })
+function resetSearchDOM(){
+  $("#txtCommoditySearch").removeClass("alert-danger");
+  $("#msg-center").empty();
+  $("#msg-center").removeClass("alert-success").removeClass("alert-danger");
+  $("#divRelated").hide();
+}
 
 
 
 $("#submit").on("click", function(){
-  //TO-DO: change the value to the commodity textbox
+  
   event.preventDefault();
   var searchCommodity = $("#txtCommoditySearch").val();
   var foundCommodity = false;
-
   var searchStartDate = $("#dpStartDate").val();
   var searchEndDate = $("#dpEndDate").val();
 
+  resetSearchDOM(); 
+
   if(searchCommodity == ""){
     $("#msg-center").show();
+    $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+    $("#msg-center").html("please enter a commodity");
     $("#txtCommoditySearch").addClass("alert-danger");
   }else{
     $(".commodity-search-container").slideUp();  
@@ -330,7 +360,7 @@ $("#submit").on("click", function(){
           $(".commodity-search-field-container").hide();
           commoData = getCommodityPriceFromCommoPrices(commodity[i].code, searchStartDate, searchEndDate );
           getGraphStartEndDateFromCommoPrices(commoData);
-
+          swapDate();
           var firstDate = moment(graphStartDate, "YYYY-MM-DD");
           var lastDate = moment(graphEndDate, "YYYY-MM-DD");
           if(firstDate.diff(lastDate) > 0){
@@ -406,8 +436,7 @@ $("#submit").on("click", function(){
 });
 
 $(document).on("click", ".related-item", function(){
-  $("#divRelated").hide();
-  console.log($(this).text());
+  resetSearchDOM();
   $("#txtCommoditySearch").empty();
   $("#txtCommoditySearch").val($(this).text());
   performGraphDateSearch();
@@ -482,8 +511,14 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
     returnValue = result;
   }).fail(function(response){
     console.log("Error retrieving data from quandl");
+    $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
+    $("msg-center").addClass("alert-danger");
+    $("msg-center").show();
+    //LOG ERROR IN FIREBASE
   })
-  return returnValue;
+  if(returnValue){
+    return returnValue; 
+  }
 }
 function getSpecificCommodityFromCommoPrices(commodityCode){
   var returnValue;
@@ -508,8 +543,14 @@ function getSpecificCommodityFromCommoPrices(commodityCode){
 
   }).fail(function(response){
     console.log(response);
+    $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
+    $("msg-center").addClass("alert-danger");
+    $("msg-center").show();
+    //LOG ERROR IN FIREBASE
   });
-  return returnValue;
+  if(returnValue){
+    return returnValue;  
+  }
 }
 
 function getData(adjustedArray, columnNamesArray, dataArray){
@@ -572,8 +613,14 @@ function getCommodityPriceFromCommoPrices(commodityCode, startDate, endDate){
     //googleChartGenerator(adjustedArr, response.data.info.name);
   }).fail(function(response){
     console.log(response);
+    $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
+    $("msg-center").addClass("alert-danger");
+    $("msg-center").show();
+    //LOG ERROR IN FIREBASE
   });
-  return returnValue
+  if(returnValue){
+    return returnValue;
+  }
 
 }
 function googleChartGenerator(priceData, graphTitle){
@@ -633,6 +680,10 @@ function getCommodity(){
 
   }).fail(function(response){
     console.log(response.responseText);
+    $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
+    $("msg-center").addClass("alert-danger");
+    $("msg-center").show();
+    //LOG ERROR IN FIREBASE
   });
 }
 
@@ -660,18 +711,34 @@ dbCommodity.once("value", function(snapshot){
 })*/
 
 
-
+$("#cmdLogin").click(function(){
+  var validated = true;
+  console.log("#txtUser")
+  if($("#txtUser").val().trim() == "" || $("txtUserPassword").val() == ""){
+    $("#msg-center").append("<li>fields are empty, please enter a commodity</li>");
+    validated = false;
+  }
+  //Look into firebase 
+})
 
 $("#cmdCreateAccount").click(function(){
+
   var validated = true;
   console.log($("#txtNewUser").val().trim() + " " + $("#txtPassword").val().trim() + " " +  $("#txtConfirmPassword").val().trim());
-  if($("#txtNewUser").val().trim() == "" || $("#txtPassword").val().trim() == "" || $("#txtConfirmPassword").val().trim() == "") {
-    $("#msg-center").append("<li>fields are empty, please enter something</li>");
+  if($("#txtNewUser").val().trim() == "" || $("#txtPassword").val() == "" || $("#txtConfirmPassword").val() == "") {
+    $("#msg-center").append("<li>fields are empty, please enter a commodity</li>");
     validated = false;
+  }
+  if($("#txtPassword").val().length < 8 && $("txtPassword").val().length >16){
+    $("#msg-center").append("<li>password has to be between 8 and 16 characters</li>")
   }
 
   if($("#txtPassword").val() !== $("#txtConfirmPassword").val()){
     $("#msg-center").append("<li>please re-type password</li>")
+    validated = false;
+  }
+  if($("#txtNewUser").val()() == $("txtPassword").val()){
+    $("#msg-center").append("<li>user name and password cannot be identical</li>");
     validated = false;
   }
 
@@ -698,8 +765,8 @@ $("#cmdCreateAccount").click(function(){
     };
     dbUser.push(newUser);
 
-    $(".new-account-msg-box").addClass("alert-success");
-    $(".new-account-msg-box").val("Account added successfully!");
+    $("#msg-center").addClass("alert-success");
+    $("#msg-center").val("Account added successfully!");
   }else{
     $("#msg-center").show();
 
@@ -707,6 +774,38 @@ $("#cmdCreateAccount").click(function(){
 
 
 });
+
+
+/*
+Firebase:
+
+
+New user account:
+Create a ref for each user
+If ref exist, throw error message for a new user name
+Else create a new ref with user name. 
+  - msg center prompt user account created successfully
+
+Login:
+If ref exist, 
+  if password field in the ref check out, 
+    save user name, search history in session.
+    change the label  in the navigation menu to "Welcome back <user>!"
+  else
+    msg center prompt user about wrong password
+else
+  user name does not exist. 
+
+Commodity:
+  If search is valid, save search keywords.
+  Populate quick search
+
+
+Error:
+If error pop up, push the error message to firebase. 
+
+
+*/
 
 
 

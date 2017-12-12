@@ -81,8 +81,8 @@ img {
     background-color: #4aaaa5;
     color: white;
     height: 35px;
-    width: 120px;
-    margin-left: 9px;
+    width: 110px;
+    margin-left: 10px;
 }
 
 .form-control {
@@ -465,7 +465,6 @@ fieldset {
     background-color: #83c9c5;
 }
 
-
 .divGraph {
     margin-top: 25px;
     margin-bottom: 50px;
@@ -515,9 +514,6 @@ fieldset {
     font-size: 15px;
 }
 
-.commodity-search-container {
-    margin-bottom: 100px;
-} 
 
 #cmdCreateAccount {
     margin-top: 15px;

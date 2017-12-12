@@ -129,20 +129,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="search-container">
-                            <input type="text" class="form-control" id="txtQuickSearch" placeholder="Quick Search">
-                            <button type="submit" class="btn btn1"><strong>Submit</strong></button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                <div class="commodity-search-container">
+                    <div id="commodity-search-wrap">
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="search-container">
+                        <input type="text" class="form-control" id="txtQuickSearch" placeholder="Quick Search">
+                        <button type="submit" class="btn btn1"><strong>Submit</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="container">
                 <div class="row">
                     <div class="col-md-6">
+                        <div>
+                        </div>
                     </div>
                     <div class="commo-search col-md-6">
                         <div class="commodity-search-container panel">
@@ -163,27 +171,26 @@
                                 <span id="messageSent">Processing Your Commodity Search</span>
                             </div>
                         </div>
-                        </fieldset>
                     </div>
                 </div>
-                <div class="divGraph panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
-                    </div>
+            </div>
+            <div class="divGraph panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Commodity Graphic Spread Sheet</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="curve_chart"></div>
+                </div>
+                <form>
                     <div class="panel-body">
-                        <div id="curve_chart"></div>
+                        <label class="search">Refine Search: </label>
+                        <em>Start Date</em>
+                        <input id="dpGraphStartDate" type="date" name="start">
+                        <em>End Date</em>
+                        <input id="dpGraphEndDate" type="date" name="end">
+                        <button id="cmdGraphSubmit" type="submit" class="btn btn3">Submit</button>
                     </div>
-                    <form>
-                        <div class="panel-body">
-                            <label class="search">Refine Search: </label>
-                            <em>Start Date</em>
-                            <input id="dpGraphStartDate" type="date" name="start">
-                            <em>End Date</em>
-                            <input id="dpGraphEndDate" type="date" name="end">
-                            <button id="cmdGraphSubmit" type="submit" class="btn btn3">Submit</button>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
         <div class="row">
