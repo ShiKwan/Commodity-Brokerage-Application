@@ -78,34 +78,50 @@ $(document).ready(function(){
   initialization();
   populateAutocompleteCommodity();
   console.log(commodity);
+function populateTable(data, className ){
+  $("."+className).empty();
 
+  var trHead = $("<tr>");
+  var tdRankHead = $("<th>Rank</th>");
+  var tdNameHead = $("<th>Commodity name</th>");
+  trHead.append(tdRankHead).append(tdNameHead);
+  $("."+className).append(trHead);
+
+  $("."+className).append();
+  var tr = $("<tr>");
+  var rank = 1;
+  var rankcol = $("<td>");
+  var namecol = $("<td>");
+  for(var i =data.length-1; i>=0 ; i--){
+    console.log(data[i]);
+    rankcol.html(rank);
+    namecol.html(data[i]);
+    tr.append(rankcol).append(namecol);
+    $("."+className).append(tr);
+  }
+}
 function populateTrending(){
   console.log("populating Trending list")
   trendingSearch = [];
-  dbGlobalSearch.orderByValue().limitToLast(3).on("child_added", function(snapshot){
+  dbGlobalSearch.orderByValue().limitToLast(5).on("child_added", function(snapshot){
     trendingSearch.push(snapshot.key + ": " + snapshot.val());
     console.log("trending val: " + snapshot.val() + " key : " + snapshot.key);
   });
   setTimeout(function(){
-    for(var i =trendingSearch.length ; i >= 0; i--){
-      console.log(trendingSearch[i]);
-    }
+    populateTable(trendingSearch, "trending-tbody");
   },2000)
-    
 }
 
 
 function populateUserSearch(){
   if(sessionStorage.getItem("username")){
     userSearch = [];
-    dbUserSearchCommo.orderByValue().limitToLast(3).on("child_added", function(snapshot){
+    dbUserSearchCommo.orderByValue().limitToLast(5).on("child_added", function(snapshot){
       userSearch.push(snapshot.key + ": " + snapshot.val());
       console.log("user search val: " + snapshot.val() + " key : " + snapshot.key);
     });
     setTimeout(function(){
-      for(var i =userSearch.length ; i >= 0; i--){
-        console.log(userSearch[i]);
-      }
+      populateTable(userSearch, "user-search-tbody");
     },2000)
   }
 }
