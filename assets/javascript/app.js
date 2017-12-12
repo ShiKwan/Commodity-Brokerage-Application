@@ -66,6 +66,9 @@ $(document).ready(function(){
   $("#slideDownUser").on("click", function(){
     $("#divAccount").slideToggle();
   });
+  $("#slideDownTrending").on("click",function(){
+    $(".trending-container").slideToggle();
+  })
   $("#divCommodityNews").infiniteScroll({
     path: '.pagination_next',
     append: '.panel',
@@ -86,18 +89,19 @@ function populateTable(data, className ){
   var tdNameHead = $("<th>Commodity name</th>");
   trHead.append(tdRankHead).append(tdNameHead);
   $("."+className).append(trHead);
-
   $("."+className).append();
-  var tr = $("<tr>");
   var rank = 1;
-  var rankcol = $("<td>");
-  var namecol = $("<td>");
   for(var i =data.length-1; i>=0 ; i--){
+     var tr = $("<tr>");
+    
+    var rankcol = $("<td>");
+    var namecol = $("<td>");
     console.log(data[i]);
     rankcol.html(rank);
     namecol.html(data[i]);
     tr.append(rankcol).append(namecol);
     $("."+className).append(tr);
+    rank++;
   }
 }
 function populateTrending(){
@@ -115,6 +119,7 @@ function populateTrending(){
 
 function populateUserSearch(){
   if(sessionStorage.getItem("username")){
+    $(".user-search-panel").show();
     userSearch = [];
     dbUserSearchCommo.orderByValue().limitToLast(5).on("child_added", function(snapshot){
       userSearch.push(snapshot.key + ": " + snapshot.val());
@@ -123,6 +128,8 @@ function populateUserSearch(){
     setTimeout(function(){
       populateTable(userSearch, "user-search-tbody");
     },2000)
+  }else{
+    $(".user-search-panel").hide();
   }
 }
 populateTrending();
@@ -192,6 +199,7 @@ function initialization(){
   $(".divRelated").hide();
   $("#divAccount").hide();
   $(".logout-container").hide();
+  $(".trending-container").hide();
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
     dbUserSearch = database.ref("/users/"+loginUser+"/search");
@@ -381,6 +389,7 @@ function performGraphDateSearch(){
 
 $("#hypLogout").click(function(){
   sessionStorage.clear();
+  initialization();
   $("#msg-center").html("You have logged out!");
   $("#msg-center").addClass("alert-success");
   $("#msg-center").show();
@@ -402,7 +411,7 @@ $(".easy-autocomplete-container").click(function(){
 $(document).on("click", "#cmdGraphSubmit", function(){
     event.preventDefault();
     var searchStartDate = $("#dpGraphStartDate").val();
-    var searchEndDate = $("#dpGraphEnDate").val();
+    var searchEndDate = $("#dpGraphEndDate").val();
     var searchCommodity = $("#txtCommoditySearch").val();
     if(API_Identifier = "Quandl"){
       $("#divGraph").empty();
