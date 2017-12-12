@@ -189,6 +189,7 @@ function initialization(){
   $(".divGraph").hide();
   $(".divCommodityInfo").hide();
   $(".divCommodityNews").hide();
+  $(".news-head-container").hide();
   $("#msg-center").hide();
   $(".date-container").hide();
   $(".divRelated").hide();
@@ -297,6 +298,7 @@ function populateNews(data){
   if(data){
     console.log(data);
     console.log("in populateNews");
+    $(".news-head-container").show();
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
       var divPanel = $("<div class='panel'>");
@@ -810,7 +812,7 @@ $("#cmdLogin").click(function(){
   resetSearchDOM();
   var validated = true;
   console.log("#txtUser")
-  if($("#txtUser").val() == "" || $("txtUserPassword").val() == ""){
+  if($("#txtUser").val().trim() == "" || $("txtUserPassword").val() == ""){
     $("#msg-center").append("<li>fields are empty, please enter id/password.</li>");
     validated = false;
   }
@@ -828,7 +830,7 @@ $("#cmdLogin").click(function(){
       var i = 0;
       snapshot.forEach(function(childSnapshot){
         console.log(childSnapshot.val());
-        if(childSnapshot.val().username == $("#txtUser").val()){
+        if(childSnapshot.val().username == $("#txtUser").val().trim()){
           console.log(i + ": " + childSnapshot.val().username);
           console.log("username exist!");
           if(childSnapshot.val().password == $("#txtUserPassword").val()){
