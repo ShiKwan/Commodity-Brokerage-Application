@@ -101,10 +101,22 @@ img {
 .container.wrapper {
     padding-top: 75px;
 }
+.navbar-right .glyphicon{
+    margin: 15px 10px 10px 10px;
+}
+.navbar-right .glyphicon:hover{
+    color: #4aaaa5;
+}
 
 .glyphicon {
     color: white;
     font-size: 22px;
+}
+.glyphicon-triangle-bottom{
+    color: red;
+}
+.glyphicon-triangle-top{
+    color:green;
 }
 
 .search-container {
