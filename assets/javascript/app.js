@@ -37,6 +37,11 @@ $(document).ready(function(){
   var lastDate;
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
+    $("#divName").show();
+    $("#lblName").html("Hello " + loginUser +"!");
+
+    setTimeout(function(){
+      $("#divName").slideUp()}, 2000);
     dbUserSearch = database.ref("/users/"+loginUser+"/search");
     $(".glyphicon-log-out").show();
     $(".glyphicon-log-in").hide();
@@ -63,6 +68,7 @@ $(document).ready(function(){
     $("#divAccount").slideUp();
     $(".trending-container").slideUp();
     $(".commodity-search-container").slideUp();
+    $(".user-search-panel").slideUp()
   });
 
   $("#slideDownCommoditySearch").on("click", function(){
@@ -84,6 +90,13 @@ $(document).ready(function(){
     $(".commodity-search-container").slideUp();
     $(".search-container").slideUp();
   })
+  $("#hypLogout").click(function(){
+    $("#logout").slideDown();
+    $(".trending-container").slideUp();
+    $("#divAccount").slideUp();
+    $(".commodity-search-container").slideUp();
+    $(".search-container").slideUp();
+})
 
   var commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT";
   var commodity = [];
@@ -195,6 +208,8 @@ function initialization(){
   $("#divAccount").hide();
   $(".logout-container").hide();
   $(".trending-container").hide();
+  $("#logout").hide();
+  $("")
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
     dbUserSearch = database.ref("/users/"+loginUser+"/search");
@@ -298,7 +313,7 @@ function populateCommodityInfoFromQuandl(data){
     var databaseDiv = $("<div>");
     var oldest_data_availableDiv = $("<h6>");
     var newest_data_availableDiv = $("<h6>");
-    var latestRefreshDiv = $("<h2>");
+    var latestRefreshDiv = $("<h6>");
     var todayStatusDiv = $("<div>");
     var todayStatus = graphEndPrice - graphSecondEndPrice;
     if(todayStatus >=0){
@@ -314,7 +329,7 @@ function populateCommodityInfoFromQuandl(data){
     frequencyDiv.html("Frequency: " + data.frequency);
     nameDiv.html(data.name);
     oldest_data_availableDiv.html("Oldest available date: " + data.oldest_available_date);
-    newest_data_availableDiv.html("Newest available date: " + data.newest_data_availableDiv);
+    newest_data_availableDiv.html("Newest available date: " + data.newest_available_date);
     datasetDiv.html("dataset code: " + data.dataset_code);
     databaseDiv.html("database code: " + data.database_code);
     latestRefreshDiv.html("refreshed_at: " + data.refreshed_at);
@@ -326,25 +341,29 @@ function populateCommodityInfoFromQuandl(data){
 }
 function populateNews(data){
   if(data){
+    console.log(data);
     $(".news-head-container").show();
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
       var divPanel = $("<div class='panel'>");
       var divHead = $("<div class='panel-heading'>");
       var divBody = $("<div class='panel-body'>");
-      var divLeft = $("<div>");
-      var divRight = $("<div>");
+      var divRow = $("<div class='row'>");
+      var divLeft = $("<div class='col-md-4'>");
+      var divRight = $("<div class='col-md-8'>");
       var bylineDiv = $("<h3 class='text-right'>");
-      var headlineDiv = $("<h1>");
+      var headlineDiv = $("<h3>");
       var multimediaImg = $("<img>");
       var snippetDiv = $("<h3 class='popcomStory'>");
       var web_urlDiv = $("<h6>");
       var sourceDiv = $("<h3 class='float-right'>");
+      var pubDateDiv = $("<h6 class='align-right'>");
 
       
       headlineDiv.html(data[i].headline.main);
-      snippetDiv.html("Snippet: " + data[i].snippet);
-      web_urlDiv.html("Read more: <a href='" + data[i].web_url + "' target='_blank' >" + data[i].web_url +"</a>");
+      var web_url = "<a href='" + data[i].web_url + "' target='_blank' > ..read more</a>";
+      snippetDiv.html(data[i].snippet + " " + web_url);
+      
       if(data[i].source){
         sourceDiv.text("Source: " + data[i].source);  
       }
@@ -352,11 +371,19 @@ function populateNews(data){
         bylineDiv.html("Source: " + data[i].byline.organization);  
       }
       if(data[i].multimedia.length > 0){
-        multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[1].url);  
+        multimediaImg.attr("src", "https://www.nytimes.com/" + data[i].multimedia[0].url);  
+        var hyp = $("<a class='thumbnail'>");
+        hyp.attr("href", web_url);
+        hyp.append(multimediaImg);
+        divLeft.append(hyp);
+      }else{
+        divLeft.removeClass("col-md-4");
+        divRight.removeClass("col-md-8").addClass("col-md-12");
       }
-      
+      pubDateDiv.html("Date published : " + moment(data[i].pub_date).format("YYYY-MM-DD"));
       divHead.append(headlineDiv);
-      divBody.append(multimediaImg).append(snippetDiv).append(web_urlDiv).append(sourceDiv);
+      divRight.append(pubDateDiv).append(snippetDiv).append(sourceDiv);
+      divBody.append(divRow).append(divLeft).append(divRight);
       divPanel.append(divHead).append(divBody);
       $(".divCommodityNews").append(divPanel);
       //$(".commodity-news-container").prepend(divContainer);
@@ -409,7 +436,10 @@ function performGraphDateSearch(){
     }
 }
 
-$("#hypLogout").click(function(){
+
+
+
+$("#divLogoutYes").on("click", function(){
   sessionStorage.clear();
   initialization();
   $("#msg-center").html("You have logged out!");
@@ -418,11 +448,24 @@ $("#hypLogout").click(function(){
   $(".glyphicon-log-in").show();
   $(".glyphicon-log-out").hide();
   $(".logout-container").hide();
+  $("#divName").hide();
+  $("#lblName").empty();
+  $("#logout").slideUp();
   var interval = setInterval(function(){
     $("#msg-center").slideUp();
+    $("#msg-center").removeClass("alert-success").removeClass("alert-danger");
     $("msg-center").empty();
   },4000)
+})
 
+$("#divLogoutNo").on("click", function(){
+  $("#logout").slideUp();
+})
+
+
+$("#cmdQuickSearch").on("click", function(){
+  populateNews(getNews($("#txtQuickSearch").val()));
+  $(".search-container").slideUp();
 })
 
 
@@ -501,6 +544,8 @@ $("#submit").on("click", function(){
           $("#dpGraphEndDate").val(lastDate.format("YYYY-MM-DD"));         
           $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
           $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
+          $("#dpGraphStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
 
          
           googleChartGenerator(adjustedArr, commoData.info.name);
@@ -526,6 +571,8 @@ $("#submit").on("click", function(){
           $("#dpGraphEndDate").val(lastDate.format("YYYY-MM-DD"));  
           $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
           $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
+          $("#dpGraphStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+          $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
           googleChartGenerator(adjustedArr, commoData.name);
           populateCommodityInfoFromQuandl(commoData);
           populateNews(getNews(commoData.name));
@@ -533,7 +580,7 @@ $("#submit").on("click", function(){
           //look into quandl
         }
       }else{
-      
+       
       }
     }
   }
@@ -554,6 +601,13 @@ $("#submit").on("click", function(){
           div.html("<a href='#' data-related='" + relatedSearch[i] + "' class='related-item'> " + relatedSearch[i] + "</a>");
           $(".related-container").append(div);
         }
+      }else{
+        //couldn't find anything
+        $("#msg-center").html("data is not available from our library, please try another commodity");
+        $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+        $("#msg-center").show();
+        $(".divGraph").hide();
+        $(".divCommodityInfo").hide();
       }
       populateNews(getNews(searchCommodity.trim()));
     }
@@ -569,8 +623,9 @@ $(document).on("click", ".related-item", function(){
 function getNews(qry){
   var nytAPI = "7efd7705bed343d498f6b717ffda6638"
   var returnValue = [];
+  var searchKey = qry.replace(/,/g, '|').split('|');  
 
-  var searchKey = qry.replace(/,/g, '|').split('|');
+  
   //for (var i = 0; i<searchKey.length-1; i++){
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({

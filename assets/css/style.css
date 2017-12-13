@@ -133,6 +133,10 @@ img {
     width: 70%;
 }
 
+.divCommodityNews .align-right{
+    text-align: right;
+}
+
 #submit {
     margin-top: 10px;
 }

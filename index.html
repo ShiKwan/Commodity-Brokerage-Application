@@ -24,12 +24,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="assets/images/sbs-logo.png">
+                    <a href="index.html"><img src="assets/images/sbs-logo.png"></a>
                     <div class="navbar-form navbar-right">
-                         <a id="hypLogout" href="#"><span class="glyphicon glyphicon-log-out"></span></a>
-                        <a id="slideDownUser" href="#"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
-                        <a id="slideDownTrending" href="#"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></a>
-                        <a id="slideDownSearch" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <a id="hypLogout" href="#"><span class="glyphicon glyphicon-log-out" title="logout" alt="logout" ></span></a>
+                        <a id="slideDownUser" href="#"><span class="glyphicon glyphicon-log-in" title="login" alt="login" aria-hidden="true"></span></a>
+                        <a id="slideDownTrending" href="#"><span class="glyphicon glyphicon-fire" title="trending" alt="trending" aria-hidden="true"></span></a>
+                        <a id="slideDownSearch" href="#"><span class="glyphicon glyphicon-search" title="quick search" alt="quick search" aria-hidden="true"></span></a>
                         <a id="slideDownCommoditySearch" href="#">
                             <button class="btn btn2"><strong>Search Field</strong></button>
                         </a>
@@ -66,8 +66,16 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="msg-center" class="alert">
-                    <!-- add class name dynamically in js -->
+                <div id="msg-center" class="alert"><!-- add class name dynamically in js --></div>
+                <div id="divName" class="alert alert-info"><label id="lblName"></label></div>
+                <div id="logout">
+                	<h1 class="text-center">Sure you want to log out?</h1>
+                	<div class="row">
+                		<div class="col-sm-3"></div>
+                		<div id="divLogoutYes" class="col-sm-3"><button class="btn btn2"><strong>Yes</strong></button></div>
+                		<div id="divLogoutNo" class="col-sm-3"><button class="btn btn2"><strong>No</strong></button></div>
+                		<div class="col-sm-3"></div>
+                	</div>
                 </div>
                 <div id="divAccount">
                     <div class="row">
@@ -127,38 +135,39 @@
                 <div class="col-md-6">
                     <div class="search-container">
                         <input type="text" class="form-control" id="txtQuickSearch" placeholder="Quick Search">
-                        <button type="submit" class="btn btn1"><strong>Submit</strong></button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                    <div class="panel commodity-search-container">
-                        <div class="panel-heading">
-                            <h1 for="Search">Search Commodity</h1>
-                        </div>
-                        <div class="panel-body">
-                            <label for="refine-search">Refine Your Search</label>
-                            <input type="text" class="form-control" id="txtCommoditySearch" placeholder="Commodity Search">
-                            <div class="date-container">
-                                <label class="refine-start-date"><strong>Start Date</strong></label>
-                                <input id="dpStartDate" type="date" name="start">
-                                <br>
-                                <label class="refine-end-date"><strong>End Date</strong></label>
-                                <input id="dpEndDate" type="date" name="end">
-                            </div>
-                            <button id="submit" type="submit" class="btn btn3"><strong>Submit</strong></button>
-                            <span id="messageSent">Processing Your Commodity Search</span>
-                        </div>
+                        <button id="cmdQuickSearch" type="submit" class="btn btn1"><strong>Submit</strong></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="trending-container">
+            <div class="container">
+	            <div class="row">
+	                <div class="col-md-6">
+	                </div>
+	                <div class="col-md-6">
+	                    <div class="panel commodity-search-container">
+	                        <div class="panel-heading">
+	                            <h1 for="Search">Search Commodity</h1>
+	                        </div>
+	                        <div class="panel-body">
+	                            <label for="refine-search">Refine Your Search</label>
+	                            <input type="text" class="form-control" id="txtCommoditySearch" placeholder="Commodity Search">
+	                            <div class="date-container">
+	                                <label class="refine-start-date"><strong>Start Date</strong></label>
+	                                <input id="dpStartDate" type="date" name="start">
+	                                <br>
+	                                <label class="refine-end-date"><strong>End Date</strong></label>
+	                                <input id="dpEndDate" type="date" name="end">
+	                            </div>
+	                            <button id="submit" type="submit" class="btn btn3"><strong>Submit</strong></button>
+	                            <span id="messageSent">Processing Your Commodity Search</span>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+            <div class="container">
+            <div class="trending-container row">
+	            <div class="col-md-6">
                     <div class="trending-panel panel">
                         <div class="panel-heading">
                             <h1>Trending Commodity</h1>
@@ -170,7 +179,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+	            </div>
                 <div class="col-md-6">
                     <div class="user-search-panel panel">
                         <div class="panel-heading">
@@ -184,7 +193,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+	        </div>
+	        </div>
         </div>
         <div class="row">
             <div class="col-md-12">
