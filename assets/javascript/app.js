@@ -37,6 +37,7 @@ $(document).ready(function(){
   var lastDate;
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
+    dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search');
     console.log("Hello " + loginUser +"!");
     $("#divName").show();
     $("#lblName").html("Hello " + loginUser +"!");
@@ -98,7 +99,7 @@ $(document).ready(function(){
     $("#logout").slideUp();
   })
   $("#hypLogout").click(function(){
-    $("#logout").slideDown();
+    $("#logout").slideToggle();
     $(".trending-container").slideUp();
     $("#divAccount").slideUp();
     $(".commodity-search-container").slideUp();
@@ -111,26 +112,32 @@ $(document).ready(function(){
   initialization();
   populateAutocompleteCommodity();
 function populateTable(data, className ){
-  $("."+className).empty();
 
-  var trHead = $("<tr>");
-  var tdRankHead = $("<th>Rank</th>");
-  var tdNameHead = $("<th>Commodity name</th>");
-  trHead.append(tdRankHead).append(tdNameHead);
-  $("."+className).append(trHead);
-  $("."+className).append();
-  var rank = 1;
-  for(var i =data.length-1; i>=0 ; i--){
-     var tr = $("<tr>");
-    
-    var rankcol = $("<td>");
-    var namecol = $("<td>");
-    rankcol.html(rank);
-    namecol.html(data[i]);
-    tr.append(rankcol).append(namecol);
-    $("."+className).append(tr);
-    rank++;
+  if(sessionStorage.getItem("username") || className.toLowerCase().indexOf("trending") >=0){
+   $("."+className).empty();
+
+    var trHead = $("<tr>");
+    var tdRankHead = $("<th>Rank</th>");
+    var tdNameHead = $("<th>Commodity name</th>");
+    trHead.append(tdRankHead).append(tdNameHead);
+    $("."+className).append(trHead);
+    $("."+className).append();
+    var rank = 1;
+    for(var i =data.length-1; i>=0 ; i--){
+       var tr = $("<tr>");
+      
+      var rankcol = $("<td>");
+      var namecol = $("<td>");
+      rankcol.html(rank);
+      namecol.html(data[i]);
+      tr.append(rankcol).append(namecol);
+      $("."+className).append(tr);
+      rank++;
+    }
+  }else{
+    $("."+className).empty();
   }
+ 
 }
 function populateTrending(){
   trendingSearch = [];
@@ -151,6 +158,8 @@ function populateUserSearch(){
       userSearch.push(snapshot.key + ": " + snapshot.val());
     });
     setTimeout(function(){
+      console.log("in pop user search");
+      console.log(userSearch);
       populateTable(userSearch, "user-search-tbody");
     },2000)
   }else{
@@ -159,12 +168,10 @@ function populateUserSearch(){
 }
 
 var pullUserSearch = setInterval(function(){
-  console.log("here");
   populateUserSearch();
 },3000);
 
 var pullTrendingSearch = setInterval(function(){
-  console.log("get trendy");
   populateTrending();
 },3000);
 
@@ -473,6 +480,7 @@ $("#divLogoutYes").on("click", function(){
   $("#divName").hide();
   $("#lblName").empty();
   $("#logout").slideUp();
+  $(".user-search-panel").hide();
   setTimeout(function(){
     $("#msg-center").slideUp();
     $("#msg-center").removeClass("alert-success").removeClass("alert-danger");
@@ -870,6 +878,7 @@ dbCommodity.once("value", function(snapshot){
 
 $("#cmdLogin").click(function(){
   resetSearchDOM();
+  console.log("here");
   var validated = true;
   if($("#txtUser").val().trim() == "" || $("txtUserPassword").val() == ""){
     $("#msg-center").append("<li>fields are empty, please enter id/password.</li>");
@@ -878,7 +887,8 @@ $("#cmdLogin").click(function(){
   //Look into firebase 
   if(validated){
     var dbUser = database.ref("/users");
-    var exist = false;
+    var existed = false;
+    var correctPassword = false;
     var existingUser = {
       username : "",
       password: ""
@@ -887,47 +897,65 @@ $("#cmdLogin").click(function(){
     dbUser.once('value', function(snapshot){
       var i = 0;
       snapshot.forEach(function(childSnapshot){
+        console.log("user name: " + childSnapshot.val().username);
         if(childSnapshot.val().username == $("#txtUser").val().trim()){
-          if(childSnapshot.val().password == $("#txtUserPassword").val()){
-            existingUser.username = childSnapshot.val().username;
-            existingUser.password = childSnapshot.val().password;
-            exist=true;
-          }else{
-            $("#msg-center").html("wrong password");
-            $("#msg-center").addClass("alert-danger").remove("alert-success");
-            $("#msg-center").show();
+          existed=true;
+          if(existed){
+            console.log("only happen once if user enter existing username")
+            if(childSnapshot.val().password == $("#txtUserPassword").val()){
+              correctPassword = true
+              if(correctPassword){
+                existingUser.username = childSnapshot.val().username;
+                existingUser.password = childSnapshot.val().password;
+                $("#msg-center").empty();
+              }
+            }
           }
-        }else{
-          $("#msg-center").html("no user found");
-          $("#msg-center").addClass("alert-danger").remove("alert-success");
-          $("msg-center").show();
         }
       });
-      if(validated){
-          $(".glyphicon-log-out").show();
-          $(".glyphicon-log-in").hide();
-          $("#divAccount").slideUp();
-          dbUserSearch = database.ref("/users/"+existingUser.username+"/search");
-          setTimeout(function(){
-            $("#msg-center").slideUp();
-          },3000)
+    });
+
+    setTimeout(function(){
+      console.log("exist: " + existed + " password : " + correctPassword);
+      if(existed && correctPassword){
+        $(".glyphicon-log-out").show();
+        $(".glyphicon-log-in").hide();
+        $("#divAccount").slideUp();
+        
+
+        setTimeout(function(){
+          $("#msg-center").slideUp();
+        },3000)
         sessionStorage.clear();
         sessionStorage.setItem('username', existingUser.username);
-
+        dbUserSearchCommo = database.ref('/users/' + existingUser.username +'/search');
+        $(".user-search-panel").show();
+        populateUserSearch();
         loginUser = sessionStorage.getItem("username");
         console.log("Hello " + loginUser +"!");
         $("#divName").show();
         $("#lblName").html("Hello " + loginUser +"!");
-        populateUserSearch();
+        
         setTimeout(function(){
           $("#divName").slideUp()}, 2000);
-      }else{
-        $("#divName").hide();
-        $(".glyphicon-log-in").hide();
-        $(".glyphicon-log-out").show();
+      }else if(existed && !correctPassword){
+        $("#msg-center").empty()
+        $("#msg-center").html("wrong password, try again");
+        $("#msg-center").show();
+        $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+      }else if(!existed){
+        $("#msg-center").empty()
+        $("#msg-center").html("user id does not exist, try again");
+        $("#msg-center").show();
+        $("#msg-center").addClass("alert-danger").removeClass("alert-success");
       }
-
-    });
+    },1500);
+    
+  }else{
+    $("#msg-center").empty()
+    $("#msg-center").show();
+    $("#msg-center").html("user id or password field cannot be empty.");
+    $("#msg-center").addClass("alert-danger").removeClass("alert-success");
   }
 });
 

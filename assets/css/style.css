@@ -137,10 +137,16 @@ img {
     text-align: right;
 }
 
+#divLogoutYes , #divLogoutNo {
+    padding-top: 5px;
+}
+
 #submit {
     margin-top: 10px;
 }
-
+#logout{
+    padding-top:20px;
+}
 footer {
     position: fixed;
     bottom: 0;
