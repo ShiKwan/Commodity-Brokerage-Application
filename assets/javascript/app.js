@@ -332,6 +332,8 @@ function populateNews(data){
       var divPanel = $("<div class='panel'>");
       var divHead = $("<div class='panel-heading'>");
       var divBody = $("<div class='panel-body'>");
+      var divLeft = $("<div>");
+      var divRight = $("<div>");
       var bylineDiv = $("<h3 class='text-right'>");
       var headlineDiv = $("<h1>");
       var multimediaImg = $("<img>");

@@ -153,6 +153,7 @@ footer {
     height: 30px;
     width: auto;
     margin-bottom: 12px;
+    color: white;
 }
 
 .easy-autocomplete {
@@ -360,6 +361,7 @@ a.carousel-control,
     position: fixed;
     right: 0;
     top: 20%;
+    z-index: 50;
 }
 
 .social-container .social {
@@ -378,8 +380,8 @@ a.carousel-control,
 }
 
 .social-icon {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
 }
 
 
@@ -511,7 +513,7 @@ fieldset {
     padding-bottom: 5px;
 }
 
-.panel-heading h1 {
+.panel-heading h1, .panel-heading h2 {
     font-family: 'Arvo', serif;
     font-size: 35px;
 }
@@ -579,5 +581,8 @@ fieldset {
     width: 100%;
 }
 
+.navbar-form {
+    margin-top: 10px;
+}
 
 
