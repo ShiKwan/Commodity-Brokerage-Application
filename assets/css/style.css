@@ -469,7 +469,9 @@ fieldset {
     margin-top: 25px;
 }
 
-
+.divNewsHeader{
+    margin-bottom:-22px;
+}
 
 
 
@@ -595,6 +597,7 @@ fieldset {
     }
     #logout {
         text-align: center;
+        padding-top:5px;
     }
     #logout #divLogoutYes .btn, #logout #divLogoutNo .btn{
         margin: 10px 0 10px 0;
@@ -603,4 +606,43 @@ fieldset {
         text-align: center;
         padding-top:30px;
     }
+}
+
+@media only screen and (max-width: 520px) {
+    #myCarousel{
+        display:none;
+    }
+ .navbar-header img{
+    width:150px;
+ }
+
+ .navbar-form {
+    margin-top: 0;
+ } 
+ .divGraph .panel-body{
+    display:block;
+ }
+ .search{
+    display: block;
+ }
+ .divGraph em, .divGraph input {
+    display:block;
+ }
+ .divGraph em{
+    margin-top:5px;
+ }
+
+ #cmdGraphSubmit {
+    margin-top:10px;
+ }
+
+@media only screen and (max-width: 480px ){
+    .navbar-header{
+        height:120px;
+    } 
+    .container.wrapper{
+        padding-top:120px;
+    }
+}
+
 }

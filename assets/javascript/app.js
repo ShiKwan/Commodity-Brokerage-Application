@@ -467,7 +467,7 @@ $("#divLogoutYes").on("click", function(){
   $("#divName").hide();
   $("#lblName").empty();
   $("#logout").slideUp();
-  var interval = setInterval(function(){
+  setTimeout(function(){
     $("#msg-center").slideUp();
     $("#msg-center").removeClass("alert-success").removeClass("alert-danger");
     $("msg-center").empty();
@@ -928,8 +928,9 @@ $("#cmdLogin").click(function(){
       if(validated){
           $(".glyphicon-log-out").show();
           $(".glyphicon-log-in").hide();
+          $("#divAccount").slideUp();
           dbUserSearch = database.ref("/users/"+existingUser.username+"/search");
-          var interval = setInterval(function(){
+          setTimeout(function(){
             $("#msg-center").slideUp();
           },3000)
         sessionStorage.clear();
@@ -956,7 +957,7 @@ $("#cmdCreateAccount").click(function(){
   resetSearchDOM();
   var validated = true;
   if($("#txtNewUser").val().trim() == "" || $("#txtPassword").val() == "" || $("#txtConfirmPassword").val() == "") {
-    $("#msg-center").append("<li>fields are empty, please enter a commodity</li>");
+    $("#msg-center").append("<li>please enter username/password</li>");
     validated = false;
   }
   if($("#txtPassword").val().length < 8 || $("#txtPassword").val().length >16){
@@ -965,7 +966,7 @@ $("#cmdCreateAccount").click(function(){
   }
 
   if($("#txtPassword").val() !== $("#txtConfirmPassword").val()){
-    $("#msg-center").append("<li>please re-type password</li>")
+    $("#msg-center").append("<li>password and confirm password do not match</li>")
     validated = false;
   }
   if($("#txtNewUser").val() == $("txtPassword").val()){
@@ -997,8 +998,9 @@ $("#cmdCreateAccount").click(function(){
     });
     dbUser = database.ref("/users");
     $("#msg-center").show();
+    $("#msg-center").empty();
     $("#msg-center").addClass("alert-success").removeClass("alert-danger");
-    $("#msg-center").html("Account added successfully!");
+    $("#msg-center").html("Account created successfully!");
   }else{
     $("#msg-center").addClass("alert-danger").removeClass("alert-success");
     $("#msg-center").show();
