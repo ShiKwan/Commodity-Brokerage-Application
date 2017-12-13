@@ -589,4 +589,18 @@ fieldset {
     margin-top: 10px;
 }
 
-
+@media only screen and (max-width: 768px) {
+    .navbar-header .navbar-right{
+        float:right;
+    }
+    #logout {
+        text-align: center;
+    }
+    #logout #divLogoutYes .btn, #logout #divLogoutNo .btn{
+        margin: 10px 0 10px 0;
+    }
+    .search-container{
+        text-align: center;
+        padding-top:30px;
+    }
+}
