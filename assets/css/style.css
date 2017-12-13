@@ -388,6 +388,8 @@ a.carousel-control,
     height: 35px;
 }
 
+}
+
 
 /*//////////////////////////////////////////////////////////////////////////////*/
 
@@ -599,6 +601,8 @@ fieldset {
 @media only screen and (max-width: 768px) {
     .navbar-header .navbar-right{
         float:right;
+        margin-top: 0px;
+        padding: 0px;
     }
     #logout {
         text-align: center;
@@ -610,6 +614,16 @@ fieldset {
     .search-container{
         text-align: center;
         padding-top:30px;
+    }
+    .divGraph em, .divGraph input {
+        display:block;
+    }
+    .divGraph em{
+        margin-top:5px;
+    }
+
+    #cmdGraphSubmit {
+        margin-top:10px;
     }
 }
 
@@ -630,16 +644,7 @@ fieldset {
  .search{
     display: block;
  }
- .divGraph em, .divGraph input {
-    display:block;
- }
- .divGraph em{
-    margin-top:5px;
- }
 
- #cmdGraphSubmit {
-    margin-top:10px;
- }
 
 @media only screen and (max-width: 480px ){
     .navbar-header{

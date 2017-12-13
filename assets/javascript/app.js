@@ -245,10 +245,16 @@ function swapDate(){
       firstDate = lastDate;
       lastDate = temp;
     }
+
+    $(".date-container").show();
     $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
     $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
+    $("#dpGraphStartDate").val(firstDate.format("YYYY-MM-DD"));
+    $("#dpGraphEndDate").val(lastDate.format("YYYY-MM-DD"));         
     $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
     $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
+    $("#dpGraphStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
+    $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
 
 }
 function getGraphStartEndDateFromCommoPrices(data){
@@ -494,13 +500,18 @@ $(document).on("click", "#cmdGraphSubmit", function(){
     var searchStartDate = $("#dpGraphStartDate").val();
     var searchEndDate = $("#dpGraphEndDate").val();
     var searchCommodity = $("#txtCommoditySearch").val();
-    if(API_Identifier = "Quandl"){
+    if(API_Identifier == "Quandl"){
       $("#divGraph").empty();
+      console.log("commodity selected code : " + commoditySelected.code);
+
       commoData = getQuandlCommodityPrice(commoditySelected.code, searchStartDate, searchEndDate);
+      console.log("commoData from Quandl: " );
+      console.log(commoData);
       getGraphStartEndDateFromQuandl(commoData);
       googleChartGenerator(adjustedArr, commoData.name);
-    }else if(API_Identifier= "CommoPrices") {
+    }else if(API_Identifier== "CommoPrices") {
       $("#divGraph").empty();
+
       commoData = getCommodityPriceFromCommoPrices(commoditySelected.code, searchStartDate, searchEndDate );
       getGraphStartEndDateFromCommoPrices(commoData);
       googleChartGenerator(adjustedArr, commoData.info.name);
@@ -546,24 +557,6 @@ $("#submit").on("click", function(){
           commoData = getCommodityPriceFromCommoPrices(commodity[i].code, searchStartDate, searchEndDate );
           getGraphStartEndDateFromCommoPrices(commoData);
           swapDate();
-          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
-          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
-          if(firstDate.diff(lastDate) > 0){
-            var temp = firstDate;
-            firstDate = lastDate;
-            lastDate = temp;
-          }
-          $(".date-container").show();
-          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
-          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
-          $("#dpGraphStartDate").val(firstDate.format("YYYY-MM-DD"));
-          $("#dpGraphEndDate").val(lastDate.format("YYYY-MM-DD"));         
-          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
-          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
-          $("#dpGraphStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
-          $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
-
-         
           googleChartGenerator(adjustedArr, commoData.info.name);
           populateCommodityInfoFromCommoPrices(commoData);
           populateNews(getNews(commoData.info.name));
@@ -573,22 +566,6 @@ $("#submit").on("click", function(){
           commoData = getQuandlCommodityPrice(commodity[i].code, searchStartDate, searchEndDate);
           getGraphStartEndDateFromQuandl(commoData);
           swapDate();
-          var firstDate = moment(graphStartDate, "YYYY-MM-DD");
-          var lastDate = moment(graphEndDate, "YYYY-MM-DD");
-          if(firstDate.diff(lastDate) > 0){
-            var temp = firstDate;
-            firstDate = lastDate;
-            lastDate = temp;
-          }
-          $(".date-container").show();
-          $("#dpStartDate").val(firstDate.format("YYYY-MM-DD"));
-          $("#dpEndDate").val(lastDate.format("YYYY-MM-DD"));
-          $("#dpGraphStartDate").val(firstDate.format("YYYY-MM-DD"));
-          $("#dpGraphEndDate").val(lastDate.format("YYYY-MM-DD"));  
-          $("#dpStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
-          $("#dpEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
-          $("#dpGraphStartDate").attr("min", firstDate.format("YYYY-MM-DD"));
-          $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
           googleChartGenerator(adjustedArr, commoData.name);
           populateCommodityInfoFromQuandl(commoData);
           populateNews(getNews(commoData.name));
@@ -671,6 +648,7 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
   var returnValue =[];
   // source: https://blog.quandl.com/api-for-commodity-data
   // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz&start_date=2017-05-24&end_date=2017-06-28
+  console.log("here");
   var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
   var quandlCommodityCode =  commodityCode  //"LBMA/GOLD" //hard coded temporarily
   var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey + "&";
@@ -702,8 +680,8 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
   }).fail(function(response){
     console.log("Error retrieving data from quandl");
     $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
-    $("msg-center").addClass("alert-danger");
-    $("msg-center").show();
+    $("#msg-center").addClass("alert-danger");
+    $("#msg-center").show();
     //LOG ERROR IN FIREBASE
   })
   if(returnValue){
