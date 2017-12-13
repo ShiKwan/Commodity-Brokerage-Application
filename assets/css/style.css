@@ -517,9 +517,14 @@ fieldset {
     padding-bottom: 5px;
 }
 
-.panel-heading h1, .panel-heading h2 {
+.panel-heading h1 {
     font-family: 'Arvo', serif;
     font-size: 35px;
+}
+
+.panel-heading h3 {
+    font-family: 'Arvo', serif;
+    font-size: 25px;
 }
 
 .panel-body h3 {
