@@ -37,8 +37,10 @@ $(document).ready(function(){
   var lastDate;
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
+    console.log("Hello " + loginUser +"!");
     $("#divName").show();
     $("#lblName").html("Hello " + loginUser +"!");
+    populateUserSearch();
 
     setTimeout(function(){
       $("#divName").slideUp()}, 2000);
@@ -46,6 +48,7 @@ $(document).ready(function(){
     $(".glyphicon-log-out").show();
     $(".glyphicon-log-in").hide();
   }else{
+    $("#divName").hide();
     $(".glyphicon-log-in").hide();
     $(".glyphicon-log-out").show();
   }
@@ -69,6 +72,7 @@ $(document).ready(function(){
     $(".trending-container").slideUp();
     $(".commodity-search-container").slideUp();
     $(".user-search-panel").slideUp()
+    $("#logout").slideUp();
   });
 
   $("#slideDownCommoditySearch").on("click", function(){
@@ -76,6 +80,7 @@ $(document).ready(function(){
     $(".search-container").slideUp();
     $("#divAccount").slideUp();
     $(".trending-container").slideUp();
+    $("#logout").slideUp();
   });
 
   $("#slideDownUser").on("click", function(){
@@ -83,12 +88,14 @@ $(document).ready(function(){
     $(".commodity-search-container").slideUp();
     $(".search-container").slideUp();
     $(".trending-container").slideUp();
+    $("#logout").slideUp();
   });
   $("#slideDownTrending").on("click",function(){
     $(".trending-container").slideToggle();
     $("#divAccount").slideUp();
     $(".commodity-search-container").slideUp();
     $(".search-container").slideUp();
+    $("#logout").slideUp();
   })
   $("#hypLogout").click(function(){
     $("#logout").slideDown();
@@ -150,8 +157,16 @@ function populateUserSearch(){
     $(".user-search-panel").hide();
   }
 }
-populateTrending();
-populateUserSearch();
+
+var pullUserSearch = setInterval(function(){
+  console.log("here");
+  populateUserSearch();
+},3000);
+
+var pullTrendingSearch = setInterval(function(){
+  console.log("get trendy");
+  populateTrending();
+},3000);
 
 
 function dbSaveSearch(search){  
@@ -349,8 +364,8 @@ function populateNews(data){
       var divHead = $("<div class='panel-heading'>");
       var divBody = $("<div class='panel-body'>");
       var divRow = $("<div class='row'>");
-      var divLeft = $("<div class='col-md-4'>");
-      var divRight = $("<div class='col-md-8'>");
+      var divLeft = $("<div class='col-md-4 col-xs-4'>");
+      var divRight = $("<div class='col-md-8 col-xs-8'>");
       var bylineDiv = $("<h3 class='text-right'>");
       var headlineDiv = $("<h3>");
       var multimediaImg = $("<img>");
@@ -377,8 +392,8 @@ function populateNews(data){
         hyp.append(multimediaImg);
         divLeft.append(hyp);
       }else{
-        divLeft.removeClass("col-md-4");
-        divRight.removeClass("col-md-8").addClass("col-md-12");
+        divLeft.removeClass("col-md-4").removeClass("col-xs-4");
+        divRight.removeClass("col-md-8").removeClass("col-xs-8").addClass("col-md-12").addClass("col-xs-12");
       }
       pubDateDiv.html("Date published : " + moment(data[i].pub_date).format("YYYY-MM-DD"));
       divHead.append(headlineDiv);
@@ -441,6 +456,7 @@ function performGraphDateSearch(){
 
 $("#divLogoutYes").on("click", function(){
   sessionStorage.clear();
+  clearInterval(pullUserSearch);
   initialization();
   $("#msg-center").html("You have logged out!");
   $("#msg-center").addClass("alert-success");
@@ -910,19 +926,28 @@ $("#cmdLogin").click(function(){
         }
       });
       if(validated){
-        $("#msg-center").html("sign in successfully!");
-          $("#msg-center").addClass("alert-success").removeClass("alert-danger");
-          $("#msg-center").show();
-          $("#divAccount").slideUp();
           $(".glyphicon-log-out").show();
           $(".glyphicon-log-in").hide();
           dbUserSearch = database.ref("/users/"+existingUser.username+"/search");
-        var interval = setInterval(function(){
-          $("#msg-center").slideUp();
-        },3000)
+          var interval = setInterval(function(){
+            $("#msg-center").slideUp();
+          },3000)
         sessionStorage.clear();
         sessionStorage.setItem('username', existingUser.username);
+
+        loginUser = sessionStorage.getItem("username");
+        console.log("Hello " + loginUser +"!");
+        $("#divName").show();
+        $("#lblName").html("Hello " + loginUser +"!");
+        populateUserSearch();
+        setTimeout(function(){
+          $("#divName").slideUp()}, 2000);
+      }else{
+        $("#divName").hide();
+        $(".glyphicon-log-in").hide();
+        $(".glyphicon-log-out").show();
       }
+
     });
   }
 });
