@@ -157,6 +157,13 @@ footer {
     background: #505050;
     border-top: 8px solid #4aaaa5;
     width: 100%;
+    color: lightgray;
+}
+footer span {
+    padding-left:10px;
+}
+footer img {
+    padding-left: 10px;
 }
 
 .footer-logo {
@@ -671,6 +678,9 @@ fieldset {
 
     #cmdGraphSubmit {
         margin-top:10px;
+    }
+    .trending-container{
+        margin-bottom: 50px;
     }
 }
 

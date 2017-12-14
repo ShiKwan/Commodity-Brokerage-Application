@@ -379,7 +379,7 @@ function populateCommodityInfoFromQuandl(data){
   }
 }
 function populateNews(data){
-  if(data){
+  if(data){$(".divCommodityNews").empty();
     //console.log(data);
     $(".news-head-container").show();
     $(".divCommodityNews").show();
