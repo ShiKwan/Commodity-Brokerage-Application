@@ -16,6 +16,7 @@ $(document).ready(function(){
   firebase.initializeApp(config);
   var database = firebase.database();
   var dbCommodity = database.ref("/commodity");
+  var dbError = database.ref("/errors");
   var jsonCommodity = JSON.stringify(commodity);
   var adjustedArr = [];
   var API_Identifier = "";
@@ -649,6 +650,7 @@ function getNews(qry){
       }
     }).fail(function(err) {
       console.log(err);
+      dbError.push(JSON.stringify(err));
     });
   //}
 
@@ -695,6 +697,7 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
     $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
     $("#msg-center").addClass("alert-danger");
     $("#msg-center").show();
+    dbError.push(JSON.stringify(response));
     //LOG ERROR IN FIREBASE
   })
   if(returnValue){
@@ -728,6 +731,7 @@ function getSpecificCommodityFromCommoPrices(commodityCode){
     $("msg-center").addClass("alert-danger");
     $("msg-center").show();
     //LOG ERROR IN FIREBASE
+    dbError.push(JSON.stringify(response));
   });
   if(returnValue){
     return returnValue;  
@@ -794,6 +798,7 @@ function getCommodityPriceFromCommoPrices(commodityCode, startDate, endDate){
     $("msg-center").addClass("alert-danger");
     $("msg-center").show();
     //LOG ERROR IN FIREBASE
+    dbError.push(JSON.stringify(response));
   });
   if(returnValue){
     return returnValue;
@@ -861,6 +866,7 @@ function getCommodity(){
     $("msg-center").addClass("alert-danger");
     $("msg-center").show();
     //LOG ERROR IN FIREBASE
+    dbError.push(JSON.stringify(response));
   });
 }
 
