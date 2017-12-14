@@ -88,6 +88,9 @@ $(document).ready(function(){
     $("#divAccount").slideUp();
     $(".trending-container").slideUp();
     $("#logout").slideUp();
+
+    $(".date-container").hide();
+    $("#txtCommoditySearch").val("");
   });
 
   $("#slideDownUser").on("click", function(){
@@ -164,8 +167,6 @@ function populateUserSearch(){
       userSearch.push(snapshot.key + ": " + snapshot.val());
     });
     setTimeout(function(){
-      console.log("in pop user search");
-      console.log(userSearch);
       populateTable(userSearch, "user-search-tbody");
     },2000)
   }else{
@@ -276,6 +277,8 @@ function getGraphStartEndDateFromCommoPrices(data){
   graphStartPrice = data.request.dataseries[0][1];
   graphEndDate = data.request.dataseries[lengthOfData-1][0];
   graphEndPrice = data.request.dataseries[0][1];
+  firstDate = data.request.dataseries[0][0];
+  lastDate = data.request.dataseries[lengthOfData-1][0];
   if(data.request.dataseries[lengthOfData-2][0]){
      graphSecondEndDate = data.request.dataseries[lengthOfData-2][0];   
      graphSecondEndPrice = data.request.dataseries[lengthOfData-2][1];   
@@ -288,6 +291,8 @@ function getGraphStartEndDateFromQuandl(qry){
   graphStartPrice = qry.data[0][1];
   graphEndDate = qry.data[lengthOfData-1][0];
   graphEndPrice = qry.data[lengthOfData-1][1];
+  firstDate = qry.data[0][0];
+  lastDate = qry.data[lengthOfData-1][0];
   if(qry.data[lengthOfData-2][0]){
     graphSecondEndDate = qry.data[lengthOfData-2][0];
     graphSecondEndPrice = qry.data[lengthOfData-2][1];
@@ -375,7 +380,7 @@ function populateCommodityInfoFromQuandl(data){
 }
 function populateNews(data){
   if(data){
-    console.log(data);
+    //console.log(data);
     $(".news-head-container").show();
     $(".divCommodityNews").show();
     for(var i = 0; i < data.length; i++){
@@ -524,11 +529,11 @@ $(document).on("click", "#cmdGraphSubmit", function(){
     var searchCommodity = $("#txtCommoditySearch").val();
     if(API_Identifier == "Quandl"){
       $("#divGraph").empty();
-      console.log("commodity selected code : " + commoditySelected.code);
+      //console.log("commodity selected code : " + commoditySelected.code);
 
       commoData = getQuandlCommodityPrice(commoditySelected.code, searchStartDate, searchEndDate);
-      console.log("commoData from Quandl: " );
-      console.log(commoData);
+      //console.log("commoData from Quandl: " );
+      //console.log(commoData);
       getGraphStartEndDateFromQuandl(commoData);
       googleChartGenerator(adjustedArr, commoData.name);
     }else if(API_Identifier== "CommoPrices") {
@@ -669,7 +674,6 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
   var returnValue =[];
   // source: https://blog.quandl.com/api-for-commodity-data
   // example: https://www.quandl.com/api/v3/datasets/CHRIS/CME_SI1?api_key=zJfAxbFspqTfsfyq6Vzz&start_date=2017-05-24&end_date=2017-06-28
-  console.log("here");
   var quandlAPIKey = "zJfAxbFspqTfsfyq6Vzz";
   var quandlCommodityCode =  commodityCode  //"LBMA/GOLD" //hard coded temporarily
   var queryURL = "https://www.quandl.com/api/v3/datasets/" + quandlCommodityCode +"?api_key=" + quandlAPIKey + "&";
@@ -699,11 +703,14 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
     adjustedArr =  getData(adjustedArr, result.column_names, result.data)
     returnValue = result;
   }).fail(function(response){
-    console.log("Error retrieving data from quandl");
+    //console.log("Error retrieving data from quandl");
     $("#msg-center").html("This is embaressing, please pardon the error, we will be looking into it!");
     $("#msg-center").addClass("alert-danger");
     $("#msg-center").show();
     dbError.push(JSON.stringify(response));
+    $(".divGraph").hide();
+    $('.divCommodityInfo').hide();
+    $(".news-container").hide();
     //LOG ERROR IN FIREBASE
   })
   if(returnValue){
@@ -895,7 +902,6 @@ dbCommodity.once("value", function(snapshot){
 
 $("#cmdLogin").click(function(){
   resetSearchDOM();
-  console.log("here");
   var validated = true;
   if($("#txtUser").val().trim() == "" || $("txtUserPassword").val() == ""){
     $("#msg-center").append("<li>fields are empty, please enter id/password.</li>");
@@ -914,11 +920,9 @@ $("#cmdLogin").click(function(){
     dbUser.once('value', function(snapshot){
       var i = 0;
       snapshot.forEach(function(childSnapshot){
-        console.log("user name: " + childSnapshot.val().username);
         if(childSnapshot.val().username == $("#txtUser").val().trim()){
           existed=true;
           if(existed){
-            console.log("only happen once if user enter existing username")
             if(childSnapshot.val().password == $("#txtUserPassword").val()){
               correctPassword = true
               if(correctPassword){
@@ -933,7 +937,6 @@ $("#cmdLogin").click(function(){
     });
 
     setTimeout(function(){
-      console.log("exist: " + existed + " password : " + correctPassword);
       if(existed && correctPassword){
         $(".glyphicon-log-out").show();
         $(".glyphicon-log-in").hide();
@@ -950,7 +953,6 @@ $("#cmdLogin").click(function(){
         populateUserSearch();
         loginUser = sessionStorage.getItem("username");
 
-        console.log("Hello " + loginUser +"!");
         $("#divName").show();
         $("#lblName").html("Hello " + loginUser +"!");
         clearAccountTextBox();

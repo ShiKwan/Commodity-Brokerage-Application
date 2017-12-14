@@ -633,6 +633,10 @@ fieldset {
     background-position: 0 -15px;
 }
 
+.about-us .caption{
+    text-align: left;
+}
+
 .pnlExpand {
     border: solid 1px gray;
 }
