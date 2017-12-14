@@ -57,7 +57,12 @@ $(document).ready(function(){
     interval: 5000
   });
   $(".search-container").hide();
+  $(".pnlExpand .panel-body").hide();
   $(".commodity-search-container").hide();
+
+  $(".pnlExpand .panel-heading").click(function(){
+    $(".pnlExpand .panel-body").slideToggle();
+  })
   // slide form field
   $(".btn2").click(function() {
       if ($("#contactForm").is(":hidden")) {

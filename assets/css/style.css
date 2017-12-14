@@ -603,6 +603,43 @@ fieldset {
 .navbar-form {
     margin-top: 10px;
 }
+.about-us, .what-we-do{
+    margin-top:50px;
+}
+.about-us-container .row, .what-we-do-container .row{
+    padding: 20px 20px 20px 20px;
+    margin:20px 20px 20px 20px;;
+}
+.about-us a.btn-primary, .navbar-header .btn2, .what-we-do a.btn-primary {
+    background-image: -webkit-linear-gradient(top,#4aaaa5 0,#83c9c5 100%);
+    background-image: -o-linear-gradient(top,#4aaaa5 0,#83c9c5 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#4aaaa5),to(#83c9c5));
+    background-image: linear-gradient(to bottom,#4aaaa5 0,#83c9c5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #4aaaa5;
+    background-color:#83c9c5;
+}
+.about-us-container .row{
+    border:solid 1px gray;
+}
+.about-us a.btn-primary:active, .what-we-do a.btn-primary:active {
+    background-color: #4aaaa5;
+    border-color: #83c9c5;
+}
+.about-us a.btn-primary:hover, .what-we-do a.btn-primary:hover {
+    background-color: #4aaaa5;
+    background-position: 0 -15px;
+}
+
+.pnlExpand {
+    border: solid 1px gray;
+}
+
+.pnlExpand a:hover,.pnlExpand a:focus,.pnlExpand a:active{
+    text-decoration: none;
+}
 
 @media only screen and (max-width: 768px) {
     .navbar-header .navbar-right{
