@@ -484,9 +484,6 @@ fieldset {
     margin-top: 25px;
 }
 
-.divNewsHeader{
-    margin-bottom:-22px;
-}
 
 
 
@@ -612,6 +609,7 @@ fieldset {
 }
 .about-us, .what-we-do{
     margin-top:50px;
+    margin-bottom: 50px;
 }
 .about-us-container .row, .what-we-do-container .row{
     padding: 20px 20px 20px 20px;
