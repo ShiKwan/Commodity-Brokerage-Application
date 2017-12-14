@@ -470,7 +470,14 @@ function performGraphDateSearch(){
     }
 }
 
+function clearAccountTextBox(){
+  $("#txtUser").empty();
+  $("#txtNewUser").empty();
+  $("#txtConfirmPassword").empty();
+  $("#txtPassword").empty();
+  $("#txtUserPassword").empty();
 
+}
 
 
 $("#divLogoutYes").on("click", function(){
@@ -478,6 +485,7 @@ $("#divLogoutYes").on("click", function(){
   clearInterval(pullUserSearch);
   initialization();
   $("#msg-center").html("You have logged out!");
+  clearAccountTextBox();
   $("#msg-center").addClass("alert-success");
   $("#msg-center").show();
   $(".glyphicon-log-in").show();
@@ -586,8 +594,6 @@ $("#submit").on("click", function(){
           return false;
           //look into quandl
         }
-      }else{
-       
       }
     }
   }
@@ -943,10 +949,11 @@ $("#cmdLogin").click(function(){
         $(".user-search-panel").show();
         populateUserSearch();
         loginUser = sessionStorage.getItem("username");
+
         console.log("Hello " + loginUser +"!");
         $("#divName").show();
         $("#lblName").html("Hello " + loginUser +"!");
-        
+        clearAccountTextBox();
         setTimeout(function(){
           $("#divName").slideUp()}, 2000);
       }else if(existed && !correctPassword){
@@ -954,11 +961,13 @@ $("#cmdLogin").click(function(){
         $("#msg-center").html("wrong password, try again");
         $("#msg-center").show();
         $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+        clearAccountTextBox();
       }else if(!existed){
         $("#msg-center").empty()
         $("#msg-center").html("user id does not exist, try again");
         $("#msg-center").show();
         $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+        clearAccountTextBox();
       }
     },1500);
     
@@ -967,6 +976,7 @@ $("#cmdLogin").click(function(){
     $("#msg-center").show();
     $("#msg-center").html("user id or password field cannot be empty.");
     $("#msg-center").addClass("alert-danger").removeClass("alert-success");
+    clearAccountTextBox();
   }
 });
 
