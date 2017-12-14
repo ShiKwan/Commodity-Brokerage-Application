@@ -80,9 +80,9 @@ $(document).ready(function(){
     $(".commodity-search-container").slideUp();
     $(".user-search-panel").slideUp()
     $("#logout").slideUp();
-    $("#divCommodityInfo").slideUp();
-    $("#divGraph").slideUp();
-    $("#divNewsHeader").slideUp();
+    $(".divCommodityInfo").slideUp();
+    $(".divGraph").slideUp();
+    $("#news-container").slideUp();
   });
 
   $("#slideDownCommoditySearch").on("click", function(){
