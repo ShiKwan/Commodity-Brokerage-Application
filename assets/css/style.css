@@ -649,6 +649,9 @@ fieldset {
 .pnlExpand a:hover,.pnlExpand a:focus,.pnlExpand a:active{
     text-decoration: none;
 }
+.divAbout, .divWhatWeDo {
+    margin-bottom: 75px;
+}
 
 @media only screen and (max-width: 768px) {
     .navbar-header .navbar-right{
