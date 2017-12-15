@@ -18,24 +18,29 @@ $(document).ready(function(){
   var dbCommodity = database.ref("/commodity");
   var dbError = database.ref("/errors");
   var jsonCommodity = JSON.stringify(commodity);
+  var dbGlobalSearch = database.ref("/search");
+  var dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search');
   var adjustedArr = [];
   var API_Identifier = "";
   var relatedSearch = [];
+  var trendingSearch = [];
+  var userSearch = [];
   var priceDiff = "";
+  var loginUser;
+  var dbUserSearch;
+  var secondLastDate;
+  var firstDate;
+  var lastDate;
   var commoditySelected = {
     name : "",
     code : "",
     database : ""
   };
-  var loginUser;
-  var dbUserSearch;
-  var dbGlobalSearch = database.ref("/search");
-  var dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search');
-  var trendingSearch = [];
-  var userSearch = [];
-  var secondLastDate;
-  var firstDate;
-  var lastDate;
+  var commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT";
+  var commodity = [];
+
+  //check if username exist in session, 
+  //if exist, prompt user with welcome back message, set the firebase ref to the user firebase ref, and show/hide the right glyphicon for login and logout. 
   if(sessionStorage.getItem("username")){
     loginUser = sessionStorage.getItem("username");
     dbUserSearchCommo = database.ref('/users/' + sessionStorage.getItem("username") +'/search');
@@ -54,13 +59,21 @@ $(document).ready(function(){
     $(".glyphicon-log-in").hide();
     $(".glyphicon-log-out").show();
   }
+
+  //initiate background carousel
   $('.carousel').carousel({
     interval: 5000
   });
+
+  //hide the search fields
   $(".search-container").hide();
   $(".pnlExpand .panel-body").hide();
   $(".commodity-search-container").hide();
 
+  /*
+  -------------------TOGGLE UP/DOWN --------------------------
+    when click on certain icon, slide down corresponding, and slide up rest of the panel
+  */
   $(".pnlExpand .panel-heading").click(function(){
     $(".pnlExpand .panel-body").slideToggle();
   })
@@ -118,11 +131,17 @@ $(document).ready(function(){
     $(".search-container").slideUp();
 })
 
-  var commoPriceAPIKey = "Lifi3bz7tjhN4lcErh3TW3oUnzY06tvGPdX1t3IPFefTJdlU1EFAQkKuD6tT";
-  var commodity = [];
+  /*
+  -------------------END OF TOGGLE UP/DOWN --------------------------
+  */
 
-  initialization();
-  populateAutocompleteCommodity();
+  
+//hide all objects in DOM
+initialization();
+//populate the commodity for easy auto complete
+populateAutocompleteCommodity();
+
+//use this function to populate trending and user most search table. 
 function populateTable(data, className ){
 
   if(sessionStorage.getItem("username") || className.toLowerCase().indexOf("trending") >=0){
@@ -151,6 +170,8 @@ function populateTable(data, className ){
   }
  
 }
+
+//pull trending items from firebase
 function populateTrending(){
   trendingSearch = [];
   dbGlobalSearch.orderByValue().limitToLast(5).on("child_added", function(snapshot){
@@ -161,7 +182,7 @@ function populateTrending(){
   },2000)
 }
 
-
+//pull user most search items from firebase, only do this when username exists in session storage
 function populateUserSearch(){
   if(sessionStorage.getItem("username")){
     $(".user-search-panel").show();
@@ -177,6 +198,7 @@ function populateUserSearch(){
   }
 }
 
+//set interval to refresh the trending/ user most search table every 3 seconds. 
 var pullUserSearch = setInterval(function(){
   populateUserSearch();
 },3000);
@@ -185,7 +207,7 @@ var pullTrendingSearch = setInterval(function(){
   populateTrending();
 },3000);
 
-
+//increase the counter of search commodity by 1 in trending, and user search only if session has username. 
 function dbSaveSearch(search){  
   var dbGlobalSearch = database.ref("/search/" + search);
   if(sessionStorage.getItem("username")){
@@ -198,6 +220,8 @@ function dbSaveSearch(search){
     return up+1;
   })
 }
+
+//populate the commodity for easy auto complete
 function populateAutocompleteCommodity(){
 
     //get commodity first before populating the textbox with easy auto complete js.
@@ -216,7 +240,7 @@ function populateAutocompleteCommodity(){
     $("#txtCommoditySearch").easyAutocomplete(options);
 }
 
-
+//testing purpose
 function quandlResources(){
   //Use this to get the code to query Quandl API
   $.ajax({
@@ -226,8 +250,11 @@ function quandlResources(){
   })
 }
   
+//create variable to save first, second, and last date and price to show today's nasdaq score, and setting the minimum and maximum date picker. 
 var graphStartDate, graphEndDate, graphSecondEndDate; 
 var graphStartPrice, graphEndPrice, graphSecondEndPrice;
+
+//show/hide on page first load. 
 function initialization(){
   $(".divCarousel").show();
   $(".divGraph").hide();
@@ -253,6 +280,8 @@ function initialization(){
   }
 }
 getCommodity();
+
+//if data come back in descending order, swap the date so the graph show date ascendingly, and set the min and max on the date picker in search field, and graph container.  
 function swapDate(){
     firstDate = moment(graphStartDate, "YYYY-MM-DD");
     lastDate = moment(graphEndDate, "YYYY-MM-DD");
@@ -274,6 +303,8 @@ function swapDate(){
     $("#dpGraphEndDate").attr("max", lastDate.format("YYYY-MM-DD"));
 
 }
+
+//get time series data from CommoPrices
 function getGraphStartEndDateFromCommoPrices(data){
   var lengthOfData = data.request.dataseries.length;
   graphStartDate = data.request.dataseries[0][0];
@@ -288,6 +319,7 @@ function getGraphStartEndDateFromCommoPrices(data){
   }
 }
 
+//get time series data from Quandl
 function getGraphStartEndDateFromQuandl(qry){
   var lengthOfData = qry.data.length;
   graphStartDate = qry.data[0][0];
@@ -302,6 +334,7 @@ function getGraphStartEndDateFromQuandl(qry){
   }
 }
 
+//CommoPrices: get commodity info from commoPrices and parse data into the right container
 function populateCommodityInfoFromCommoPrices(data){
   if(data){
     $(".commodityInfoHeader").empty();
@@ -339,6 +372,7 @@ function populateCommodityInfoFromCommoPrices(data){
   }
 }
 
+//QUANDL: get commodity info from quandl and parse data into the right container
 function populateCommodityInfoFromQuandl(data){
   if(data){
     $(".commodityInfoHeader").empty();
@@ -381,6 +415,8 @@ function populateCommodityInfoFromQuandl(data){
     $(".commodity-info-container").append(divContainer);
   }
 }
+
+//create bootstrap panel, and have the panel correspond to mobile responsivess, and parse data from NYT Api into the right container
 function populateNews(data){
   if(data){$(".divCommodityNews").empty();
     //console.log(data);
@@ -432,6 +468,8 @@ function populateNews(data){
     }
   }
 }
+
+//get the min and max date from API and set min and max of the date picker in search field 
 function performGraphDateSearch(){
   var searchCommodity = $("#txtCommoditySearch").val();
   var searchStartDate = $("#dpStartDate").val();
@@ -477,7 +515,7 @@ function performGraphDateSearch(){
       }
     }
 }
-
+//clear user input in user account container
 function clearAccountTextBox(){
   $("#txtUser").empty();
   $("#txtNewUser").empty();
@@ -487,7 +525,7 @@ function clearAccountTextBox(){
 
 }
 
-
+//when user click on logout, and select yes, clear storage, and stop pulling data from firebase, show/hide the login/logout icon, hide containers, show msg center
 $("#divLogoutYes").on("click", function(){
   sessionStorage.clear();
   clearInterval(pullUserSearch);
@@ -509,22 +547,23 @@ $("#divLogoutYes").on("click", function(){
     $("msg-center").empty();
   },4000)
 })
-
+//cancel logout, and slide up the logout confirmation panel
 $("#divLogoutNo").on("click", function(){
   $("#logout").slideUp();
 })
 
-
+//populate news based on what user type in quick search textbox.
 $("#cmdQuickSearch").on("click", function(){
   populateNews(getNews($("#txtQuickSearch").val()));
   $(".search-container").slideUp();
 })
 
-
+//when user click on the auto complete textbox, populate the min and max date on the date picker.
 $(".easy-autocomplete-container").click(function(){
     performGraphDateSearch();
 });
 
+//perform line chart refine corresponding to the date picker.
 $(document).on("click", "#cmdGraphSubmit", function(){
     event.preventDefault();
     var searchStartDate = $("#dpGraphStartDate").val();
@@ -555,7 +594,16 @@ function resetSearchDOM(){
 }
 
 
-
+/* 
+  user validation:
+  if word exist in library, 
+    perform search
+      populate commodity info
+      populate graph
+      populate news
+  else
+    return news related to user input
+*/
 $("#submit").on("click", function(){
   
   event.preventDefault();
@@ -633,7 +681,7 @@ $("#submit").on("click", function(){
       populateNews(getNews(searchCommodity.trim()));
     }
 });
-
+// did not get added into the project
 $(document).on("click", ".related-item", function(){
   resetSearchDOM();
   $("#txtCommoditySearch").empty();
@@ -672,7 +720,7 @@ function getNews(qry){
     return returnValue;
   }
 }
-
+//Quandl : get data from API, and return values into a variable, else, pop up error message and send error to firebase. 
 function getQuandlCommodityPrice(commodityCode, startDate, endDate){
   var returnValue =[];
   // source: https://blog.quandl.com/api-for-commodity-data
@@ -720,6 +768,8 @@ function getQuandlCommodityPrice(commodityCode, startDate, endDate){
     return returnValue; 
   }
 }
+
+//CommoPrices: get data from APIs, save data into variable if success, otherwise pop up error message and log error to firebase.
 function getSpecificCommodityFromCommoPrices(commodityCode){
   var returnValue;
 
@@ -754,6 +804,7 @@ function getSpecificCommodityFromCommoPrices(commodityCode){
   }
 }
 
+// reorder the date in array into ascending manner. 
 function getData(adjustedArray, columnNamesArray, dataArray){
   var getdata = [];
   adjustedArray =[];
@@ -778,6 +829,8 @@ function getData(adjustedArray, columnNamesArray, dataArray){
   
   return adjustedArray
 }
+
+//CommoPrices DATE PRICE DATA: get data from APIs, save data into variable if success, otherwise pop up error message and log error to firebase.
 function getCommodityPriceFromCommoPrices(commodityCode, startDate, endDate){
   var returnValue;
   var commoDate
@@ -821,6 +874,8 @@ function getCommodityPriceFromCommoPrices(commodityCode, startDate, endDate){
   }
 
 }
+
+//generate google chart line graph
 function googleChartGenerator(priceData, graphTitle){
    google.charts.load('current', {'packages' :['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -842,6 +897,8 @@ function googleChartGenerator(priceData, graphTitle){
       chart.draw(data,options);
     }
 }
+
+//get commodity info from CommoPrice to populate the easy autocomplete textbox
 function getCommodity(){
 
   //wrb / imf -free
@@ -886,6 +943,7 @@ function getCommodity(){
   });
 }
 
+//json file is manually added, parse the data into array from JSON file before using it to populate easy auto complete. 
 function getJSONCommodity(){
 
 $.getJSON( "https://shikwan.github.io/Project1/assets/javascript/quandlResource.json", function( response ) {
@@ -903,6 +961,7 @@ dbCommodity.once("value", function(snapshot){
   console.log(snapshot.val());
 });
 
+//when user click on login, perform user validation, look into firebase for user name and password, and log in as users and show logout glyphicon and prevent users from logging in again. 
 $("#cmdLogin").click(function(){
   resetSearchDOM();
   var validated = true;
@@ -985,6 +1044,7 @@ $("#cmdLogin").click(function(){
   }
 });
 
+//create account, do user input validation, and if user id does not exist in firebase, and password meet the requirement, allow user to create an account. 
 $("#cmdCreateAccount").click(function(){
   resetSearchDOM();
   var validated = true;
