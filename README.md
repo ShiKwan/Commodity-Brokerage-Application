@@ -1,6 +1,6 @@
 # Commodity-Brokerage-Application
 
-[Application](https://shikwan.github.io/Commodity-Brokerage-Application/)
+[Commodity Brokerage Application](https://shikwan.github.io/Commodity-Brokerage-Application/)
 
 This single page application is built to scrape commdity information from NYT, Quandl and CommoPrices API, 
 and displaying the time series data in chart. 
@@ -11,5 +11,6 @@ Technology integrated:
   * Google Chart API
   * easyAutoCompleteJS
   * requireJS
+  * AJAX
   * Bootstrap 3 Framework
  
